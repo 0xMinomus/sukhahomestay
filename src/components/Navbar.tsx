@@ -71,7 +71,14 @@ export default function Navbar({ tone }: { tone: "light" | "dark" }) {
             <span className="font-mono text-[11px] tracking-[1.8px]">MENU</span>
           </button>
 
-          <Link to="/" className="absolute left-1/2 flex -translate-x-1/2 flex-col items-center gap-[1px]" aria-label="Sukha home">
+          <Link
+            to="/"
+            onClick={() => {
+              if (location.pathname === "/") window.scrollTo({ top: 0, behavior: "smooth" });
+            }}
+            className="absolute left-1/2 flex -translate-x-1/2 flex-col items-center gap-[1px]"
+            aria-label="Sukha home"
+          >
             <span className="font-serif text-[20px] leading-none tracking-[5px] sm:text-[26px] sm:tracking-[7px] md:text-[30px]">SUKHA</span>
             <span className="font-mono text-[6px] tracking-[2.4px] sm:text-[7px] sm:tracking-[3.2px] md:text-[8px]">BALI HOMESTAY</span>
           </Link>
