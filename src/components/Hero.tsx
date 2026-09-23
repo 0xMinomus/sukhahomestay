@@ -56,7 +56,7 @@ export default function Hero({
         />
       </motion.div>
       {/* shade: darker top + bottom, lifting mid — mirrors the export gradient */}
-      <div className="absolute inset-0 bg-gradient-to-b from-[#151911]/60 via-[#151911]/10 to-[#151911]/45" />
+      <div className="absolute inset-0 bg-gradient-to-b from-[#151911]/60 via-[#151911]/25 to-[#151911]/45" />
 
       <motion.div
         style={{ opacity: fade }}
@@ -69,11 +69,11 @@ export default function Hero({
           initial={{ opacity: 0, y: 14 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.25, ease: [...EASE] }}
-          className="mb-[18px] font-mono text-[10px] tracking-[2.5px] text-cream"
+          className="mb-[18px] font-mono text-[10px] tracking-[2.5px] text-cream drop-shadow-[0_1px_10px_rgba(0,0,0,0.5)]"
         >
           {eyebrow}
         </motion.p>
-        <h1 className="font-serif text-[12vw] leading-[1.04] font-normal text-balance text-cream sm:text-6xl md:text-[76px] md:leading-[76px]">
+        <h1 className="font-serif text-[12vw] leading-[1.04] font-normal text-balance text-cream drop-shadow-[0_2px_16px_rgba(0,0,0,0.4)] sm:text-6xl md:text-[76px] md:leading-[76px]">
           {title.map((line, i) => (
             <Rise key={i} delay={0.35 + i * 0.12}>
               {line}
@@ -84,7 +84,7 @@ export default function Hero({
           initial={{ opacity: 0, y: 14 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.7, ease: [...EASE] }}
-          className={cn("mt-4 max-w-xl text-[16px] text-[#F2ECE4] md:text-[17px]", align === "center" && "mx-auto")}
+          className={cn("mt-4 max-w-xl text-[16px] text-[#F2ECE4] drop-shadow-[0_1px_10px_rgba(0,0,0,0.5)] md:text-[17px]", align === "center" && "mx-auto")}
         >
           {description}
         </motion.p>

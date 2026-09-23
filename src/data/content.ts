@@ -27,7 +27,7 @@ import experiencesMountain from "../assets/img/experiences-mountain.jpg";
 import experiencesRiceTerrace from "../assets/img/experiences-rice-terrace.jpg";
 import experiencesRiver from "../assets/img/experiences-river.jpg";
 import landingGardenSuite from "../assets/img/landing-garden-suite.jpg";
-import landingHero from "../assets/img/landing-hero.webp";
+import landingHero from "../assets/img/landing-hero.jpg";
 import landingMountain from "../assets/img/landing-mountain.jpg";
 import landingTable from "../assets/img/landing-table.jpg";
 import landingVillage from "../assets/img/landing-village.jpg";
