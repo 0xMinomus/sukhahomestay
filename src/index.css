@@ -1,0 +1,109 @@
+@import "tailwindcss";
+
+@theme {
+  --color-cream: #fffdf9;
+  --color-sand: #f3eee6;
+  --color-blush: #e8d7c8;
+  --color-clay: #b85f42;
+  --color-claylight: #e59a79;
+  --color-ink: #29241f;
+  --color-stone: #726a60;
+  --color-moss: #25251f;
+  --color-line: #ddd4c8;
+  --color-blushline: #c8aa95;
+  --color-footline: #4a4841;
+  --color-footmuted: #aaa397;
+  --color-foottext: #d2cdc5;
+
+  --font-serif: "Newsreader", "Georgia", serif;
+  --font-mono: "IBM Plex Mono", "SFMono-Regular", monospace;
+  --font-sans: "Inter", system-ui, sans-serif;
+
+  --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--color-cream);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+::selection {
+  background: var(--color-clay);
+  color: var(--color-cream);
+}
+
+/* thin elegant scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-cream);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-blushline);
+  border-radius: 8px;
+  border: 2px solid var(--color-cream);
+}
+
+/* masked line reveals */
+.mask-line {
+  display: block;
+  overflow: hidden;
+}
+.mask-line > span {
+  display: block;
+  will-change: transform;
+}
+
+/* slow ken-burns drift for hero imagery */
+@keyframes kenburns {
+  from {
+    transform: scale(1.14);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+.animate-kenburns {
+  animation: kenburns 2.4s var(--ease-out-soft) both;
+}
+
+/* soft marquee */
+@keyframes drift-x {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+.animate-drift {
+  animation: drift-x 36s linear infinite;
+}
+
+/* gentle float for scroll cue */
+@keyframes cue-drop {
+  0%,
+  100% {
+    transform: translateY(-4px);
+    opacity: 0.9;
+  }
+  50% {
+    transform: translateY(5px);
+    opacity: 0.4;
+  }
+}
+.animate-cue {
+  animation: cue-drop 2.2s ease-in-out infinite;
+}
+
+img {
+  user-select: none;
+}
