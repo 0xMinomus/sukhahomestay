@@ -15,33 +15,33 @@ import {
   type LucideIcon,
 } from "lucide-react";
 
-import amenitiesHero from "../assets/img/amenities-hero.jpg";
+import amenitiesHero from "../assets/img/amenities-hero.webp";
 import amenitiesPoolside from "../assets/img/amenities-poolside.jpg";
 import bookingGarden from "../assets/img/booking-garden.jpg";
 import diningBreakfast from "../assets/img/dining-breakfast.jpg";
-import diningHero from "../assets/img/dining-hero.jpg";
+import diningHero from "../assets/img/dining-hero.webp";
 import diningLongtable from "../assets/img/dining-longtable.jpg";
 import experiencesCraft from "../assets/img/experiences-craft.jpg";
-import experiencesHero from "../assets/img/experiences-hero.jpg";
+import experiencesHero from "../assets/img/experiences-hero.webp";
 import experiencesMountain from "../assets/img/experiences-mountain.jpg";
 import experiencesRiceTerrace from "../assets/img/experiences-rice-terrace.jpg";
 import experiencesRiver from "../assets/img/experiences-river.jpg";
 import landingGardenSuite from "../assets/img/landing-garden-suite.jpg";
-import landingHero from "../assets/img/landing-hero.jpg";
+import landingHero from "../assets/img/landing-hero.webp";
 import landingMountain from "../assets/img/landing-mountain.jpg";
 import landingTable from "../assets/img/landing-table.jpg";
 import landingVillage from "../assets/img/landing-village.jpg";
 import landingWater from "../assets/img/landing-water.jpg";
 import roomCanopyDetail from "../assets/img/room-canopy-detail.jpg";
-import roomCanopyHero from "../assets/img/room-canopy-hero.jpg";
+import roomCanopyHero from "../assets/img/room-canopy-hero.webp";
 import roomCanopyMain from "../assets/img/room-canopy-main.jpg";
 import roomCourtyardDetail from "../assets/img/room-courtyard-detail.jpg";
-import roomCourtyardHero from "../assets/img/room-courtyard-hero.jpg";
+import roomCourtyardHero from "../assets/img/room-courtyard-hero.webp";
 import roomCourtyardMain from "../assets/img/room-courtyard-main.jpg";
 import roomGardenDetail from "../assets/img/room-garden-detail.jpg";
-import roomGardenHero from "../assets/img/room-garden-hero.jpg";
+import roomGardenHero from "../assets/img/room-garden-hero.webp";
 import roomGardenMain from "../assets/img/room-garden-main.jpg";
-import stayHero from "../assets/img/stay-hero.jpg";
+import stayHero from "../assets/img/stay-hero.webp";
 import stayRitual from "../assets/img/stay-ritual.jpg";
 import stayTerrace from "../assets/img/stay-terrace.jpg";
 
