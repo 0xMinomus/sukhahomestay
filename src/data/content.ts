@@ -15,14 +15,14 @@ import {
   type LucideIcon,
 } from "lucide-react";
 
-import amenitiesHero from "../assets/img/amenities-hero.webp";
+import amenitiesHero from "../assets/img/amenities-hero.jpg";
 import amenitiesPoolside from "../assets/img/amenities-poolside.jpg";
 import bookingGarden from "../assets/img/booking-garden.jpg";
 import diningBreakfast from "../assets/img/dining-breakfast.jpg";
-import diningHero from "../assets/img/dining-hero.webp";
+import diningHero from "../assets/img/dining-hero.jpg";
 import diningLongtable from "../assets/img/dining-longtable.jpg";
 import experiencesCraft from "../assets/img/experiences-craft.jpg";
-import experiencesHero from "../assets/img/experiences-hero.webp";
+import experiencesHero from "../assets/img/experiences-hero.jpg";
 import experiencesMountain from "../assets/img/experiences-mountain.jpg";
 import experiencesRiceTerrace from "../assets/img/experiences-rice-terrace.jpg";
 import experiencesRiver from "../assets/img/experiences-river.jpg";
