@@ -20,6 +20,7 @@ function Rise({ children, delay = 0, className }: { children: React.ReactNode; d
 
 export default function Hero({
   img,
+  imgAlt = "",
   eyebrow,
   title,
   description,
@@ -29,6 +30,7 @@ export default function Hero({
   align = "left",
 }: {
   img: string;
+  imgAlt?: string;
   eyebrow: string;
   title: string[];
   description?: string;
@@ -50,7 +52,7 @@ export default function Hero({
       <motion.div style={{ y: bgY, scale: bgScale }} className="absolute inset-0">
         <img
           src={img}
-          alt=""
+          alt={imgAlt}
           fetchPriority="high"
           decoding="async"
           className={cn("h-full w-full object-cover", !reduce && "animate-kenburns")}

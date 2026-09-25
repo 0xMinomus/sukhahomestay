@@ -10,6 +10,7 @@ export default function Experiences() {
     <>
       <Hero
         img={img.experiencesHero}
+        imgAlt="Two people walking a path through misty terraced fields below a palm-covered hillside"
         eyebrow="EXPERIENCES · SIDEMEN, EAST BALI"
         title={["Let Sidemen set", "the pace."]}
         description="Village walks, field paths and mountain light around Sukha Homestay."

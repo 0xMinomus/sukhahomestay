@@ -25,6 +25,7 @@ export default function Landing() {
     <>
       <Hero
         img={img.landingHero}
+        imgAlt="A thatched-roof villa lit from within at dusk, with palms and a garden pool in front"
         eyebrow="SIDEMEN · EAST BALI"
         title={["Come home to the", "quiet side of Bali."]}
         description="A family-led village homestay in Sidemen, set among rice terraces, rivers and quiet gardens."

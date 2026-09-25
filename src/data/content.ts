@@ -21,25 +21,28 @@ import bookingGarden from "../assets/img/booking-garden.jpg";
 import diningBreakfast from "../assets/img/dining-breakfast.jpg";
 import diningHero from "../assets/img/dining-hero.webp";
 import diningLongtable from "../assets/img/dining-longtable.jpg";
+import experiencesCraft from "../assets/img/experiences-craft.jpg";
 import experiencesHero from "../assets/img/experiences-hero.webp";
+import experiencesMountain from "../assets/img/experiences-mountain.jpg";
+import experiencesRiver from "../assets/img/experiences-river.jpg";
 import landingGardenSuite from "../assets/img/landing-garden-suite.jpg";
 import landingHero from "../assets/img/landing-hero.webp";
 import landingMountain from "../assets/img/landing-mountain.jpg";
 import landingTable from "../assets/img/landing-table.jpg";
 import landingVillage from "../assets/img/landing-village.jpg";
 import landingWater from "../assets/img/landing-water.jpg";
-import roomCanopyDetail from "../assets/img/room-canopy-detail.jpg";
-import roomCanopyHero from "../assets/img/room-canopy-hero.webp";
-import roomCanopyMain from "../assets/img/room-canopy-main.jpg";
-import roomCourtyardDetail from "../assets/img/room-courtyard-detail.jpg";
-import roomCourtyardHero from "../assets/img/room-courtyard-hero.webp";
-import roomCourtyardMain from "../assets/img/room-courtyard-main.jpg";
-import roomGardenDetail from "../assets/img/room-garden-detail.jpg";
-import roomGardenHero from "../assets/img/room-garden-hero.webp";
-import roomGardenMain from "../assets/img/room-garden-main.jpg";
+const roomCanopyDetail = "https://images.unsplash.com/photo-1691819989762-93910fc9a3f8?q=80&w=2400&auto=format&fit=crop";
+const roomCanopyHero = "https://images.pexels.com/photos/16436918/pexels-photo-16436918.jpeg?auto=compress&cs=tinysrgb&w=2000";
+const roomCanopyMain = "https://images.unsplash.com/photo-1727079586096-5278670ab910?q=80&w=1400&h=1050&fit=crop&crop=entropy&auto=format";
+const roomCourtyardDetail = "https://images.unsplash.com/photo-1729854269628-a747c0b40e00?q=80&w=1200&auto=format&fit=crop";
+const roomCourtyardHero = "https://images.unsplash.com/photo-1614678193655-34ec066ee32a?q=80&w=2400&auto=format&fit=crop";
+const roomCourtyardMain = "https://images.unsplash.com/photo-1675657144217-17d3fbcb8a43?q=80&w=2400&auto=format&fit=crop";
+const roomGardenDetail = "https://images.unsplash.com/photo-1563117063-571690c2fc05?q=80&w=2400&auto=format&fit=crop";
+const roomGardenHero = "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?q=80&w=2400&auto=format&fit=crop";
+const roomGardenMain = "https://images.unsplash.com/photo-1705304367351-f224686fd620?q=80&w=2400&auto=format&fit=crop";
 import stayHero from "../assets/img/stay-hero.webp";
 import stayRitual from "../assets/img/stay-ritual.jpg";
-import stayTerrace from "../assets/img/stay-terrace.jpg";
+const stayTerrace = "https://images.unsplash.com/photo-1761521276482-6ab894af9914?q=80&w=2400&auto=format&fit=crop";
 
 export const img = {
   amenitiesHero,
@@ -278,8 +281,8 @@ export const EXPERIENCES: readonly Experience[] = [
     index: "01 / FIELD",
     title: "Rice-field walk",
     heroTitle: ["Across the living", "rice fields."],
-    img: "https://images.unsplash.com/photo-1754244431279-9cf4c7466405?q=85&w=2400&auto=format&fit=crop",
-    imageAlt: "A path through the living rice fields around Sidemen",
+    img: "https://images.unsplash.com/photo-1646928998297-5fb2a10aca27?q=80&w=2400&auto=format&fit=crop",
+    imageAlt: "Terraced rice fields around Sidemen seen from above",
     imageCaption: "01 / ACROSS THE LIVING RICE FIELDS",
     tagline: "Ask about a rice-field walk through the Sidemen landscape.",
     overviewLabel: "RICE-FIELD WALK",
@@ -300,7 +303,7 @@ export const EXPERIENCES: readonly Experience[] = [
     index: "02 / RIVER",
     title: "River stones & waterfalls",
     heroTitle: ["River stones", "& waterfalls."],
-    img: "https://images.unsplash.com/photo-1765988298864-9f2d6fe2af10?q=85&w=2400&auto=format&fit=crop",
+    img: experiencesRiver,
     imageAlt: "River stones and flowing water in the Sidemen landscape",
     imageCaption: "02 / RIVER STONES & WATERFALLS",
     tagline: "Ask about river places and waterfalls around Sidemen.",
@@ -322,7 +325,7 @@ export const EXPERIENCES: readonly Experience[] = [
     index: "03 / MOUNTAIN",
     title: "Sunrise on the ridge",
     heroTitle: ["Sunrise on", "the ridge."],
-    img: "https://images.unsplash.com/photo-1761566538266-4a8c7bb60844?q=85&w=2400&auto=format&fit=crop",
+    img: experiencesMountain,
     imageAlt: "Mountain light rising over the landscape near Sidemen",
     imageCaption: "03 / SUNRISE ON THE RIDGE",
     tagline: "Ask about mountain light and the ridge around Sidemen.",
@@ -344,7 +347,7 @@ export const EXPERIENCES: readonly Experience[] = [
     index: "04 / CRAFT",
     title: "Hands at work",
     heroTitle: ["Hands at", "work."],
-    img: "https://images.unsplash.com/photo-1767032485205-3eb089e5dc33?q=85&w=2400&auto=format&fit=crop",
+    img: experiencesCraft,
     imageAlt: "Hands working with materials in a craft setting",
     imageCaption: "04 / HANDS AT WORK",
     tagline: "Ask about craft visits around Sidemen.",

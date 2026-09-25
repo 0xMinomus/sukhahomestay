@@ -15,7 +15,7 @@ export default function ExperienceDetail() {
 
   return (
     <>
-      <Hero img={experience.img} eyebrow={experience.index} title={experience.heroTitle} />
+      <Hero img={experience.img} imgAlt={experience.imageAlt} eyebrow={experience.index} title={experience.heroTitle} />
 
       <section className="bg-cream">
         <div className="mx-auto grid max-w-[1440px] grid-cols-1 items-center gap-10 px-6 py-20 md:grid-cols-2 md:gap-20 md:px-[120px] md:py-28">

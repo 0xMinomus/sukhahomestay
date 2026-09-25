@@ -17,6 +17,7 @@ export default function Stay() {
     <>
       <Hero
         img={img.stayHero}
+        imgAlt="A tiled-roof pavilion behind a garden pond, framed by ceramic jars and trees"
         eyebrow="ROOMS · SIDEMEN, EAST BALI"
         title={["Wake gently,", "stay awhile."]}
         description="Three rooms in Sidemen, shaped by local materials, garden air and the slower rhythm of village life."
@@ -170,7 +171,7 @@ export default function Stay() {
           <ParallaxImage
             src={img.stayTerrace}
             alt="Guest terrace"
-            caption="THE GUEST TERRACE · GOLDEN HOUR"
+            caption="THE GUEST TERRACE · GARDEN PAVILION"
             className="order-1 aspect-[3/4] w-full md:order-2"
             amount={50}
           />

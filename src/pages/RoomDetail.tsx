@@ -9,6 +9,12 @@ import { ROOMS, WHATSAPP_URL } from "../data/content";
 
 const BENEFITS = "BREAKFAST INCLUDED · ENQUIRE WITH THE HOST DIRECTLY";
 
+const ROOM_HERO_ALT: Record<string, string> = {
+  "garden-suite": "A bedroom with a large bed and timber floors, glass doors open onto green foliage",
+  "canopy-room": "A bed beside timber-framed windows looking out into dense green treetops",
+  "courtyard-studio": "An open-air shower with a dark stone basin, framed by tropical plants and black stone walls",
+};
+
 export default function RoomDetail() {
   const { slug } = useParams();
   const idx = ROOMS.findIndex((r) => r.slug === slug?.trim().replace(/\/+$/, "").toLowerCase());
@@ -51,6 +57,7 @@ export default function RoomDetail() {
     <>
       <Hero
         img={room.heroImg}
+        imgAlt={ROOM_HERO_ALT[room.slug] ?? room.name}
         eyebrow={`${room.index} / ${room.name.toUpperCase()}`}
         title={[room.name]}
         description={room.tagline}
