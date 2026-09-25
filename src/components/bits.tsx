@@ -40,17 +40,13 @@ export function ClosingBand({
 export function GhostButton({
   to,
   label,
-  dark = false,
   href,
 }: {
   to?: string;
   label: string;
-  dark?: boolean;
   href?: string;
 }) {
-  const cls = `group inline-flex items-center gap-2.5 rounded-[4px] px-[18px] py-3 font-mono text-[10px] tracking-[1.4px] outline-1 -outline-offset-1 transition-colors duration-300 ${
-    dark ? "text-cream outline-cream hover:bg-cream hover:text-ink" : "text-ink outline-ink hover:bg-ink hover:text-cream"
-  }`;
+  const cls = "group inline-flex items-center gap-2.5 rounded-[4px] px-[18px] py-3 font-mono text-[10px] tracking-[1.4px] outline-1 -outline-offset-1 text-ink outline-ink transition-colors duration-300 hover:bg-ink hover:text-cream"
   const inner = (
     <>
       {label}

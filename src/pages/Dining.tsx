@@ -14,9 +14,9 @@ export default function Dining() {
     <>
       <Hero
         img={img.diningHero}
-        eyebrow="FROM GARDEN TO TABLE"
-        title={["Meals that begin", "with the landscape."]}
-        description="Seasonal Balinese cooking, shared slowly at our long table."
+        eyebrow="DINING · SIDEMEN, EAST BALI"
+        title={["Breakfast, supper and", "the Sidemen table."]}
+        description="Seasonal Balinese-inspired dishes, served slowly at our long table."
       />
 
       {/* intro */}
@@ -30,8 +30,8 @@ export default function Dining() {
           </div>
           <Reveal delay={0.1}>
             <p className="max-w-[450px] text-[16px] leading-[26px] text-stone md:justify-self-end">
-              Our kitchen follows the seasons and the morning market. Rice comes from nearby fields, herbs
-              from the garden, and recipes from the families who have cooked here for generations.
+              The kitchen follows the seasons, drawing on familiar East Balinese flavours and what is
+              available from the garden and local market.
             </p>
           </Reveal>
         </div>
@@ -78,13 +78,13 @@ export default function Dining() {
               <Eyebrow>02 / EVENING</Eyebrow>
             </Reveal>
             <Headline
-              lines={["Sit down as", "strangers. Leave", "as friends."]}
+              lines={["A shared supper,", "when the evening", "calls for it."]}
               className="mt-5 text-5xl leading-[1.05] md:text-[52px]"
             />
             <Reveal delay={0.1}>
               <p className="mt-6 max-w-md text-[16px] leading-[26px] text-stone">
-                Some evenings we cook a shared family-style supper. The menu changes with the market and is
-                announced each morning.
+                On selected evenings, supper is served family-style at the long table. The menu changes with
+                the market and seasonal availability.
               </p>
             </Reveal>
             <Reveal delay={0.15}>
@@ -122,13 +122,13 @@ export default function Dining() {
           </Stagger>
           <Reveal>
             <p className="mt-4 text-[14px] text-stone">
-              Menus change daily. Please share dietary needs when booking.
+              Menus follow the day’s ingredients and availability. Share dietary needs when enquiring about your stay.
             </p>
           </Reveal>
         </div>
       </section>
 
-      <ClosingBand eyebrow="TAKE A SEAT" title={["Supper is better shared."]} cta={{ label: "PLAN YOUR STAY", to: "/booking" }} />
+      <ClosingBand eyebrow="PLAN YOUR STAY" title={["Find out what’s being served."]} cta={{ label: "ENQUIRE ABOUT YOUR STAY", to: "/booking" }} />
     </>
   );
 }

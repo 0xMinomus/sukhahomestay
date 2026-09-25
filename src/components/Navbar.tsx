@@ -1,6 +1,6 @@
 import { AnimatePresence, motion, useMotionValueEvent, useScroll, useTransform } from "motion/react";
 import { ArrowUpRight, Menu, X } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import { EMAIL_URL, NAV_LINKS, ROOMS, WHATSAPP_URL } from "../data/content";
 import { cn } from "../lib/cn";
@@ -22,6 +22,10 @@ export default function Navbar({ tone }: { tone: "light" | "dark" }) {
   const [open, setOpen] = useState(false);
   const { scrollY } = useScroll();
   const location = useLocation();
+  const openButtonRef = useRef<HTMLButtonElement>(null);
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
+  const panelRef = useRef<HTMLDivElement>(null);
+  const restoreFocus = useRef(false);
 
   /* transparent at top → frosted glass as you scroll */
   const progress = useTransform(scrollY, [0, 140], [0, 1]);
@@ -47,7 +51,45 @@ export default function Navbar({ tone }: { tone: "light" | "dark" }) {
     return () => {
       document.body.style.overflow = "";
     };
-  }, [open ]);
+  }, [open]);
+
+  /* focus enters the menu, stays inside it, and returns to the trigger on close */
+  useEffect(() => {
+    if (!open) {
+      if (restoreFocus.current) {
+        restoreFocus.current = false;
+        openButtonRef.current?.focus({ preventScroll: true });
+      }
+      return;
+    }
+
+    closeButtonRef.current?.focus();
+
+    function onKeyDown(e: KeyboardEvent) {
+      if (e.key === "Escape") {
+        e.preventDefault();
+        setOpen(false);
+        return;
+      }
+      const panel = panelRef.current;
+      if (e.key !== "Tab" || !panel) return;
+      const focusables = panel.querySelectorAll<HTMLElement>("a[href], button:not([disabled])");
+      if (focusables.length === 0) return;
+      const first = focusables[0];
+      const last = focusables[focusables.length - 1];
+      const active = document.activeElement;
+      if (e.shiftKey && (active === first || !panel.contains(active))) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && active === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    }
+
+    document.addEventListener("keydown", onKeyDown);
+    return () => document.removeEventListener("keydown", onKeyDown);
+  }, [open]);
 
   return (
     <>
@@ -63,7 +105,13 @@ export default function Navbar({ tone }: { tone: "light" | "dark" }) {
       >
         <nav className="mx-auto flex h-[68px] max-w-[1440px] items-center justify-between px-4 sm:h-[76px] sm:px-6 md:px-14">
           <button
-            onClick={() => setOpen(true)}
+            ref={openButtonRef}
+            onClick={() => {
+              restoreFocus.current = true;
+              setOpen(true);
+            }}
+            aria-expanded={open}
+            aria-controls="site-menu"
             className="group flex min-h-[44px] cursor-pointer items-center gap-3 px-1"
             aria-label="Open menu"
           >
@@ -117,6 +165,11 @@ export default function Navbar({ tone }: { tone: "light" | "dark" }) {
         {open && (
           <motion.div
             key="menu"
+            ref={panelRef}
+            id="site-menu"
+            role="dialog"
+            aria-modal="true"
+            aria-label="Site menu"
             className="fixed inset-0 z-[60] flex flex-col bg-moss text-cream"
             initial={{ clipPath: "inset(0 0 100% 0)" }}
             animate={{ clipPath: "inset(0 0 0% 0)" }}
@@ -125,6 +178,7 @@ export default function Navbar({ tone }: { tone: "light" | "dark" }) {
           >
             <div className="mx-auto flex h-[68px] w-full max-w-[1440px] items-center justify-between px-4 sm:h-[76px] sm:px-6 md:px-14">
               <button
+                ref={closeButtonRef}
                 onClick={() => setOpen(false)}
                 className="group flex min-h-[44px] cursor-pointer items-center gap-3 px-1"
                 aria-label="Close menu"

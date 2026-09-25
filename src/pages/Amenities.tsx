@@ -23,9 +23,9 @@ export default function Amenities() {
     <>
       <Hero
         img={img.amenitiesHero}
-        eyebrow="EVERYTHING YOU NEED · NOTHING YOU DON’T"
+        eyebrow="AMENITIES · SIDEMEN, EAST BALI"
         title={["Comfort, quietly", "considered."]}
-        description="Simple rituals and thoughtful details for slower days."
+        description="Facilities and simple comforts for a slower stay in Sidemen."
       />
 
       {/* intro */}
@@ -33,14 +33,14 @@ export default function Amenities() {
         <div className="mx-auto grid max-w-[1440px] grid-cols-1 items-center gap-10 px-6 py-16 md:grid-cols-2 md:gap-20 md:px-[120px] md:py-24">
           <div>
             <Reveal>
-              <Eyebrow>INCLUDED IN YOUR STAY</Eyebrow>
+              <Eyebrow>AT SUKHA</Eyebrow>
             </Reveal>
             <Headline lines={["The details that let", "you settle in."]} className="mt-4 text-5xl leading-[1.05] md:text-[52px] md:leading-[54px]" />
           </div>
           <Reveal delay={0.1}>
             <p className="max-w-[450px] text-[16px] leading-[26px] text-stone md:justify-self-end">
-              Everything at Sukha is designed to feel natural and unforced — from breakfast in the garden to
-              a cool swim after a long walk through the valley.
+              Garden breakfasts, cool rooms and a pool give you space to settle in — then choose what the day
+              holds.
             </p>
           </Reveal>
         </div>
@@ -50,9 +50,9 @@ export default function Amenities() {
       <section className="bg-sand">
         <div className="mx-auto max-w-[1440px] px-6 py-16 md:px-[120px] md:py-20">
           <div className="flex flex-col justify-between gap-3 md:flex-row md:items-end">
-            <Headline lines={["Included, naturally."]} className="text-4xl md:text-[44px]" />
+            <Headline lines={["Facilities at a glance."]} className="text-4xl md:text-[44px]" />
             <Reveal>
-              <p className="font-mono text-[9px] tracking-[1.9px] text-clay">AT NO EXTRA CHARGE</p>
+              <p className="font-mono text-[9px] tracking-[1.9px] text-clay">FACILITIES &amp; SERVICES</p>
             </Reveal>
           </div>
           <Stagger className="mt-8 grid grid-cols-2 gap-x-6 border-t border-line lg:grid-cols-4">
@@ -86,7 +86,7 @@ export default function Amenities() {
             <Reveal>
               <Eyebrow>YOUR OWN RHYTHM</Eyebrow>
             </Reveal>
-            <Headline lines={["Nothing scheduled.", "Everything possible."]} className="mt-5 text-5xl leading-[1.05] md:text-[51px] md:leading-[53px]" />
+            <Headline lines={["Make the day", "your own."]} className="mt-5 text-5xl leading-[1.05] md:text-[51px] md:leading-[53px]" />
             <div className="relative mt-10 border-t border-line">
               {/* scroll-drawn progress line */}
               <motion.span
@@ -136,13 +136,13 @@ export default function Amenities() {
           </Stagger>
           <Reveal>
             <p className="mt-4 text-[14px] text-stone">
-              Need something else? Our hosts are nearby and happy to help.
+              Message us before booking if you have questions about access, children, pets or local plans.
             </p>
           </Reveal>
         </div>
       </section>
 
-      <ClosingBand eyebrow="READY WHEN YOU ARE" title={["Come settle in."]} />
+      <ClosingBand eyebrow="READY TO PLAN?" title={["Make Sidemen your base."]} />
     </>
   );
 }

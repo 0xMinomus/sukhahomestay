@@ -75,18 +75,6 @@ body {
   animation: kenburns 2.4s var(--ease-out-soft) both;
 }
 
-/* soft marquee */
-@keyframes drift-x {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(-50%);
-  }
-}
-.animate-drift {
-  animation: drift-x 36s linear infinite;
-}
 
 /* gentle float for scroll cue */
 @keyframes cue-drop {

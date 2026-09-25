@@ -27,7 +27,6 @@ export default function Hero({
   scrollCue = false,
   height = "h-svh min-h-[620px]",
   align = "left",
-  bottomSlot,
 }: {
   img: string;
   eyebrow: string;
@@ -37,7 +36,6 @@ export default function Hero({
   scrollCue?: boolean;
   height?: string;
   align?: "left" | "center";
-  bottomSlot?: React.ReactNode;
 }) {
   const ref = useRef<HTMLElement>(null);
   const reduce = useReducedMotion();
@@ -69,9 +67,9 @@ export default function Hero({
         )}
       >
         <motion.p
-          initial={{ opacity: 0, y: 14 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.25, ease: [...EASE] }}
+          initial={reduce ? { opacity: 0 } : { opacity: 0, y: 14 }}
+          animate={reduce ? { opacity: 1 } : { opacity: 1, y: 0 }}
+          transition={{ duration: reduce ? 0.4 : 0.8, delay: 0.25, ease: [...EASE] }}
           className="mb-[18px] font-mono text-[10px] tracking-[2.5px] text-cream drop-shadow-[0_1px_10px_rgba(0,0,0,0.5)]"
         >
           {eyebrow}
@@ -84,24 +82,13 @@ export default function Hero({
           ))}
         </h1>
         <motion.p
-          initial={{ opacity: 0, y: 14 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.7, ease: [...EASE] }}
+          initial={reduce ? { opacity: 0 } : { opacity: 0, y: 14 }}
+          animate={reduce ? { opacity: 1 } : { opacity: 1, y: 0 }}
+          transition={{ duration: reduce ? 0.4 : 0.8, delay: 0.7, ease: [...EASE] }}
           className={cn("mt-4 max-w-xl text-[16px] text-[#F2ECE4] drop-shadow-[0_1px_10px_rgba(0,0,0,0.5)] md:text-[17px]", align === "center" && "mx-auto")}
         >
           {description}
         </motion.p>
-
-        {bottomSlot && (
-          <motion.div
-            initial={{ opacity: 0, y: 14 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.9, ease: [...EASE] }}
-            className="mt-10 w-full"
-          >
-            {bottomSlot}
-          </motion.div>
-        )}
 
         {meta && meta.length > 0 && (
           <motion.div
@@ -128,7 +115,7 @@ export default function Hero({
             transition={{ delay: 1.2, duration: 0.8 }}
             className="mt-10 flex items-center gap-3 font-mono text-[9px] tracking-[2px] text-cream"
           >
-            <span className="animate-cue inline-block">↓</span> SCROLL TO EXPLORE
+            <span className={cn("inline-block", !reduce && "animate-cue")}>↓</span> SCROLL TO EXPLORE
           </motion.div>
         )}
       </motion.div>

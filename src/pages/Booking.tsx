@@ -1,13 +1,39 @@
-import { AnimatePresence, motion } from "motion/react";
-import { ArrowUpRight, CalendarDays, Check, ChevronDown, Loader2 } from "lucide-react";
-import { useMemo, useState, type FormEvent } from "react";
+import { AnimatePresence, motion, useReducedMotion } from "motion/react";
+import { ArrowUpRight, CalendarDays, ChevronDown } from "lucide-react";
+import { useMemo, useRef, useState, type FormEvent } from "react";
 import { Eyebrow, Headline, Item, ParallaxImage, Reveal, Stagger } from "../components/motion";
 import { ASSURANCES, BOOKING_STEPS, PHONE_DISPLAY, ROOMS, WHATSAPP_URL, img } from "../data/content";
 
-type Status = "idle" | "sending" | "sent";
+/* Nothing is booked here: the form only prepares a WhatsApp enquiry for the guest to send. */
+type Status = "idle" | "prepared";
+type ErrorField = "checkIn" | "checkOut" | "name" | "contact";
+type FormError = { field: ErrorField; message: string };
 
 const inputCls =
   "w-full border-b border-line bg-transparent py-3 text-[15px] text-ink outline-none transition-colors placeholder:text-stone/50 focus:border-clay";
+
+const DATE_RE = /^\d{4}-\d{2}-\d{2}$/;
+
+function toISODate(date: Date): string {
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
+  return `${date.getFullYear()}-${month}-${day}`;
+}
+
+/* Local midnight for a yyyy-mm-dd value, or null when it isn't a real calendar date. */
+function parseISODate(value: string): number | null {
+  if (!DATE_RE.test(value)) return null;
+  const [y, m, d] = value.split("-").map(Number);
+  const date = new Date(y, m - 1, d);
+  if (date.getFullYear() !== y || date.getMonth() !== m - 1 || date.getDate() !== d) return null;
+  return date.getTime();
+}
+
+function formatStayDate(value: string): string {
+  const ms = parseISODate(value);
+  if (ms === null) return value;
+  return new Date(ms).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" });
+}
 
 function Field({
   label,
@@ -25,46 +51,106 @@ function Field({
 }
 
 export default function Booking() {
-  const today = useMemo(() => new Date().toISOString().slice(0, 10), []);
-  const [checkIn, setCheckIn] = useState("2026-10-12");
-  const [checkOut, setCheckOut] = useState("2026-10-16");
+  const reduce = useReducedMotion();
+  const today = useMemo(() => toISODate(new Date()), []);
+  const todayMs = useMemo(() => parseISODate(today) ?? 0, [today]);
+  const [checkIn, setCheckIn] = useState("");
+  const [checkOut, setCheckOut] = useState("");
   const [guests, setGuests] = useState("2 adults");
   const [room, setRoom] = useState(ROOMS[0].name);
   const [name, setName] = useState("");
   const [contact, setContact] = useState("");
   const [message, setMessage] = useState("");
   const [status, setStatus] = useState<Status>("idle");
-  const [error, setError] = useState("");
-  const [reference, setReference] = useState("");
+  const [error, setError] = useState<FormError | null>(null);
+  const [handoffUrl, setHandoffUrl] = useState("");
+
+  const checkInRef = useRef<HTMLInputElement>(null);
+  const checkOutRef = useRef<HTMLInputElement>(null);
+  const nameRef = useRef<HTMLInputElement>(null);
+  const contactRef = useRef<HTMLInputElement>(null);
 
   const nights = useMemo(() => {
-    const ms = new Date(checkOut).getTime() - new Date(checkIn).getTime();
-    return Math.max(0, Math.round(ms / 86400000));
+    const inMs = parseISODate(checkIn);
+    const outMs = parseISODate(checkOut);
+    if (inMs === null || outMs === null) return 0;
+    return Math.max(0, Math.round((outMs - inMs) / 86400000));
   }, [checkIn, checkOut]);
+
+  function focusField(field: ErrorField) {
+    const el =
+      field === "name" ? nameRef.current
+      : field === "contact" ? contactRef.current
+      : field === "checkIn" ? checkInRef.current
+      : checkOutRef.current;
+    el?.focus();
+  }
+
+  function clearErrorFor(field: ErrorField) {
+    setError((prev) => (prev?.field === field ? null : prev));
+  }
+
+  function validate(): FormError | null {
+    if (!name.trim()) return { field: "name", message: "Please add the name we should reply to." };
+    if (!contact.trim()) {
+      return { field: "contact", message: "Please add an email address or WhatsApp number so we can reply." };
+    }
+    if (!checkIn || !checkOut) {
+      return {
+        field: checkIn ? "checkOut" : "checkIn",
+        message: "Please choose both your check-in and check-out dates.",
+      };
+    }
+    const inMs = parseISODate(checkIn);
+    if (inMs === null) return { field: "checkIn", message: "That check-in date isn't a real date — please choose another." };
+    const outMs = parseISODate(checkOut);
+    if (outMs === null) return { field: "checkOut", message: "That check-out date isn't a real date — please choose another." };
+    if (inMs < todayMs) return { field: "checkIn", message: "Check-in can't be in the past — please choose today or later." };
+    if (outMs < todayMs) return { field: "checkOut", message: "Check-out can't be in the past — please choose today or later." };
+    if (outMs <= inMs) return { field: "checkOut", message: "Check-out needs to fall at least one night after check-in." };
+    return null;
+  }
+
+  function buildHandoffUrl(): string {
+    const body = [
+      "Hello Sukha Homestay — I'd like to ask about a stay.",
+      "",
+      `Name: ${name.trim()}`,
+      `Contact: ${contact.trim()}`,
+      `Check in: ${formatStayDate(checkIn)}`,
+      `Check out: ${formatStayDate(checkOut)}`,
+      `Nights: ${nights}`,
+      `Guests: ${guests}`,
+      `Room preference: ${room}`,
+      ...(message.trim() ? ["", message.trim()] : []),
+    ].join("\n");
+    const query = WHATSAPP_URL.includes("?") ? "&text=" : "?text=";
+    return `${WHATSAPP_URL}${query}${encodeURIComponent(body)}`;
+  }
 
   function submit(e: FormEvent) {
     e.preventDefault();
-    if (!name.trim() || !contact.trim()) {
-      setError("Please share your name and how to reach you.");
+    const invalid = validate();
+    if (invalid) {
+      setError(invalid);
+      focusField(invalid.field);
       return;
     }
-    if (nights <= 0) {
-      setError("Check-out needs to fall after check-in.");
-      return;
-    }
-    setError("");
-    setStatus("sending");
-    window.setTimeout(() => {
-      setReference(`SKH-${new Date().getFullYear()}-${Math.floor(1000 + Math.random() * 9000)}`);
-      setStatus("sent");
-    }, 1400);
+    setError(null);
+    const url = buildHandoffUrl();
+    setHandoffUrl(url);
+    setStatus("prepared");
+    window.open(url, "_blank", "noopener,noreferrer");
   }
 
   function reset() {
     setStatus("idle");
+    setHandoffUrl("");
     setName("");
     setContact("");
     setMessage("");
+    setError(null);
+    window.requestAnimationFrame(() => nameRef.current?.focus());
   }
 
   return (
@@ -83,8 +169,8 @@ export default function Booking() {
               transition={{ duration: 0.7, delay: 0.4 }}
               className="mt-6 max-w-xl text-[16px] leading-[26px] text-stone"
             >
-              Tell us when you’d like to come. We’ll reply personally with room options, thoughtful details
-              and everything you need for an easy arrival.
+              Choose your dates and we’ll write the enquiry out for you. You send it from your own
+              WhatsApp, and a host replies there with room options and the details for an easy arrival.
             </motion.p>
           </div>
           <motion.div
@@ -113,8 +199,9 @@ export default function Booking() {
             <Headline lines={["Start with the", "essentials."]} className="mt-4 text-4xl md:text-[44px]" />
             <Reveal delay={0.08}>
               <p className="mt-5 max-w-md text-[15px] leading-[25px] text-stone">
-                This is an enquiry, not an instant booking. One of our hosts will check availability and
-                reply within 24 hours.
+                This is an enquiry, not an instant booking. Nothing is sent from this page: the form
+                hands your dates and details to WhatsApp, and you send them yourself. Replies come
+                from the host on WhatsApp.
               </p>
             </Reveal>
             <Stagger className="mt-8 border-t border-line">
@@ -138,52 +225,75 @@ export default function Booking() {
           {/* form card */}
           <Reveal delay={0.1} className="h-fit rounded-[6px] border border-line bg-cream p-7 md:sticky md:top-24 md:p-10">
             <AnimatePresence mode="wait">
-              {status === "sent" ? (
+              {status === "prepared" ? (
                 <motion.div
-                  key="done"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
+                  key="prepared"
+                  ref={(el) => {
+                    el?.focus();
+                  }}
+                  tabIndex={-1}
+                  role="status"
+                  initial={reduce ? { opacity: 0 } : { opacity: 0, y: 20 }}
+                  animate={reduce ? { opacity: 1 } : { opacity: 1, y: 0 }}
                   exit={{ opacity: 0 }}
                   transition={{ duration: 0.5 }}
-                  className="flex min-h-[480px] flex-col items-center justify-center gap-5 text-center"
+                  className="flex min-h-[480px] flex-col items-center justify-center gap-5 text-center outline-none"
                 >
-                  <motion.span
-                    initial={{ scale: 0 }}
-                    animate={{ scale: 1 }}
-                    transition={{ type: "spring", stiffness: 260, damping: 16, delay: 0.1 }}
-                    className="flex h-16 w-16 items-center justify-center rounded-full bg-clay text-cream"
-                  >
-                    <Check size={28} />
-                  </motion.span>
-                  <h3 className="font-serif text-4xl">Thank you, {name.split(" ")[0]}.</h3>
+                  <span className="flex h-16 w-16 items-center justify-center rounded-full bg-clay text-cream">
+                    <ArrowUpRight size={28} />
+                  </span>
+                  <Eyebrow>WHATSAPP HANDOFF · NOT SENT YET</Eyebrow>
+                  <h3 className="font-serif text-4xl">Ready to send, {name.split(" ")[0]}.</h3>
                   <p className="max-w-sm text-[15px] leading-[25px] text-stone">
-                    Your enquiry <span className="font-mono text-[12px] text-clay">{reference}</span> is with
-                    our hosts. Expect a personal reply within 24 hours — {nights} night{nights === 1 ? "" : "s"} in
-                    the {room}, from {checkIn}.
+                    WhatsApp should be opening in a new tab with your enquiry written out. Nothing has
+                    been sent and nothing is held — tap send there and a host will reply to{" "}
+                    <span className="text-ink">{contact.trim()}</span> personally.
                   </p>
-                  <div className="mt-2 flex flex-wrap justify-center gap-4">
+                  <dl className="w-full max-w-sm border-t border-line font-mono text-[10px] tracking-[1.4px]">
+                    {[
+                      ["CHECK IN", formatStayDate(checkIn)],
+                      ["CHECK OUT", formatStayDate(checkOut)],
+                      ["NIGHTS", String(nights)],
+                      ["GUESTS", guests],
+                      ["ROOM PREFERENCE", room],
+                    ].map(([label, value]) => (
+                      <div key={label} className="flex items-baseline justify-between gap-4 border-b border-line py-3 text-left">
+                        <dt className="shrink-0 text-stone">{label}</dt>
+                        <dd className="text-right text-clay">{value}</dd>
+                      </div>
+                    ))}
+                  </dl>
+                  <p className="max-w-sm text-[12px] leading-[19px] text-stone">
+                    No WhatsApp tab? Your browser may have blocked it —{" "}
+                    <a href={handoffUrl} target="_blank" rel="noreferrer" className="text-clay underline underline-offset-4">
+                      open the prepared message
+                    </a>
+                    .
+                  </p>
+                  <div className="flex flex-wrap justify-center gap-4">
                     <button
                       onClick={reset}
                       className="cursor-pointer rounded-[4px] border border-ink px-6 py-3 font-mono text-[10px] tracking-[1.4px] transition-colors hover:bg-ink hover:text-cream"
                     >
-                      NEW ENQUIRY
+                      EDIT DETAILS
                     </button>
                     <a
-                      href={WHATSAPP_URL}
+                      href={handoffUrl}
                       target="_blank"
                       rel="noreferrer"
-                      className="rounded-[4px] bg-ink px-6 py-3 font-mono text-[10px] tracking-[1.4px] text-cream transition-colors hover:bg-clay"
+                      className="flex items-center gap-2 rounded-[4px] bg-ink px-6 py-3 font-mono text-[10px] tracking-[1.4px] text-cream transition-colors hover:bg-clay"
                     >
-                      MESSAGE HOST
+                      OPEN WHATSAPP AGAIN <ArrowUpRight size={14} />
                     </a>
                   </div>
                 </motion.div>
               ) : (
                 <motion.form
                   key="form"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0, y: -12 }}
+                  noValidate
+                  initial={reduce ? { opacity: 0 } : { opacity: 0, y: 12 }}
+                  animate={reduce ? { opacity: 1 } : { opacity: 1, y: 0 }}
+                  exit={reduce ? { opacity: 0 } : { opacity: 0, y: -12 }}
                   transition={{ duration: 0.4 }}
                   onSubmit={submit}
                   className="flex flex-col gap-6"
@@ -193,13 +303,39 @@ export default function Booking() {
                     <Field label="CHECK IN">
                       <span className="relative block">
                         <CalendarDays size={15} className="pointer-events-none absolute top-1/2 right-1 -translate-y-1/2 text-stone" />
-                        <input type="date" value={checkIn} min={today} onChange={(e) => setCheckIn(e.target.value)} className={inputCls} />
+                        <input
+                          ref={checkInRef}
+                          type="date"
+                          name="checkIn"
+                          value={checkIn}
+                          min={today}
+                          aria-invalid={error?.field === "checkIn"}
+                          aria-describedby={error?.field === "checkIn" ? "booking-error" : undefined}
+                          onChange={(e) => {
+                            setCheckIn(e.target.value);
+                            clearErrorFor("checkIn");
+                          }}
+                          className={inputCls}
+                        />
                       </span>
                     </Field>
                     <Field label="CHECK OUT">
                       <span className="relative block">
                         <CalendarDays size={15} className="pointer-events-none absolute top-1/2 right-1 -translate-y-1/2 text-stone" />
-                        <input type="date" value={checkOut} min={checkIn || today} onChange={(e) => setCheckOut(e.target.value)} className={inputCls} />
+                        <input
+                          ref={checkOutRef}
+                          type="date"
+                          name="checkOut"
+                          value={checkOut}
+                          min={checkIn || today}
+                          aria-invalid={error?.field === "checkOut"}
+                          aria-describedby={error?.field === "checkOut" ? "booking-error" : undefined}
+                          onChange={(e) => {
+                            setCheckOut(e.target.value);
+                            clearErrorFor("checkOut");
+                          }}
+                          className={inputCls}
+                        />
                       </span>
                     </Field>
                     <Field label="GUESTS">
@@ -241,10 +377,36 @@ export default function Booking() {
                   </div>
 
                   <Field label="NAME">
-                    <input value={name} onChange={(e) => setName(e.target.value)} placeholder="Your full name" className={inputCls} />
+                    <input
+                      ref={nameRef}
+                      name="name"
+                      autoComplete="name"
+                      value={name}
+                      aria-invalid={error?.field === "name"}
+                      aria-describedby={error?.field === "name" ? "booking-error" : undefined}
+                      onChange={(e) => {
+                        setName(e.target.value);
+                        clearErrorFor("name");
+                      }}
+                      placeholder="Your full name"
+                      className={inputCls}
+                    />
                   </Field>
                   <Field label="EMAIL OR WHATSAPP">
-                    <input value={contact} onChange={(e) => setContact(e.target.value)} placeholder="How should we reach you?" className={inputCls} />
+                    <input
+                      ref={contactRef}
+                      name="contact"
+                      autoComplete="off"
+                      value={contact}
+                      aria-invalid={error?.field === "contact"}
+                      aria-describedby={error?.field === "contact" ? "booking-error" : undefined}
+                      onChange={(e) => {
+                        setContact(e.target.value);
+                        clearErrorFor("contact");
+                      }}
+                      placeholder="How should we reach you?"
+                      className={inputCls}
+                    />
                   </Field>
                   <Field label="ANYTHING WE SHOULD KNOW?">
                     <textarea
@@ -259,33 +421,32 @@ export default function Booking() {
                   <AnimatePresence>
                     {error && (
                       <motion.p
-                        initial={{ opacity: 0, height: 0 }}
-                        animate={{ opacity: 1, height: "auto" }}
-                        exit={{ opacity: 0, height: 0 }}
+                        key="error"
+                        id="booking-error"
+                        role="alert"
+                        initial={reduce ? { opacity: 0 } : { opacity: 0, height: 0 }}
+                        animate={reduce ? { opacity: 1 } : { opacity: 1, height: "auto" }}
+                        exit={reduce ? { opacity: 0 } : { opacity: 0, height: 0 }}
                         className="overflow-hidden text-[13px] text-clay"
                       >
-                        {error}
+                        {error.message}
                       </motion.p>
                     )}
                   </AnimatePresence>
 
-                  <motion.button
-                    type="submit"
-                    disabled={status === "sending"}
-                    whileHover={status === "idle" ? { scale: 1.02 } : undefined}
-                    whileTap={status === "idle" ? { scale: 0.98 } : undefined}
-                    className="flex cursor-pointer items-center justify-center gap-3 rounded-[4px] bg-ink py-4 font-mono text-[10px] tracking-[1.6px] text-cream transition-colors duration-300 hover:bg-clay disabled:opacity-70"
-                  >
-                    {status === "sending" ? (
-                      <>
-                        <Loader2 size={15} className="animate-spin" /> SENDING…
-                      </>
-                    ) : (
-                      <>
-                        SEND ENQUIRY <ArrowUpRight size={15} />
-                      </>
-                    )}
-                  </motion.button>
+                  <div>
+                    <motion.button
+                      type="submit"
+                      whileHover={reduce ? undefined : { scale: 1.02 }}
+                      whileTap={reduce ? undefined : { scale: 0.98 }}
+                      className="flex w-full cursor-pointer items-center justify-center gap-3 rounded-[4px] bg-ink py-4 font-mono text-[10px] tracking-[1.6px] text-cream transition-colors duration-300 hover:bg-clay"
+                    >
+                      CONTINUE IN WHATSAPP <ArrowUpRight size={15} />
+                    </motion.button>
+                    <p className="mt-3 text-center font-mono text-[9px] leading-[15px] tracking-[1.5px] text-stone">
+                      HANDOFF ONLY · WHATSAPP OPENS WITH YOUR DETAILS · YOU TAP SEND THERE
+                    </p>
+                  </div>
                 </motion.form>
               )}
             </AnimatePresence>

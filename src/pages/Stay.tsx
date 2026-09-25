@@ -5,12 +5,11 @@ import Hero from "../components/Hero";
 import { Eyebrow, Headline, Item, ParallaxImage, Reveal, Stagger } from "../components/motion";
 import { ROOMS, img } from "../data/content";
 
-const RITUALS = ["DAILY BREAKFAST", "BOTANICAL BATH", "BICYCLES", "WIFI"];
+const RITUALS = ["DAILY BREAKFAST", "BATH SALTS", "BICYCLES", "WIFI"];
 
 const HOUSE_RULES = [
   { label: "CHECK-IN", value: "2:00 PM" },
   { label: "CHECK-OUT", value: "11:00 AM" },
-  { label: "MINIMUM STAY", value: "2 NIGHTS" },
 ];
 
 export default function Stay() {
@@ -18,9 +17,9 @@ export default function Stay() {
     <>
       <Hero
         img={img.stayHero}
-        eyebrow="ROOMS · UBUD, BALI"
+        eyebrow="ROOMS · SIDEMEN, EAST BALI"
         title={["Wake gently,", "stay awhile."]}
-        description="Three intimate rooms shaped by local craft, garden air, and the unhurried rhythm of island life."
+        description="Three rooms in Sidemen, shaped by local materials, garden air and the slower rhythm of village life."
       />
 
       {/* collection */}
@@ -43,9 +42,7 @@ export default function Stay() {
             <article
               key={room.slug}
               id={`room-${room.slug}`}
-              className={`grid scroll-mt-28 grid-cols-1 items-center gap-10 md:grid-cols-2 md:gap-16 ${
-                i % 2 === 1 ? "" : ""
-              }`}
+              className="grid scroll-mt-28 grid-cols-1 items-center gap-10 md:grid-cols-2 md:gap-16"
             >
               <Link
                 to={`/rooms/${room.slug}`}
@@ -104,13 +101,13 @@ export default function Stay() {
         <div className="mx-auto grid max-w-[1440px] grid-cols-1 items-center gap-12 px-6 py-20 md:grid-cols-2 md:gap-20 md:px-[120px] md:py-28">
           <div>
             <Reveal>
-              <Eyebrow>INCLUDED IN EVERY STAY</Eyebrow>
+              <Eyebrow>COMFORT THROUGHOUT YOUR STAY</Eyebrow>
             </Reveal>
-            <Headline lines={["Little rituals,", "thoughtfully kept."]} className="mt-5 text-5xl leading-[1.05] md:text-[56px]" />
+            <Headline lines={["Simple comforts,", "close at hand."]} className="mt-5 text-5xl leading-[1.05] md:text-[56px]" />
             <Reveal delay={0.1}>
               <p className="mt-6 max-w-md text-[16px] leading-[26px] text-stone">
-                Wake to a tray of Balinese coffee. Cool down with botanical bath salts. Return from the rice
-                fields to fresh fruit and a turned-down room.
+                Wake to Balinese coffee and breakfast in the garden. Return to your room after a bath, then
+                settle into the quiet.
               </p>
             </Reveal>
             <Stagger className="mt-8 grid grid-cols-2 gap-px bg-line">
@@ -126,10 +123,9 @@ export default function Stay() {
             <ParallaxImage src={img.stayRitual} alt="Morning ritual" className="aspect-[3/2] w-full" amount={40} />
             <Reveal delay={0.1} className="border-l-2 border-clay pl-6">
               <p className="font-serif text-[22px] leading-snug italic">
-                “The kind of place where you stop checking the time. We slept with the doors open to the
-                garden and woke to birds and the smell of coffee.”
+                Stay for quiet mornings, garden views and days shaped by the Sidemen landscape.
               </p>
-              <p className="mt-4 font-mono text-[9px] tracking-[2px] text-stone">MARA & ELIAS · COPENHAGEN</p>
+              <p className="mt-4 font-mono text-[9px] tracking-[2px] text-stone">A SLOWER PACE IN SIDEMEN</p>
             </Reveal>
           </div>
         </div>
@@ -145,8 +141,8 @@ export default function Stay() {
             <Headline lines={["Easy in,", "slow out."]} className="mt-5 text-5xl leading-[1.05] md:text-[56px]" />
             <Reveal delay={0.1}>
               <p className="mt-6 max-w-md text-[16px] leading-[26px] text-stone">
-                Check in from 2:00 PM and let the day soften — your room will be cool, the coffee warm, and
-                our hosts nearby for anything you need.
+                Check in from 2:00 PM. Message your host before arrival if you need help with transfers,
+                directions or questions about your stay.
               </p>
             </Reveal>
             <Stagger className="mt-10 border-t border-line">
@@ -164,7 +160,7 @@ export default function Stay() {
             </Stagger>
             <Reveal delay={0.1}>
               <p className="mt-6 text-[14px] text-stone">
-                Arriving early or leaving late? Message our host — we’ll do our best.
+                If you need different arrival or departure times, message your host before booking.
               </p>
             </Reveal>
             <Reveal delay={0.15} className="mt-8">
@@ -181,7 +177,7 @@ export default function Stay() {
         </div>
       </section>
 
-      <ClosingBand eyebrow="YOUR ROOM IS WAITING" title={["Come stay with us."]} />
+      <ClosingBand eyebrow="PLAN YOUR STAY" title={["Find your room in Sidemen."]} />
     </>
   );
 }

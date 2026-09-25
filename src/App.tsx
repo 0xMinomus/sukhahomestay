@@ -14,25 +14,34 @@ import RoomDetail from "./pages/RoomDetail";
 import Stay from "./pages/Stay";
 
 const SITE_NAME = "Sukha Homestay";
-const DEFAULT_TITLE = "Sukha · Bali Homestay — Sidemen, East Bali";
+const DEFAULT_TITLE = "Sukha Homestay — Sidemen, East Bali";
+const NOT_FOUND_TITLE = `Page not found · ${SITE_NAME}`;
+const NOT_FOUND_DESCRIPTION =
+  "The page you requested is not available. Return home to explore rooms, meals and experiences in Sidemen, East Bali.";
+
+function normalizePathname(pathname: string): string {
+  const withoutTrailingSlashes = pathname.replace(/\/+$/, "");
+  return withoutTrailingSlashes || "/";
+}
 
 function routeMeta(pathname: string): { title: string; description: string } {
-  if (pathname === "/") {
+  const path = normalizePathname(pathname);
+  if (path === "/") {
     return {
       title: DEFAULT_TITLE,
       description:
-        "Sukha is an intimate, family-led homestay in Sidemen, East Bali — slow mornings, garden rooms, seasonal food and valley walks.",
+        "A family-led homestay in Sidemen, East Bali, with three rooms, daily breakfast, seasonal food and local experiences.",
     };
   }
-  if (pathname === "/stay") {
+  if (path === "/stay") {
     return {
       title: `Stay · ${SITE_NAME}`,
       description:
-        "Three garden rooms in Sidemen, East Bali — honest comfort, natural materials, valley air.",
+        "Explore three rooms in Sidemen, East Bali, with garden views, private outdoor spaces and breakfast included.",
     };
   }
-  if (pathname.startsWith("/rooms/")) {
-    const slug = pathname.slice("/rooms/".length);
+  if (path.startsWith("/rooms/")) {
+    const slug = path.slice("/rooms/".length);
     const room = ROOMS.find((r) => r.slug === slug);
     if (room) {
       return {
@@ -45,28 +54,28 @@ function routeMeta(pathname: string): { title: string; description: string } {
     "/amenities": {
       title: `Amenities · ${SITE_NAME}`,
       description:
-        "Fans, air-conditioning, hot water, fast Wi-Fi and garden corners at Sukha Homestay, Sidemen.",
+        "Garden pool, daily breakfast, Wi-Fi, air-conditioning, transfers and bicycles at Sukha Homestay, Sidemen.",
     },
     "/dining": {
       title: `Dining · ${SITE_NAME}`,
       description:
-        "Seasonal Balinese home cooking, breakfast in the garden, long-table dinners in Sidemen.",
+        "Seasonal East Balinese food, daily breakfast and selected-evening suppers at Sukha Homestay in Sidemen.",
     },
     "/experiences": {
       title: `Experiences · ${SITE_NAME}`,
       description:
-        "Valley walks, rice-field mornings and slow craft afternoons around Sukha Homestay, East Bali.",
+        "Ask about village walks, river places, craft visits and rice-field walks around Sidemen, East Bali.",
     },
     "/booking": {
       title: `Booking · ${SITE_NAME}`,
       description:
-        "Reserve your stay at Sukha Homestay, Sidemen, East Bali — direct rates, no fees.",
+        "Prepare a WhatsApp enquiry for a stay at Sukha Homestay in Sidemen, East Bali.",
     },
   };
   return (
-    pages[pathname] ?? {
-      title: `Not Found · ${SITE_NAME}`,
-      description: "This path has overgrown.",
+    pages[path] ?? {
+      title: NOT_FOUND_TITLE,
+      description: NOT_FOUND_DESCRIPTION,
     }
   );
 }
@@ -125,9 +134,9 @@ function ScrollToTop() {
 
 function NotFound() {
   return (
-    <div className="flex min-h-[80svh] flex-col items-center justify-center gap-6 bg-cream px-6 text-center">
+    <div className="flex min-h-[80svh] flex-col items-center justify-center gap-6 bg-cream px-6 text-center text-ink">
       <Eyebrow>ELSEWHERE IN THE GARDEN</Eyebrow>
-      <Headline lines={["This path has", "overgrown."]} className="text-5xl md:text-6xl" />
+      <Headline as="h1" lines={["This page is", "not here."]} className="text-5xl md:text-6xl" />
       <Link
         to="/"
         className="rounded-[4px] bg-ink px-8 py-4 font-mono text-[10px] tracking-[1.6px] text-cream transition-colors hover:bg-clay"
@@ -140,7 +149,7 @@ function NotFound() {
 
 function Shell() {
   const location = useLocation();
-  const tone = location.pathname.startsWith("/booking") ? "dark" : "light";
+  const tone = normalizePathname(location.pathname) === "/booking" ? "dark" : "light";
 
   return (
     <div className="min-h-screen bg-cream">

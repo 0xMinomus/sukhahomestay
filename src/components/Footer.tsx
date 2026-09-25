@@ -35,7 +35,7 @@ export default function Footer() {
             <Link to="/" className="flex flex-col gap-[7px]">
               <span className="font-serif text-[38px] leading-none tracking-[7px]">SUKHA</span>
               <span className="font-mono text-[9px] tracking-[2px] text-footmuted">
-                SIDEMEN · KARANGASEM · BALI
+                SIDEMEN · EAST BALI
               </span>
             </Link>
             <div className="flex flex-wrap gap-12 md:gap-[70px]">
@@ -66,11 +66,8 @@ export default function Footer() {
             </div>
           </div>
         </Reveal>
-        <div className="mt-[42px] flex flex-wrap items-center justify-between gap-3 border-t border-footline pt-[18px]">
-          <p className="font-mono text-[9px] tracking-[1.5px] text-[#A39C91]">© 2026 SUKHA BALI HOMESTAY</p>
-          <span className="inline-flex min-h-[24px] cursor-pointer items-center text-[12px] text-[#C4BEB4] transition-colors hover:text-cream">
-            Privacy
-          </span>
+        <div className="mt-[42px] border-t border-footline pt-[18px]">
+          <p className="font-mono text-[9px] tracking-[1.5px] text-[#A39C91]">© 2026 SUKHA HOMESTAY</p>
         </div>
       </div>
     </footer>

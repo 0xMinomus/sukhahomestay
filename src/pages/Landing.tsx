@@ -11,13 +11,13 @@ const WANDERS = [
   { kicker: "03 WATER", headline: "Follow the river", img: img.landingWater },
 ];
 
-const TASTE_TICKS = ["DAILY BREAKFAST INCLUDED", "FARM & MARKET SOURCED", "VEGETARIAN FRIENDLY"];
+const TASTE_TICKS = ["DAILY BREAKFAST INCLUDED", "SEASONAL INGREDIENTS", "VEGETARIAN FRIENDLY"];
 
 const STATS = [
   { value: "03", label: "ROOMS" },
-  { value: "06", label: "GUESTS" },
-  { value: "800M", label: "ABOVE SEA" },
-  { value: "1", label: "FAMILY" },
+  { value: "02", label: "GUESTS / ROOM" },
+  { value: "07:00", label: "BREAKFAST FROM" },
+  { value: "01", label: "GARDEN POOL" },
 ];
 
 export default function Landing() {
@@ -27,7 +27,7 @@ export default function Landing() {
         img={img.landingHero}
         eyebrow="SIDEMEN · EAST BALI"
         title={["Come home to the", "quiet side of Bali."]}
-        description="A soulful village stay among rice terraces, rivers and old-growth trees."
+        description="A family-led village homestay in Sidemen, set among rice terraces, rivers and quiet gardens."
         align="center"
       />
 
@@ -38,13 +38,13 @@ export default function Landing() {
             <Eyebrow>WELCOME TO SIDEMEN</Eyebrow>
           </Reveal>
           <Headline
-            lines={["A small sanctuary for slow mornings,", "long tables and the stories", "that unfold between them."]}
+            lines={["Slow mornings, shared meals", "and the landscape of Sidemen."]}
             className="mt-6 max-w-5xl text-[32px] leading-[1.15] md:text-[44px]"
           />
           <Reveal delay={0.1}>
             <p className="mt-6 max-w-2xl text-[16px] leading-[26px] text-stone">
-              Sukha is an intimate homestay rooted in Balinese rhythm — family-led, locally grown, and made
-              for lingering.
+              Sukha is a small, family-led homestay shaped by village life, home cooking and time spent
+              outdoors.
             </p>
           </Reveal>
         </div>
@@ -60,8 +60,8 @@ export default function Landing() {
             <Headline lines={["Barefoot comfort,", "made by hand."]} className="mt-5 text-5xl leading-[1.05] md:text-[56px]" />
             <Reveal delay={0.1}>
               <p className="mt-6 max-w-md text-[16px] leading-[26px] text-stone">
-                Three private rooms open to the garden, shaped by local timber, woven textures and the cool
-                hush of stone. Breakfast arrives with the sun; the river sets the pace.
+                Choose from three rooms opening to the garden or treetops, with stone, timber and woven
+                textures close at hand. Breakfast is served each morning; walks begin just beyond the gate.
               </p>
             </Reveal>
             <Stagger className="mt-8 border-t border-line">
@@ -103,7 +103,7 @@ export default function Landing() {
               <Reveal>
                 <Eyebrow>BEYOND THE GARDEN GATE</Eyebrow>
               </Reveal>
-              <Headline lines={["Days with nowhere to rush."]} className="mt-5 text-5xl md:text-[56px]" />
+              <Headline lines={["Take the slower route."]} className="mt-5 text-5xl md:text-[56px]" />
             </div>
             <Reveal delay={0.1}>
               <GhostButton to="/experiences" label="EXPLORE EXPERIENCES" />
@@ -156,11 +156,12 @@ export default function Landing() {
             <Reveal>
               <Eyebrow>02 / TASTE</Eyebrow>
             </Reveal>
-            <Headline lines={["From garden,", "to table, to story."]} className="mt-5 text-5xl leading-[1.05] md:text-[56px]" />
+            <Headline lines={["From garden", "and market to table."]} className="mt-5 text-5xl leading-[1.05] md:text-[56px]" />
             <Reveal delay={0.1}>
               <p className="mt-6 max-w-md text-[16px] leading-[26px] text-stone">
-                What grows nearby guides the menu: fragrant rice, young coconut, mountain greens, cacao and
-                coffee. Meals are generous, seasonal and served family-style at our long table.
+                The menu draws on East Bali flavours and ingredients available from the garden and market:
+                rice, coconut, greens, cacao and coffee. Breakfast is served daily, with supper on selected
+                evenings.
               </p>
             </Reveal>
             <Stagger className="mt-8 flex flex-col gap-3">
@@ -187,11 +188,11 @@ export default function Landing() {
             <Eyebrow>YOUR QUIET PLACE IN EAST BALI</Eyebrow>
           </Reveal>
           <Headline
-            lines={["Come for a few nights.", "Leave with a slower clock."]}
+            lines={["Make room for slower days in Sidemen."]}
             className="mx-auto mt-6 max-w-4xl text-5xl leading-[1.05] md:text-[64px]"
           />
           <Reveal delay={0.12} className="mt-10 flex flex-wrap items-center justify-center gap-4">
-            <GhostButton to="/booking" label="BOOK YOUR STAY" dark={false} />
+            <GhostButton to="/booking" label="PLAN YOUR STAY" />
             <span className="inline-block">
               <GhostButton href={WHATSAPP_URL} label="MESSAGE US" />
             </span>

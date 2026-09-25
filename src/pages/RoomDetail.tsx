@@ -1,18 +1,48 @@
 import { AnimatePresence, motion } from "motion/react";
 import { X } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Navigate, useParams } from "react-router-dom";
 import { GhostButton } from "../components/bits";
 import Hero from "../components/Hero";
 import { Eyebrow, Headline, Item, ParallaxImage, Reveal, Stagger } from "../components/motion";
 import { ROOMS, WHATSAPP_URL } from "../data/content";
 
-const BENEFITS = "BEST RATE · BREAKFAST INCLUDED · DIRECT HOST SUPPORT";
+const BENEFITS = "BREAKFAST INCLUDED · ENQUIRE WITH THE HOST DIRECTLY";
 
 export default function RoomDetail() {
   const { slug } = useParams();
-  const idx = ROOMS.findIndex((r) => r.slug === slug);
-  const [lightbox, setLightbox] = useState<string | null>(null);
+  const idx = ROOMS.findIndex((r) => r.slug === slug?.trim().replace(/\/+$/, "").toLowerCase());
+  const [lightbox, setLightbox] = useState<{ src: string; alt: string } | null>(null);
+  const closeRef = useRef<HTMLButtonElement>(null);
+  const triggerRef = useRef<HTMLButtonElement | null>(null);
+
+  useEffect(() => {
+    if (!lightbox) {
+      triggerRef.current?.focus({ preventScroll: true });
+      return;
+    }
+
+    closeRef.current?.focus();
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
+    /* Escape closes, and Tab stays on the single close control inside the dialog. */
+    function onKeyDown(e: KeyboardEvent) {
+      if (e.key === "Escape") {
+        e.preventDefault();
+        setLightbox(null);
+      } else if (e.key === "Tab") {
+        e.preventDefault();
+        closeRef.current?.focus();
+      }
+    }
+
+    document.addEventListener("keydown", onKeyDown);
+    return () => {
+      document.removeEventListener("keydown", onKeyDown);
+      document.body.style.overflow = previousOverflow;
+    };
+  }, [lightbox]);
 
   if (idx === -1) return <Navigate to="/stay" replace />;
   const room = ROOMS[idx];
@@ -34,7 +64,7 @@ export default function RoomDetail() {
             <Reveal>
               <Eyebrow>{room.overviewLabel}</Eyebrow>
             </Reveal>
-            <Headline lines={[...room.overviewTitle]} className="mt-5 text-5xl leading-[1.05] md:text-[56px]" />
+            <Headline lines={room.overviewTitle} className="mt-5 text-5xl leading-[1.05] md:text-[56px]" />
           </div>
           <Reveal delay={0.1}>
             <p className="max-w-md text-[16px] leading-[26px] text-stone md:justify-self-end">{room.overviewBody}</p>
@@ -46,25 +76,35 @@ export default function RoomDetail() {
       <section className="bg-sand">
         <div className="mx-auto grid max-w-[1440px] grid-cols-1 gap-5 px-6 py-16 md:grid-cols-[1.4fr_1fr] md:px-[72px] md:py-20">
           <motion.button
+            type="button"
+            aria-haspopup="dialog"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-60px" }}
             transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
-            onClick={() => setLightbox(room.mainImg)}
+            onClick={(e) => {
+              triggerRef.current = e.currentTarget;
+              setLightbox({ src: room.mainImg, alt: `${room.name} — ${room.mainCaption}` });
+            }}
             className="group relative block cursor-zoom-in overflow-hidden text-left"
           >
             <ParallaxImage src={room.mainImg} alt={room.name} caption={room.mainCaption} className="aspect-[4/3] w-full" amount={40} />
-            <span className="absolute top-5 right-5 rounded-full bg-cream/90 px-4 py-2 font-mono text-[9px] tracking-[1.6px] opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+            <span className="absolute top-5 right-5 rounded-full bg-cream/90 px-4 py-2 font-mono text-[9px] tracking-[1.6px] opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-focus-visible:opacity-100">
               ENLARGE +
             </span>
           </motion.button>
           <div className="flex flex-col gap-5">
             <motion.button
+              type="button"
+              aria-haspopup="dialog"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-60px" }}
               transition={{ duration: 0.9, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
-              onClick={() => setLightbox(room.detailImg)}
+              onClick={(e) => {
+                triggerRef.current = e.currentTarget;
+                setLightbox({ src: room.detailImg, alt: `${room.name} — room detail` });
+              }}
               className="group relative block cursor-zoom-in overflow-hidden text-left"
             >
               <div className="aspect-[16/10] overflow-hidden">
@@ -134,6 +174,9 @@ export default function RoomDetail() {
         {lightbox && (
           <motion.div
             key="lightbox"
+            role="dialog"
+            aria-modal="true"
+            aria-label={`${room.name} — enlarged view`}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -142,9 +185,9 @@ export default function RoomDetail() {
             className="fixed inset-0 z-[70] flex cursor-zoom-out items-center justify-center bg-ink/90 p-6 backdrop-blur-sm"
           >
             <motion.img
-              key={lightbox}
-              src={lightbox}
-              alt={room.name}
+              key={lightbox.src}
+              src={lightbox.src}
+              alt={lightbox.alt}
               initial={{ scale: 0.92, y: 24 }}
               animate={{ scale: 1, y: 0 }}
               exit={{ scale: 0.95, y: 12 }}
@@ -153,8 +196,10 @@ export default function RoomDetail() {
               onClick={(e) => e.stopPropagation()}
             />
             <button
+              ref={closeRef}
+              type="button"
               onClick={() => setLightbox(null)}
-              aria-label="Close"
+              aria-label="Close enlarged view"
               className="absolute top-6 right-6 cursor-pointer rounded-full bg-cream/15 p-3 text-cream backdrop-blur transition-colors hover:bg-cream/30"
             >
               <X size={20} />

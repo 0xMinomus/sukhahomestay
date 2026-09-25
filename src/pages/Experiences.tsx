@@ -6,9 +6,8 @@ import { Eyebrow, Headline, Item, ParallaxImage, Reveal, Stagger } from "../comp
 import { EXPERIENCE_CARDS, img } from "../data/content";
 
 const FACTS = [
-  { label: "DURATION", value: "3–4 HOURS" },
-  { label: "PACE", value: "GENTLE" },
-  { label: "START", value: "7:00 AM" },
+  { label: "LANDSCAPE", value: "RICE FIELDS" },
+  { label: "DETAILS", value: "CONFIRM BY MESSAGE" },
 ];
 
 export default function Experiences() {
@@ -16,9 +15,9 @@ export default function Experiences() {
     <>
       <Hero
         img={img.experiencesHero}
-        eyebrow="WANDER / LISTEN / RETURN"
-        title={["The valley", "sets the itinerary."]}
-        description="Unhurried days shaped by old footpaths, river stones and mountain light."
+        eyebrow="EXPERIENCES · SIDEMEN, EAST BALI"
+        title={["Let Sidemen set", "the pace."]}
+        description="Village walks, field paths and mountain light around Sukha Homestay."
         scrollCue
       />
 
@@ -27,14 +26,14 @@ export default function Experiences() {
         <div className="mx-auto grid max-w-[1440px] grid-cols-1 items-center gap-10 px-6 py-16 md:grid-cols-2 md:gap-20 md:px-[120px] md:py-24">
           <div>
             <Reveal>
-              <Eyebrow>THE QUIET SIDE OF BALI</Eyebrow>
+              <Eyebrow>EXPLORING SIDEMEN</Eyebrow>
             </Reveal>
-            <Headline lines={["Leave space for what", "you didn’t plan."]} className="mt-4 text-5xl leading-[1.05] md:text-[52px]" />
+            <Headline lines={["A slower way to see", "the Sidemen valley."]} className="mt-4 text-5xl leading-[1.05] md:text-[52px]" />
           </div>
           <Reveal delay={0.1}>
             <p className="max-w-[450px] text-[16px] leading-[26px] text-stone md:justify-self-end">
-              Our hosts share the places they love most — not as a checklist, but as invitations. Every
-              experience is private, flexible and rooted in the rhythms of Sidemen.
+              Ask our hosts about walks, river places and craft visits. Share what you have in mind, and
+              a host can confirm availability and arrangements by message.
             </p>
           </Reveal>
         </div>
@@ -55,13 +54,13 @@ export default function Experiences() {
               <p className="font-serif text-[64px] leading-none text-clay/25">01</p>
             </Reveal>
             <Reveal>
-              <Eyebrow className="mt-2">SIGNATURE JOURNEY</Eyebrow>
+              <Eyebrow className="mt-2">RICE-FIELD WALK</Eyebrow>
             </Reveal>
             <Headline lines={["Across the living", "rice fields."]} className="mt-5 text-5xl leading-[1.05] md:text-[52px]" />
             <Reveal delay={0.1}>
               <p className="mt-6 max-w-md text-[16px] leading-[26px] text-stone">
-                Walk with a village guide through the subak landscape, where water temples, family farms and
-                mountain springs have shaped life for centuries.
+                Ask about a rice-field walk through the Sidemen landscape. A host can confirm the route,
+                timing and availability by message.
               </p>
             </Reveal>
             <Stagger className="mt-8 flex flex-wrap gap-x-10 gap-y-4">
@@ -73,7 +72,7 @@ export default function Experiences() {
               ))}
             </Stagger>
             <Reveal delay={0.1} className="mt-8">
-              <GhostButton to="/booking" label="PLAN THIS EXPERIENCE" />
+              <GhostButton to="/booking" label="ENQUIRE ABOUT THIS WALK" />
             </Reveal>
           </div>
         </div>
@@ -85,13 +84,13 @@ export default function Experiences() {
           <div className="flex flex-col justify-between gap-3 md:flex-row md:items-end">
             <Headline lines={["More ways to wander."]} className="text-4xl md:text-[44px]" />
             <Reveal>
-              <p className="font-mono text-[9px] tracking-[1.9px] text-clay">PRIVATE · FLEXIBLE · LOCALLY HOSTED</p>
+              <p className="font-mono text-[9px] tracking-[1.9px] text-clay">AVAILABILITY CONFIRMED BY MESSAGE</p>
             </Reveal>
           </div>
           <Stagger className="mt-10 grid grid-cols-1 gap-5 md:grid-cols-3">
             {EXPERIENCE_CARDS.map((c) => (
               <Item key={c.index}>
-                <Link to="/booking" className="group block overflow-hidden bg-moss">
+                <Link to="/booking" className="group block overflow-hidden bg-moss" aria-label={`Enquire about ${c.title}`}>
                   <div className="relative aspect-[3/4] overflow-hidden">
                     <img
                       src={c.img}
@@ -104,6 +103,7 @@ export default function Experiences() {
                       <div>
                         <p className="font-mono text-[9px] tracking-[2px] text-cream/85">{c.index}</p>
                         <p className="mt-2 font-serif text-[28px] leading-tight text-cream">{c.title}</p>
+                        <p className="mt-3 font-mono text-[9px] tracking-[1.8px] text-cream/80">ENQUIRE ABOUT THIS</p>
                       </div>
                       <span className="mb-1 flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-cream/60 text-cream transition-all duration-300 group-hover:border-cream group-hover:bg-cream group-hover:text-ink">
                         <ArrowUpRight size={16} />
@@ -121,17 +121,18 @@ export default function Experiences() {
       <section className="bg-sand">
         <div className="mx-auto max-w-[1440px] px-6 py-20 text-center md:px-[120px] md:py-24">
           <Reveal>
-            <Headline lines={["Bring a little more Bali", "into your stay."]} className="mx-auto max-w-3xl text-4xl leading-[1.08] md:text-[48px]" />
+            <Headline lines={["Start planning your days", "in Sidemen."]} className="mx-auto max-w-3xl text-4xl leading-[1.08] md:text-[48px]" />
           </Reveal>
           <Reveal delay={0.1}>
             <p className="mx-auto mt-6 max-w-xl text-[16px] leading-[26px] text-stone">
-              Choose your room first. We’ll help shape the experiences around your days in Sidemen.
+              Your enquiry can cover room dates and any experience you would like to discuss. A host can
+              confirm the details with you.
             </p>
           </Reveal>
         </div>
       </section>
 
-      <ClosingBand eyebrow="THE VALLEY IS WAITING" title={["Wander with us."]} />
+      <ClosingBand eyebrow="ENQUIRE ABOUT YOUR STAY" title={["Explore at Sidemen’s pace."]} />
     </>
   );
 }

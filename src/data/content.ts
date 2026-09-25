@@ -123,11 +123,11 @@ export interface Room {
 }
 
 const baseInclusions = (bed: string, outdoor: [string, string]): RoomInclusion[] => [
-  { icon: BedDouble, label: bed, copy: "Premium cotton linen" },
+  { icon: BedDouble, label: bed, copy: "Cotton linen" },
   { icon: Bath, label: "ENSUITE BATH", copy: "Rain shower + bath salts" },
   { icon: Coffee, label: "BREAKFAST", copy: "Served each morning" },
   { icon: Trees, label: outdoor[0], copy: outdoor[1] },
-  { icon: Wifi, label: "WI-FI", copy: "Reliable room connection" },
+  { icon: Wifi, label: "WI-FI", copy: "Wi-Fi access in the room" },
   { icon: Wind, label: "CLIMATE", copy: "A/C and ceiling fan" },
 ];
 
@@ -147,7 +147,7 @@ export const ROOMS: Room[] = [
     mainCaption: "PRIVATE TERRACE · GARDEN VIEW",
     detailImg: roomGardenDetail,
     materialTitle: ["Stone, timber,", "and woven cotton."],
-    materialCopy: "Made by local hands and chosen to age beautifully.",
+    materialCopy: "Stone, local timber and handwoven textiles bring a tactile, natural palette.",
     specs: { guests: "2 GUESTS", bed: "KING BED", size: "46 M²", outdoor: "PRIVATE TERRACE" },
     price: "From IDR 1.850K / night",
     terms: "Breakfast included · 2 guests · Minimum stay may apply",
@@ -193,7 +193,7 @@ export const ROOMS: Room[] = [
     mainCaption: "WALLED COURTYARD · MORNING LIGHT",
     detailImg: roomCourtyardDetail,
     materialTitle: ["Plaster, stone,", "and handmade tile."],
-    materialCopy: "A quieter material palette inspired by traditional courtyard homes.",
+    materialCopy: "Polished stone and hand-finished plaster bring a cool, grounded palette.",
     specs: { guests: "2 GUESTS", bed: "KING BED", size: "34 M²", outdoor: "PRIVATE COURTYARD" },
     price: "From IDR 1.350K / night",
     terms: "Breakfast included · 2 guests · Ground-floor access",
@@ -214,15 +214,15 @@ export interface Amenity {
 export const AMENITIES_ROW_1: Amenity[] = [
   { icon: Waves, label: "POOL", copy: "Garden pool with valley views" },
   { icon: Utensils, label: "BREAKFAST", copy: "Daily breakfast at the long table" },
-  { icon: Wifi, label: "WI-FI", copy: "Reliable connection throughout" },
+  { icon: Wifi, label: "WI-FI", copy: "Wi-Fi around the property" },
   { icon: Snowflake, label: "COOL ROOMS", copy: "Fans and air-conditioning" },
 ];
 
 export const AMENITIES_ROW_2: Amenity[] = [
-  { icon: Car, label: "TRANSFERS", copy: "Airport and Ubud pick-up" },
+  { icon: Car, label: "TRANSFERS", copy: "Airport and Ubud transfers on request" },
   { icon: Bike, label: "LOCAL RIDES", copy: "Scooters and bicycles arranged" },
   { icon: Sparkles, label: "HOUSEKEEPING", copy: "Daily room refresh" },
-  { icon: MessageCircle, label: "LOCAL HOST", copy: "Personal recommendations anytime" },
+  { icon: MessageCircle, label: "LOCAL HOST", copy: "Ask your host for local suggestions" },
 ];
 
 export const RHYTHM: { time: string; event: string }[] = [
@@ -236,8 +236,8 @@ export const RHYTHM: { time: string; event: string }[] = [
 export const PRACTICAL: { label: string; value: string }[] = [
   { label: "CHECK-IN", value: "From 2:00 PM" },
   { label: "CHECK-OUT", value: "By 11:00 AM" },
-  { label: "CHILDREN", value: "All ages welcome" },
-  { label: "PETS", value: "Please ask us first" },
+  { label: "CHILDREN", value: "Ask us first" },
+  { label: "PETS", value: "Ask us first" },
 ];
 
 /* --------------------------------- dining --------------------------------- */
@@ -260,13 +260,13 @@ export const EXPERIENCE_CARDS = [
 /* --------------------------------- booking -------------------------------- */
 
 export const BOOKING_STEPS = [
-  "Send your preferred dates",
-  "Receive room options",
-  "Confirm with our host",
+  "Share your preferred dates and room",
+  "Continue in WhatsApp",
+  "Confirm availability with your host",
 ];
 
 export const ASSURANCES = [
-  { icon: Car, heading: "PRIVATE TRANSFERS", copy: "Airport and Ubud pick-ups arranged on request." },
-  { icon: Coffee, heading: "BREAKFAST INCLUDED", copy: "A generous local breakfast is served each morning." },
-  { icon: MessageCircle, heading: "PERSONAL HOSTING", copy: "A real person helps with every detail of your stay." },
+  { icon: Car, heading: "PRIVATE TRANSFERS", copy: "Airport and Ubud transfers can be arranged on request." },
+  { icon: Coffee, heading: "BREAKFAST INCLUDED", copy: "A Balinese breakfast is served each morning." },
+  { icon: MessageCircle, heading: "PERSONAL HOSTING", copy: "A host can help with questions during your stay." },
 ];

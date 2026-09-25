@@ -22,10 +22,10 @@ export function Reveal({
   return (
     <motion.div
       className={className}
-      initial={{ opacity: 0, y: reduce ? 0 : y, filter: "blur(6px)" }}
-      whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+      initial={reduce ? { opacity: 0 } : { opacity: 0, y, filter: "blur(6px)" }}
+      whileInView={reduce ? { opacity: 1 } : { opacity: 1, y: 0, filter: "blur(0px)" }}
       viewport={{ once, margin: "-72px" }}
-      transition={{ duration: 0.9, delay, ease: [...EASE] }}
+      transition={{ duration: reduce ? 0.3 : 0.9, delay, ease: [...EASE] }}
     >
       {children}
     </motion.div>
@@ -40,6 +40,11 @@ const staggerParent: Variants = {
 const staggerChild: Variants = {
   hidden: { opacity: 0, y: 26 },
   show: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [...EASE] } },
+};
+
+const staggerChildStill: Variants = {
+  hidden: { opacity: 0 },
+  show: { opacity: 1, transition: { duration: 0.3 } },
 };
 
 export function Stagger({ children, className }: { children: ReactNode; className?: string }) {
@@ -57,32 +62,19 @@ export function Stagger({ children, className }: { children: ReactNode; classNam
 }
 
 export function Item({ children, className }: { children: ReactNode; className?: string }) {
+  const reduce = useReducedMotion();
   return (
-    <motion.div className={className} variants={staggerChild}>
+    <motion.div className={className} variants={reduce ? staggerChildStill : staggerChild}>
       {children}
     </motion.div>
   );
 }
 
 /* Small mono eyebrow label */
-export function Eyebrow({
-  children,
-  tone = "clay",
-  className,
-}: {
-  children: ReactNode;
-  tone?: "clay" | "cream" | "ink";
-  className?: string;
-}) {
+export function Eyebrow({ children, className }: { children: ReactNode; className?: string }) {
   return (
     <p
-      className={cn(
-        "font-mono text-[10px] leading-normal font-normal tracking-[1.8px] sm:tracking-[2.4px]",
-        tone === "clay" && "text-clay",
-        tone === "cream" && "text-cream",
-        tone === "ink" && "text-ink",
-        className,
-      )}
+      className={cn("font-mono text-[10px] leading-normal font-normal tracking-[1.8px] text-clay sm:tracking-[2.4px]", className)}
     >
       {children}
     </p>
@@ -132,27 +124,26 @@ export function ParallaxImage({
   src,
   alt,
   className,
-  imgClassName,
   amount = 60,
   caption,
 }: {
   src: string;
   alt: string;
   className?: string;
-  imgClassName?: string;
   amount?: number;
   caption?: string;
 }) {
+  const reduce = useReducedMotion();
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
-  const y = useTransform(scrollYProgress, [0, 1], [-amount, amount]);
+  const y = useTransform(scrollYProgress, [0, 1], reduce ? [0, 0] : [-amount, amount]);
   return (
     <div ref={ref} className={cn("relative overflow-hidden", className)}>
       <motion.img
         src={src}
         alt={alt}
         style={{ y }}
-        className={cn("h-[112%] w-full object-cover", imgClassName)}
+        className="h-[112%] w-full object-cover"
         loading="lazy"
       />
       {caption && (
@@ -160,20 +151,6 @@ export function ParallaxImage({
           {caption}
         </span>
       )}
-    </div>
-  );
-}
-
-/* Infinite marquee strip */
-export function Marquee({ children, className }: { children: ReactNode; className?: string }) {
-  return (
-    <div className={cn("overflow-hidden", className)}>
-      <div className="animate-drift flex w-max">
-        <div className="flex shrink-0 items-center">{children}</div>
-        <div className="flex shrink-0 items-center" aria-hidden>
-          {children}
-        </div>
-      </div>
     </div>
   );
 }
