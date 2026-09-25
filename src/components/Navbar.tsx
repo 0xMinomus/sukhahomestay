@@ -84,11 +84,11 @@ export default function Navbar({ tone }: { tone: "light" | "dark" }) {
           </Link>
 
           <div className="flex items-center gap-5 md:gap-7">
-            <NavLink to="/stay" className={({ isActive }) => cn(linkCls(isActive), "hidden sm:inline-block")}>
+            <NavLink to="/stay" className={({ isActive }) => cn(linkCls(isActive), "hidden translate-y-1 sm:inline-block")}>
               STAY
               <Underline />
             </NavLink>
-            <NavLink to="/experiences" className={({ isActive }) => cn(linkCls(isActive), "hidden sm:inline-block")}>
+            <NavLink to="/experiences" className={({ isActive }) => cn(linkCls(isActive), "hidden translate-y-1 sm:inline-block")}>
               EXPERIENCES
               <Underline />
             </NavLink>

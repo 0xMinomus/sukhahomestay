@@ -1,0 +1,42 @@
+{
+  "$schema": "https://raw.githubusercontent.com/can1357/oh-my-pi/main/packages/coding-agent/src/config/mcp-schema.json",
+  "mcpServers": {
+    "filesystem": {
+      "command": "mcp-server-filesystem",
+      "args": ["."],
+      "cwd": "."
+    },
+    "context7": {
+      "command": "context7-mcp"
+    },
+    "playwright": {
+      "command": "playwright-mcp",
+      "cwd": "."
+    },
+    "codegraph": {
+      "command": "code-graph-mcp",
+      "cwd": ".",
+      "env": {
+        "CODE_GRAPH_NO_AUTO_UPDATE": "1"
+      }
+    },
+    "lsp": {
+      "command": "lsp-mcp-server",
+      "cwd": "."
+    },
+    "grep_app": {
+      "command": "mcp-ripgrep",
+      "cwd": "."
+    },
+    "websearch": {
+      "command": "web-basics"
+    },
+    "ponytail": {
+      "command": "node",
+      "args": [".mcp-servers/ponytail/ponytail-mcp/index.js"],
+      "env": {
+        "PONYTAIL_DEFAULT_MODE": "full"
+      }
+    }
+  }
+}
