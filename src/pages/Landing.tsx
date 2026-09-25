@@ -3,9 +3,7 @@ import { Link } from "react-router-dom";
 import { GhostButton } from "../components/bits";
 import Hero from "../components/Hero";
 import { Eyebrow, Headline, ParallaxImage, Reveal, Stagger, Item } from "../components/motion";
-import { WHATSAPP_URL, img } from "../data/content";
-
-const ROOM_NAMES = ["Garden Suite", "River Room", "Frangipani Loft"];
+import { ROOMS, WHATSAPP_URL, img } from "../data/content";
 
 const WANDERS = [
   { kicker: "01 VILLAGE", headline: "Walk old paths", img: img.landingVillage },
@@ -16,8 +14,8 @@ const WANDERS = [
 const TASTE_TICKS = ["DAILY BREAKFAST INCLUDED", "FARM & MARKET SOURCED", "VEGETARIAN FRIENDLY"];
 
 const STATS = [
-  { value: "04", label: "ROOMS" },
-  { value: "12", label: "GUESTS" },
+  { value: "03", label: "ROOMS" },
+  { value: "06", label: "GUESTS" },
   { value: "800M", label: "ABOVE SEA" },
   { value: "1", label: "FAMILY" },
 ];
@@ -62,15 +60,15 @@ export default function Landing() {
             <Headline lines={["Barefoot comfort,", "made by hand."]} className="mt-5 text-5xl leading-[1.05] md:text-[56px]" />
             <Reveal delay={0.1}>
               <p className="mt-6 max-w-md text-[16px] leading-[26px] text-stone">
-                Four private rooms open to the garden, shaped by local timber, woven textures and the cool
+                Three private rooms open to the garden, shaped by local timber, woven textures and the cool
                 hush of stone. Breakfast arrives with the sun; the river sets the pace.
               </p>
             </Reveal>
             <Stagger className="mt-8 border-t border-line">
-              {ROOM_NAMES.map((r) => (
-                <Item key={r} className="flex items-center justify-between border-b border-line py-4">
-                  <span className="font-serif text-2xl">{r}</span>
-                  <Link to="/stay" className="font-mono text-[10px] tracking-[1.6px] text-clay hover:underline">
+              {ROOMS.map((r) => (
+                <Item key={r.slug} className="flex items-center justify-between border-b border-line py-4">
+                  <span className="font-serif text-2xl">{r.name}</span>
+                  <Link to={`/rooms/${r.slug}`} className="font-mono text-[10px] tracking-[1.6px] text-clay hover:underline">
                     VIEW →
                   </Link>
                 </Item>
