@@ -7,7 +7,7 @@ import { cn } from "../lib/cn";
 
 const linkCls = (isActive: boolean) =>
   cn(
-    "group relative font-mono text-[10px] tracking-[1.4px] transition-colors duration-300",
+    "group relative inline-flex min-h-[44px] items-center font-mono text-[10px] tracking-[1.4px] transition-colors duration-300",
     isActive ? "opacity-100" : "opacity-80 hover:opacity-100",
   );
 
@@ -64,7 +64,7 @@ export default function Navbar({ tone }: { tone: "light" | "dark" }) {
         <nav className="mx-auto flex h-[68px] max-w-[1440px] items-center justify-between px-4 sm:h-[76px] sm:px-6 md:px-14">
           <button
             onClick={() => setOpen(true)}
-            className="group flex cursor-pointer items-center gap-3"
+            className="group flex min-h-[44px] cursor-pointer items-center gap-3 px-1"
             aria-label="Open menu"
           >
             <Menu size={18} strokeWidth={1.75} className="transition-transform duration-500 group-hover:rotate-90" />
@@ -122,7 +122,7 @@ export default function Navbar({ tone }: { tone: "light" | "dark" }) {
             <div className="mx-auto flex h-[68px] w-full max-w-[1440px] items-center justify-between px-4 sm:h-[76px] sm:px-6 md:px-14">
               <button
                 onClick={() => setOpen(false)}
-                className="group flex cursor-pointer items-center gap-3"
+                className="group flex min-h-[44px] cursor-pointer items-center gap-3 px-1"
                 aria-label="Close menu"
               >
                 <X size={20} strokeWidth={1.75} className="transition-transform duration-500 group-hover:rotate-90" />
@@ -186,10 +186,10 @@ export default function Navbar({ tone }: { tone: "light" | "dark" }) {
                   </div>
                 </div>
                 <div className="flex flex-col gap-2 font-mono text-[11px] tracking-[1.6px]">
-                  <a href={WHATSAPP_URL} target="_blank" rel="noreferrer" className="w-fit opacity-80 hover:opacity-100 hover:text-claylight">
+                  <a href={WHATSAPP_URL} target="_blank" rel="noreferrer" className="inline-flex min-h-[44px] w-fit items-center opacity-80 hover:text-claylight hover:opacity-100">
                     WHATSAPP ↗
                   </a>
-                  <a href={EMAIL_URL} className="w-fit opacity-80 hover:opacity-100 hover:text-claylight">
+                  <a href={EMAIL_URL} className="inline-flex min-h-[44px] w-fit items-center opacity-80 hover:text-claylight hover:opacity-100">
                     EMAIL ↗
                   </a>
                 </div>

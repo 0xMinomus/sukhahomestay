@@ -44,7 +44,7 @@ export default function Footer() {
                   <p className="font-mono text-[9px] tracking-[2px] text-claylight">{c.heading}</p>
                   {c.links.map((l) =>
                     l.to ? (
-                      <Link key={l.label} to={l.to} className="group relative w-fit text-[13px] text-foottext">
+                      <Link key={l.label} to={l.to} className="group relative inline-flex min-h-[24px] w-fit items-center text-[13px] text-foottext">
                         {l.label}
                         <span className="absolute -bottom-0.5 left-0 h-px w-full origin-left scale-x-0 bg-claylight transition-transform duration-300 group-hover:scale-x-100" />
                       </Link>
@@ -54,7 +54,7 @@ export default function Footer() {
                         href={l.href}
                         target={l.href?.startsWith("http") ? "_blank" : undefined}
                         rel="noreferrer"
-                        className="group relative w-fit text-[13px] text-foottext"
+                        className="group relative inline-flex min-h-[24px] w-fit items-center text-[13px] text-foottext"
                       >
                         {l.label}
                         <span className="absolute -bottom-0.5 left-0 h-px w-full origin-left scale-x-0 bg-claylight transition-transform duration-300 group-hover:scale-x-100" />
@@ -67,8 +67,8 @@ export default function Footer() {
           </div>
         </Reveal>
         <div className="mt-[42px] flex flex-wrap items-center justify-between gap-3 border-t border-footline pt-[18px]">
-          <p className="font-mono text-[8px] tracking-[1.5px] text-[#827D73]">© 2026 SUKHA BALI HOMESTAY</p>
-          <span className="cursor-pointer text-[12px] text-[#B8B2A8] transition-colors hover:text-cream">
+          <p className="font-mono text-[9px] tracking-[1.5px] text-[#A39C91]">© 2026 SUKHA BALI HOMESTAY</p>
+          <span className="inline-flex min-h-[24px] cursor-pointer items-center text-[12px] text-[#C4BEB4] transition-colors hover:text-cream">
             Privacy
           </span>
         </div>
