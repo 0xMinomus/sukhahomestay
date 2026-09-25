@@ -1,4 +1,4 @@
-import { motion, useReducedMotion, useScroll, useTransform } from "motion/react";
+import { motion, useReducedMotion, useScroll, useSpring, useTransform } from "motion/react";
 import { useRef } from "react";
 import { cn } from "../lib/cn";
 import { EASE } from "./motion";
@@ -42,9 +42,10 @@ export default function Hero({
   const ref = useRef<HTMLElement>(null);
   const reduce = useReducedMotion();
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
-  const bgY = useTransform(scrollYProgress, [0, 1], ["0%", reduce ? "0%" : "22%"]);
-  const bgScale = useTransform(scrollYProgress, [0, 1], [1, reduce ? 1 : 1.12]);
-  const fade = useTransform(scrollYProgress, [0, 0.7], [1, 0]);
+  const smoothProgress = useSpring(scrollYProgress, { stiffness: 100, damping: 30, mass: 0.2 });
+  const bgY = useTransform(smoothProgress, [0, 1], ["0%", reduce ? "0%" : "22%"]);
+  const bgScale = useTransform(smoothProgress, [0, 1], [1, reduce ? 1 : 1.12]);
+  const fade = useTransform(smoothProgress, [0, 0.7], [1, 0]);
 
   return (
     <section ref={ref} className={cn("relative overflow-hidden bg-moss", height)}>
