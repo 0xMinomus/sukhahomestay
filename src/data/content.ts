@@ -15,19 +15,19 @@ import {
   type LucideIcon,
 } from "lucide-react";
 
-import amenitiesHero from "../assets/img/amenities-hero.jpg";
+import amenitiesHero from "../assets/img/amenities-hero.webp";
 import amenitiesPoolside from "../assets/img/amenities-poolside.jpg";
 import bookingGarden from "../assets/img/booking-garden.jpg";
 import diningBreakfast from "../assets/img/dining-breakfast.jpg";
-import diningHero from "../assets/img/dining-hero.jpg";
+import diningHero from "../assets/img/dining-hero.webp";
 import diningLongtable from "../assets/img/dining-longtable.jpg";
 import experiencesCraft from "../assets/img/experiences-craft.jpg";
-import experiencesHero from "../assets/img/experiences-hero.jpg";
+import experiencesHero from "../assets/img/experiences-hero.webp";
 import experiencesMountain from "../assets/img/experiences-mountain.jpg";
 import experiencesRiceTerrace from "../assets/img/experiences-rice-terrace.jpg";
 import experiencesRiver from "../assets/img/experiences-river.jpg";
 import landingGardenSuite from "../assets/img/landing-garden-suite.jpg";
-import landingHero from "../assets/img/landing-hero.jpg";
+import landingHero from "../assets/img/landing-hero.webp";
 import landingMountain from "../assets/img/landing-mountain.jpg";
 import landingTable from "../assets/img/landing-table.jpg";
 import landingVillage from "../assets/img/landing-village.jpg";

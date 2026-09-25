@@ -52,6 +52,8 @@ export default function Hero({
         <img
           src={img}
           alt=""
+          fetchPriority="high"
+          decoding="async"
           className={cn("h-full w-full object-cover", !reduce && "animate-kenburns")}
         />
       </motion.div>
