@@ -21,11 +21,7 @@ import bookingGarden from "../assets/img/booking-garden.jpg";
 import diningBreakfast from "../assets/img/dining-breakfast.jpg";
 import diningHero from "../assets/img/dining-hero.webp";
 import diningLongtable from "../assets/img/dining-longtable.jpg";
-import experiencesCraft from "../assets/img/experiences-craft.jpg";
 import experiencesHero from "../assets/img/experiences-hero.webp";
-import experiencesMountain from "../assets/img/experiences-mountain.jpg";
-import experiencesRiceTerrace from "../assets/img/experiences-rice-terrace.jpg";
-import experiencesRiver from "../assets/img/experiences-river.jpg";
 import landingGardenSuite from "../assets/img/landing-garden-suite.jpg";
 import landingHero from "../assets/img/landing-hero.webp";
 import landingMountain from "../assets/img/landing-mountain.jpg";
@@ -282,7 +278,7 @@ export const EXPERIENCES: readonly Experience[] = [
     index: "01 / FIELD",
     title: "Rice-field walk",
     heroTitle: ["Across the living", "rice fields."],
-    img: experiencesRiceTerrace,
+    img: "https://images.unsplash.com/photo-1754244431279-9cf4c7466405?q=85&w=2400&auto=format&fit=crop",
     imageAlt: "A path through the living rice fields around Sidemen",
     imageCaption: "01 / ACROSS THE LIVING RICE FIELDS",
     tagline: "Ask about a rice-field walk through the Sidemen landscape.",
@@ -304,7 +300,7 @@ export const EXPERIENCES: readonly Experience[] = [
     index: "02 / RIVER",
     title: "River stones & waterfalls",
     heroTitle: ["River stones", "& waterfalls."],
-    img: experiencesRiver,
+    img: "https://images.unsplash.com/photo-1765988298864-9f2d6fe2af10?q=85&w=2400&auto=format&fit=crop",
     imageAlt: "River stones and flowing water in the Sidemen landscape",
     imageCaption: "02 / RIVER STONES & WATERFALLS",
     tagline: "Ask about river places and waterfalls around Sidemen.",
@@ -326,7 +322,7 @@ export const EXPERIENCES: readonly Experience[] = [
     index: "03 / MOUNTAIN",
     title: "Sunrise on the ridge",
     heroTitle: ["Sunrise on", "the ridge."],
-    img: experiencesMountain,
+    img: "https://images.unsplash.com/photo-1761566538266-4a8c7bb60844?q=85&w=2400&auto=format&fit=crop",
     imageAlt: "Mountain light rising over the landscape near Sidemen",
     imageCaption: "03 / SUNRISE ON THE RIDGE",
     tagline: "Ask about mountain light and the ridge around Sidemen.",
@@ -348,7 +344,7 @@ export const EXPERIENCES: readonly Experience[] = [
     index: "04 / CRAFT",
     title: "Hands at work",
     heroTitle: ["Hands at", "work."],
-    img: experiencesCraft,
+    img: "https://images.unsplash.com/photo-1767032485205-3eb089e5dc33?q=85&w=2400&auto=format&fit=crop",
     imageAlt: "Hands working with materials in a craft setting",
     imageCaption: "04 / HANDS AT WORK",
     tagline: "Ask about craft visits around Sidemen.",
