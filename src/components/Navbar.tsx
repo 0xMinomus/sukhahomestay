@@ -85,12 +85,16 @@ export default function Navbar({ tone }: { tone: "light" | "dark" }) {
 
           <div className="flex items-center gap-5 md:gap-7">
             <NavLink to="/stay" className={({ isActive }) => cn(linkCls(isActive), "hidden sm:flex")}>
-              STAY
-              <Underline />
+              <span className="relative inline-flex">
+                STAY
+                <Underline />
+              </span>
             </NavLink>
             <NavLink to="/experiences" className={({ isActive }) => cn(linkCls(isActive), "hidden sm:flex")}>
-              EXPERIENCES
-              <Underline />
+              <span className="relative inline-flex">
+                EXPERIENCES
+                <Underline />
+              </span>
             </NavLink>
             <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.96 }}>
               <Link
