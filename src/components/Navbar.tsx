@@ -7,7 +7,7 @@ import { cn } from "../lib/cn";
 
 const linkCls = (isActive: boolean) =>
   cn(
-    "group relative inline-flex min-h-[44px] items-center font-mono text-[10px] tracking-[1.4px] transition-colors duration-300",
+    "group relative min-h-[44px] items-center font-mono text-[13px] tracking-[1.5px] transition-colors duration-300",
     isActive ? "opacity-100" : "opacity-80 hover:opacity-100",
   );
 
@@ -84,11 +84,11 @@ export default function Navbar({ tone }: { tone: "light" | "dark" }) {
           </Link>
 
           <div className="flex items-center gap-5 md:gap-7">
-            <NavLink to="/stay" className={({ isActive }) => cn(linkCls(isActive), "hidden translate-y-1 sm:inline-block")}>
+            <NavLink to="/stay" className={({ isActive }) => cn(linkCls(isActive), "hidden translate-y-2 sm:flex")}>
               STAY
               <Underline />
             </NavLink>
-            <NavLink to="/experiences" className={({ isActive }) => cn(linkCls(isActive), "hidden translate-y-1 sm:inline-block")}>
+            <NavLink to="/experiences" className={({ isActive }) => cn(linkCls(isActive), "hidden translate-y-2 sm:flex")}>
               EXPERIENCES
               <Underline />
             </NavLink>
