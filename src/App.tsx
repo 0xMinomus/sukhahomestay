@@ -4,10 +4,11 @@ import { BrowserRouter, Link, Route, Routes, useLocation } from "react-router-do
 import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
 import { Eyebrow, Headline } from "./components/motion";
-import { ROOMS } from "./data/content";
+import { getExperienceBySlug, ROOMS } from "./data/content";
 import Amenities from "./pages/Amenities";
 import Booking from "./pages/Booking";
 import Dining from "./pages/Dining";
+import ExperienceDetail from "./pages/ExperienceDetail";
 import Experiences from "./pages/Experiences";
 import Landing from "./pages/Landing";
 import RoomDetail from "./pages/RoomDetail";
@@ -47,6 +48,15 @@ function routeMeta(pathname: string): { title: string; description: string } {
       return {
         title: `${room.name} · ${SITE_NAME}`,
         description: `${room.name} at Sukha Homestay, Sidemen, East Bali — ${room.tagline}`,
+      };
+    }
+  }
+  if (path.startsWith("/experiences/")) {
+    const experience = getExperienceBySlug(path.slice("/experiences/".length));
+    if (experience) {
+      return {
+        title: `${experience.title} · ${SITE_NAME}`,
+        description: experience.seoDescription,
       };
     }
   }
@@ -178,6 +188,7 @@ function Shell() {
             <Route path="/amenities" element={<Amenities />} />
             <Route path="/dining" element={<Dining />} />
             <Route path="/experiences" element={<Experiences />} />
+            <Route path="/experiences/:slug" element={<ExperienceDetail />} />
             <Route path="/booking" element={<Booking />} />
             <Route path="*" element={<NotFound />} />
           </Routes>

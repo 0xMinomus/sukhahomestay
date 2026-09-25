@@ -251,11 +251,130 @@ export const SEASONAL: { label: string; copy: string }[] = [
 
 /* ------------------------------- experiences ------------------------------ */
 
-export const EXPERIENCE_CARDS = [
-  { index: "02 / RIVER", title: "River stones & waterfalls", img: experiencesRiver },
-  { index: "03 / MOUNTAIN", title: "Sunrise on the ridge", img: experiencesMountain },
-  { index: "04 / CRAFT", title: "Hands at work", img: experiencesCraft },
+export type ExperienceSlug =
+  | "rice-field-walk"
+  | "river-stones-waterfalls"
+  | "sunrise-on-the-ridge"
+  | "hands-at-work";
+
+export interface ExperienceFact {
+  readonly label: string;
+  readonly value: string;
+}
+
+export interface Experience {
+  readonly slug: ExperienceSlug;
+  readonly index: "01 / FIELD" | "02 / RIVER" | "03 / MOUNTAIN" | "04 / CRAFT";
+  readonly title: string;
+  readonly heroTitle: string[];
+  readonly img: string;
+  readonly imageAlt: string;
+  readonly imageCaption: string;
+  readonly tagline: string;
+  readonly overviewLabel: string;
+  readonly overviewTitle: string[];
+  readonly overviewBody: string;
+  readonly facts?: readonly ExperienceFact[];
+  readonly hostConfirmation: string;
+  readonly enquiryLabel: string;
+  readonly seoDescription: string;
+}
+
+export const EXPERIENCES: readonly Experience[] = [
+  {
+    slug: "rice-field-walk",
+    index: "01 / FIELD",
+    title: "Rice-field walk",
+    heroTitle: ["Across the living", "rice fields."],
+    img: experiencesRiceTerrace,
+    imageAlt: "A path through the living rice fields around Sidemen",
+    imageCaption: "01 / ACROSS THE LIVING RICE FIELDS",
+    tagline: "Ask about a rice-field walk through the Sidemen landscape.",
+    overviewLabel: "RICE-FIELD WALK",
+    overviewTitle: ["Across the living", "rice fields."],
+    overviewBody:
+      "Ask about a rice-field walk through the Sidemen landscape. A host can confirm the route, timing and availability by message.",
+    facts: [
+      { label: "LANDSCAPE", value: "RICE FIELDS" },
+      { label: "DETAILS", value: "CONFIRM BY MESSAGE" },
+    ],
+    hostConfirmation: "A host can confirm the route, timing and availability by message.",
+    enquiryLabel: "ENQUIRE ABOUT THE RICE-FIELD WALK",
+    seoDescription:
+      "Ask about a rice-field walk through the Sidemen landscape and confirm the route, timing and availability by message with a Sukha Homestay host.",
+  },
+  {
+    slug: "river-stones-waterfalls",
+    index: "02 / RIVER",
+    title: "River stones & waterfalls",
+    heroTitle: ["River stones", "& waterfalls."],
+    img: experiencesRiver,
+    imageAlt: "River stones and flowing water in the Sidemen landscape",
+    imageCaption: "02 / RIVER STONES & WATERFALLS",
+    tagline: "Ask about river places and waterfalls around Sidemen.",
+    overviewLabel: "RIVER PLACES",
+    overviewTitle: ["River stones", "& waterfalls."],
+    overviewBody:
+      "Ask about river places and waterfalls around Sidemen. Share what you have in mind, and a host can confirm arrangements by message.",
+    facts: [
+      { label: "LANDSCAPE", value: "RIVER PLACES" },
+      { label: "DETAILS", value: "CONFIRM BY MESSAGE" },
+    ],
+    hostConfirmation: "A host can confirm arrangements by message.",
+    enquiryLabel: "ENQUIRE ABOUT RIVER STONES & WATERFALLS",
+    seoDescription:
+      "Ask about river places and waterfalls around Sidemen and confirm arrangements by message with a Sukha Homestay host.",
+  },
+  {
+    slug: "sunrise-on-the-ridge",
+    index: "03 / MOUNTAIN",
+    title: "Sunrise on the ridge",
+    heroTitle: ["Sunrise on", "the ridge."],
+    img: experiencesMountain,
+    imageAlt: "Mountain light rising over the landscape near Sidemen",
+    imageCaption: "03 / SUNRISE ON THE RIDGE",
+    tagline: "Ask about mountain light and the ridge around Sidemen.",
+    overviewLabel: "MOUNTAIN LIGHT",
+    overviewTitle: ["Sunrise on", "the ridge."],
+    overviewBody:
+      "Ask about mountain light and the ridge around Sidemen. A host can confirm what you have in mind by message.",
+    facts: [
+      { label: "LANDSCAPE", value: "MOUNTAIN LIGHT" },
+      { label: "DETAILS", value: "CONFIRM BY MESSAGE" },
+    ],
+    hostConfirmation: "A host can confirm what you have in mind by message.",
+    enquiryLabel: "ENQUIRE ABOUT SUNRISE ON THE RIDGE",
+    seoDescription:
+      "Ask about mountain light and the ridge around Sidemen, with arrangements confirmed by message with a Sukha Homestay host.",
+  },
+  {
+    slug: "hands-at-work",
+    index: "04 / CRAFT",
+    title: "Hands at work",
+    heroTitle: ["Hands at", "work."],
+    img: experiencesCraft,
+    imageAlt: "Hands working with materials in a craft setting",
+    imageCaption: "04 / HANDS AT WORK",
+    tagline: "Ask about craft visits around Sidemen.",
+    overviewLabel: "CRAFT VISITS",
+    overviewTitle: ["Hands at", "work."],
+    overviewBody:
+      "Ask about craft visits around Sidemen. Share what you would like to discuss, and a host can confirm the details by message.",
+    facts: [
+      { label: "ACTIVITY", value: "CRAFT VISITS" },
+      { label: "DETAILS", value: "CONFIRM BY MESSAGE" },
+    ],
+    hostConfirmation: "A host can confirm the details by message.",
+    enquiryLabel: "ENQUIRE ABOUT HANDS AT WORK",
+    seoDescription:
+      "Ask about craft visits around Sidemen and confirm the details by message with a Sukha Homestay host.",
+  },
 ];
+
+export function getExperienceBySlug(slug: string | undefined): Experience | undefined {
+  const normalizedSlug = slug?.trim().replace(/\/+$/, "").toLowerCase();
+  return EXPERIENCES.find((experience) => experience.slug === normalizedSlug);
+}
 
 /* --------------------------------- booking -------------------------------- */
 
