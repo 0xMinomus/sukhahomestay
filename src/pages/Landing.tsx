@@ -86,7 +86,7 @@ export default function Landing() {
             transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
           >
             <ParallaxImage
-              src={img.landingGardenSuite}
+              src={img.roomGardenMain}
               alt="The Garden Suite"
               caption="THE GARDEN SUITE · 2 GUESTS · PRIVATE TERRACE"
               className="aspect-[3/4] w-full"

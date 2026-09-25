@@ -12,7 +12,7 @@ const BENEFITS = "BREAKFAST INCLUDED · ENQUIRE WITH THE HOST DIRECTLY";
 const ROOM_HERO_ALT: Record<string, string> = {
   "garden-suite": "A bedroom with a large bed and timber floors, glass doors open onto green foliage",
   "canopy-room": "A bed beside timber-framed windows looking out into dense green treetops",
-  "courtyard-studio": "An open-air shower with a dark stone basin, framed by tropical plants and black stone walls",
+  "courtyard-studio": "A tiled room interior with a black-framed window opening onto a planted garden, with a timber console and potted greenery",
 };
 
 export default function RoomDetail() {

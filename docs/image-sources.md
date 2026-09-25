@@ -20,10 +20,10 @@ Provider, source page, photographer, and source-stated location below come from 
 | `img.roomCanopyDetail` | `https://images.unsplash.com/photo-1691819989762-93910fc9a3f8?q=80&w=2400&auto=format&fit=crop` | Unsplash | https://unsplash.com/photos/a-wicker-chair-sitting-on-top-of-a-cement-floor-1ZiBSwM1iwQ | Fito García | Tulum, Mexico | 2026-09-26 |
 | `img.roomCanopyHero` | `https://images.pexels.com/photos/16436918/pexels-photo-16436918.jpeg?auto=compress&cs=tinysrgb&w=2000` | Pexels | https://www.pexels.com/photo/room-with-the-view-of-palm-trees-in-a-tropical-resort-16436918/ | Luis Zambrano | Unknown | 2026-09-26 |
 | `img.roomCanopyMain` | `https://images.unsplash.com/photo-1727079586096-5278670ab910?q=80&w=1400&h=1050&fit=crop&crop=entropy&auto=format` | Unsplash | https://unsplash.com/photos/a-bedroom-with-a-view-of-the-forest-m0eShioKzr8 | Polina Kuzovkova | Bali, Indonesia | 2026-09-26 |
-| `img.roomCourtyardDetail` | `https://images.unsplash.com/photo-1729854269628-a747c0b40e00?q=80&w=1200&auto=format&fit=crop` | Unsplash | https://unsplash.com/photos/a-stone-path-leads-to-a-house-surrounded-by-palm-trees-ur3lC7TzUNU | Alissa Schilling | Bali, Indonesia | 2026-09-26 |
-| `img.roomCourtyardHero` | `https://images.unsplash.com/photo-1614678193655-34ec066ee32a?q=80&w=2400&auto=format&fit=crop` | Unsplash | https://unsplash.com/photos/black-and-white-wooden-frame-lm2Mdv6JlKs | Helen Varetska | Indonesia; city not stated | 2026-09-26 |
-| `img.roomCourtyardMain` | `https://images.unsplash.com/photo-1675657144217-17d3fbcb8a43?q=80&w=2400&auto=format&fit=crop` | Unsplash | https://unsplash.com/photos/an-open-door-leading-to-a-garden-with-palm-trees-GcYjWF4yWAs | Nerissa J | Ubud, Gianyar Regency, Bali, Indonesia | 2026-09-26 |
-| `img.roomGardenDetail` | `https://images.unsplash.com/photo-1563117063-571690c2fc05?q=80&w=2400&auto=format&fit=crop` | Unsplash | https://unsplash.com/photos/stairs-near-house-during-daytime-NYkJtV5QYVQ | Patrick Langwallner | Bali, Indonesia | 2026-09-26 |
+| `img.roomCourtyardDetail` | `https://images.pexels.com/photos/10147668/pexels-photo-10147668.jpeg?auto=compress&cs=tinysrgb&w=2000` | Pexels | https://www.pexels.com/photo/growing-indoor-plants-near-the-glass-windows-10147668/ | bryantj | Unknown (its source page states no location; the other two frames of this shoot state Bali, and that is not inferred here) | 2026-09-26 |
+| `img.roomCourtyardHero` | `https://images.pexels.com/photos/10147722/pexels-photo-10147722.jpeg?auto=compress&cs=tinysrgb&w=2000` | Pexels | https://www.pexels.com/photo/green-plants-near-the-glass-window-10147722/ | bryantj | Bali, Indonesia | 2026-09-26 |
+| `img.roomCourtyardMain` | `https://images.pexels.com/photos/10147669/pexels-photo-10147669.jpeg?auto=compress&cs=tinysrgb&w=2000` | Pexels | https://www.pexels.com/photo/decor-in-restaurant-10147669/ | bryantj | Bali, Indonesia | 2026-09-26 |
+| `img.roomGardenDetail` | `https://images.pexels.com/photos/6430734/pexels-photo-6430734.jpeg?auto=compress&cs=tinysrgb&w=2000` | Pexels | https://www.pexels.com/photo/backyard-of-modern-residential-villa-with-comfy-wicker-furniture-and-tropical-plants-6430734/ | Skylar Kang | Unknown | 2026-09-26 |
 | `img.roomGardenHero` | `https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?q=80&w=2400&auto=format&fit=crop` | Unsplash | https://unsplash.com/photos/white-bed-linen-with-brown-wooden-bed-frame-67-sOi7mVIk | Sasha Kaunas | Thailand | 2026-09-26 |
 | `img.roomGardenMain` | `https://images.unsplash.com/photo-1705304367351-f224686fd620?q=80&w=2400&auto=format&fit=crop` | Unsplash | https://unsplash.com/photos/an-open-door-leading-to-a-bedroom-with-a-view-of-trees-CVqTb0N9Bxk | Khanh Do | Unknown | 2026-09-26 |
 | `img.stayTerrace` | `https://images.unsplash.com/photo-1761521276482-6ab894af9914?q=80&w=2400&auto=format&fit=crop` | Unsplash | https://unsplash.com/photos/bamboo-pavilion-with-tables-and-chairs-in-lush-garden-9gFRyqtArCk | Nicole Arango Lang | Indonesia | 2026-09-26 |
@@ -47,7 +47,6 @@ The following images are bundled under `src/assets/img/` and imported by `src/da
 | `experiences-hero.webp` | `img.experiencesHero` | Source/licence unknown — owner verification required |
 | `experiences-mountain.jpg` | `EXPERIENCES["sunrise-on-the-ridge"].img` | Source/licence unknown — owner verification required |
 | `experiences-river.jpg` | `EXPERIENCES["river-stones-waterfalls"].img` | Source/licence unknown — owner verification required |
-| `landing-garden-suite.jpg` | `img.landingGardenSuite` | Source/licence unknown — owner verification required |
 | `landing-hero.webp` | `img.landingHero` | Source/licence unknown — owner verification required |
 | `landing-mountain.jpg` | `img.landingMountain` | Source/licence unknown — owner verification required |
 | `landing-table.jpg` | `img.landingTable` | Source/licence unknown — owner verification required |
@@ -60,7 +59,7 @@ These files are **not** attributed here to Unsplash, Pexels, any other stock pro
 
 ## Retired assets
 
-The following files were present in the repository but are not imported by any current source file. They are being deleted as retired assets with no usable provenance record:
+The following files were present in the repository but are no longer imported by any current source file and have been removed from `src/assets/img/` as retired assets with no usable provenance record:
 
 - `room-courtyard-detail.jpg`
 - `room-courtyard-hero.webp`
@@ -73,6 +72,7 @@ The following files were present in the repository but are not imported by any c
 - `room-garden-main.jpg`
 - `stay-terrace.jpg`
 - `experiences-rice-terrace.jpg`
+- `landing-garden-suite.jpg`
 
 Their slots are now served by the remote images listed above. Nothing about how these files were produced is recorded here: the repository holds no source URL, EXIF data, licence file, or author record for them, so no claim is made that they were AI-generated, stock, commissioned, or owner-shot. They are simply retired and unverified.
 

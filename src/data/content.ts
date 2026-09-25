@@ -25,7 +25,6 @@ import experiencesCraft from "../assets/img/experiences-craft.jpg";
 import experiencesHero from "../assets/img/experiences-hero.webp";
 import experiencesMountain from "../assets/img/experiences-mountain.jpg";
 import experiencesRiver from "../assets/img/experiences-river.jpg";
-import landingGardenSuite from "../assets/img/landing-garden-suite.jpg";
 import landingHero from "../assets/img/landing-hero.webp";
 import landingMountain from "../assets/img/landing-mountain.jpg";
 import landingTable from "../assets/img/landing-table.jpg";
@@ -34,10 +33,10 @@ import landingWater from "../assets/img/landing-water.jpg";
 const roomCanopyDetail = "https://images.unsplash.com/photo-1691819989762-93910fc9a3f8?q=80&w=2400&auto=format&fit=crop";
 const roomCanopyHero = "https://images.pexels.com/photos/16436918/pexels-photo-16436918.jpeg?auto=compress&cs=tinysrgb&w=2000";
 const roomCanopyMain = "https://images.unsplash.com/photo-1727079586096-5278670ab910?q=80&w=1400&h=1050&fit=crop&crop=entropy&auto=format";
-const roomCourtyardDetail = "https://images.unsplash.com/photo-1729854269628-a747c0b40e00?q=80&w=1200&auto=format&fit=crop";
-const roomCourtyardHero = "https://images.unsplash.com/photo-1614678193655-34ec066ee32a?q=80&w=2400&auto=format&fit=crop";
-const roomCourtyardMain = "https://images.unsplash.com/photo-1675657144217-17d3fbcb8a43?q=80&w=2400&auto=format&fit=crop";
-const roomGardenDetail = "https://images.unsplash.com/photo-1563117063-571690c2fc05?q=80&w=2400&auto=format&fit=crop";
+const roomCourtyardDetail = "https://images.pexels.com/photos/10147668/pexels-photo-10147668.jpeg?auto=compress&cs=tinysrgb&w=2000";
+const roomCourtyardHero = "https://images.pexels.com/photos/10147722/pexels-photo-10147722.jpeg?auto=compress&cs=tinysrgb&w=2000";
+const roomCourtyardMain = "https://images.pexels.com/photos/10147669/pexels-photo-10147669.jpeg?auto=compress&cs=tinysrgb&w=2000";
+const roomGardenDetail = "https://images.pexels.com/photos/6430734/pexels-photo-6430734.jpeg?auto=compress&cs=tinysrgb&w=2000";
 const roomGardenHero = "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?q=80&w=2400&auto=format&fit=crop";
 const roomGardenMain = "https://images.unsplash.com/photo-1705304367351-f224686fd620?q=80&w=2400&auto=format&fit=crop";
 import stayHero from "../assets/img/stay-hero.webp";
@@ -52,7 +51,6 @@ export const img = {
   diningHero,
   diningLongtable,
   experiencesHero,
-  landingGardenSuite,
   landingHero,
   landingMountain,
   landingTable,
@@ -185,7 +183,7 @@ export const ROOMS: Room[] = [
       "The Courtyard Studio is compact, grounded and deeply private. A walled garden draws daylight into the room while polished stone and hand-finished plaster keep the atmosphere cool.",
     heroImg: roomCourtyardHero,
     mainImg: roomCourtyardMain,
-    mainCaption: "WALLED COURTYARD · MORNING LIGHT",
+    mainCaption: "TILED WINDOW BENCH · DAYLIGHT",
     detailImg: roomCourtyardDetail,
     materialTitle: ["Plaster, stone,", "and handmade tile."],
     materialCopy: "Polished stone and hand-finished plaster bring a cool, grounded palette.",
