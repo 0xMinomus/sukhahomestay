@@ -31,7 +31,7 @@ export default function Hero({
   img: string;
   eyebrow: string;
   title: string[];
-  description: string;
+  description?: string;
   meta?: string[];
   scrollCue?: boolean;
   height?: string;
@@ -81,14 +81,16 @@ export default function Hero({
             </Rise>
           ))}
         </h1>
-        <motion.p
-          initial={reduce ? { opacity: 0 } : { opacity: 0, y: 14 }}
-          animate={reduce ? { opacity: 1 } : { opacity: 1, y: 0 }}
-          transition={{ duration: reduce ? 0.4 : 0.8, delay: 0.7, ease: [...EASE] }}
-          className={cn("mt-4 max-w-xl text-[16px] text-[#F2ECE4] drop-shadow-[0_1px_10px_rgba(0,0,0,0.5)] md:text-[17px]", align === "center" && "mx-auto")}
-        >
-          {description}
-        </motion.p>
+        {description && (
+          <motion.p
+            initial={reduce ? { opacity: 0 } : { opacity: 0, y: 14 }}
+            animate={reduce ? { opacity: 1 } : { opacity: 1, y: 0 }}
+            transition={{ duration: reduce ? 0.4 : 0.8, delay: 0.7, ease: [...EASE] }}
+            className={cn("mt-4 max-w-xl text-[16px] text-[#F2ECE4] drop-shadow-[0_1px_10px_rgba(0,0,0,0.5)] md:text-[17px]", align === "center" && "mx-auto")}
+          >
+            {description}
+          </motion.p>
+        )}
 
         {meta && meta.length > 0 && (
           <motion.div

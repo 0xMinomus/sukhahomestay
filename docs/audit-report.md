@@ -169,13 +169,13 @@ No build, lint, test, browser, preview, remote HTTP-header, or deployment comman
 
 The main agent and independent verification workers completed the following checks on the integrated experience-detail tree:
 
-- `npm run build`: `tsc -b && vite build` passed; Vite emitted the production bundle and all four experience assets successfully.
-- `npm run lint`: `oxlint` completed with no errors. The two existing-style warnings remain in `src/components/motion.tsx` and `src/components/Navbar.tsx`; no new changed-file warning remained after the unused import was removed.
-- The mechanical Impeccable detector completed with no findings for `src/pages/Experiences.tsx`, `src/pages/ExperienceDetail.tsx`, and `src/components/ExperienceCard.tsx`.
+- `npm run build`: `tsc -b && vite build` passed after the final UX fixes; Vite emitted the production bundle and all four experience assets successfully.
+- `npm run lint`: `oxlint` completed with no errors in the application source. The repository’s two existing-style warnings remain in `src/components/motion.tsx` and `src/components/Navbar.tsx`; unrelated untracked `agent-office/` diagnostics were not treated as project source.
+- The mechanical Impeccable detector completed with no findings for the changed experience surfaces and shared Hero.
 - Real Chromium smoke passed at 1440×900 and 390×844 for `/experiences` and all four canonical detail routes. Each rendered one h1, route-specific title/description, no horizontal overflow, and no page errors.
 - Overview navigation exposed exactly the four detail paths. The three shared cards and the rice-field signature action did not link directly to `/booking`.
-- Every detail page exposed three related detail links, excluded itself, and exposed the registry-specific enquiry label plus the final enquiry CTA to `/booking`.
-- Unknown one-segment experience slugs redirected to `/experiences`; nested unknown paths rendered the branded Not Found page. Trailing-slash detail variants resolved to the same route and metadata.
+- Every detail page exposed three related detail links, excluded itself, rendered its per-record overview copy, and exposed the registry-specific enquiry label plus the final enquiry CTA to `/booking`.
+- Unknown one-segment experience slugs redirected to `/experiences`; nested unknown paths rendered the branded Not Found page. Trailing-slash detail variants and the percent-encoded hyphen case (`rice%2Dfield-walk`) resolved to the same route and metadata.
 - Keyboard activation, accessible link names, mobile menu Escape/focus return, reduced-motion rendering, image loading, and existing-route regression checks passed in real Chromium.
 - `git diff --check` passed with only checkout line-ending warnings.
 

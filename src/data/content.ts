@@ -52,11 +52,7 @@ export const img = {
   diningBreakfast,
   diningHero,
   diningLongtable,
-  experiencesCraft,
   experiencesHero,
-  experiencesMountain,
-  experiencesRiceTerrace,
-  experiencesRiver,
   landingGardenSuite,
   landingHero,
   landingMountain,
@@ -274,7 +270,7 @@ export interface Experience {
   readonly overviewLabel: string;
   readonly overviewTitle: string[];
   readonly overviewBody: string;
-  readonly facts?: readonly ExperienceFact[];
+  readonly facts: readonly ExperienceFact[];
   readonly hostConfirmation: string;
   readonly enquiryLabel: string;
   readonly seoDescription: string;

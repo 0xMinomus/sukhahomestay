@@ -52,7 +52,14 @@ function routeMeta(pathname: string): { title: string; description: string } {
     }
   }
   if (path.startsWith("/experiences/")) {
-    const experience = getExperienceBySlug(path.slice("/experiences/".length));
+    const rawSlug = path.slice("/experiences/".length);
+    let slug = rawSlug;
+    try {
+      slug = decodeURIComponent(rawSlug);
+    } catch {
+      // Malformed percent-encoding: fall back to the raw segment.
+    }
+    const experience = getExperienceBySlug(slug);
     if (experience) {
       return {
         title: `${experience.title} · ${SITE_NAME}`,
@@ -74,7 +81,7 @@ function routeMeta(pathname: string): { title: string; description: string } {
     "/experiences": {
       title: `Experiences · ${SITE_NAME}`,
       description:
-        "Ask about village walks, river places, craft visits and rice-field walks around Sidemen, East Bali.",
+        "Ask about rice-field walks, river places, mountain light and craft visits around Sidemen, East Bali.",
     },
     "/booking": {
       title: `Booking · ${SITE_NAME}`,

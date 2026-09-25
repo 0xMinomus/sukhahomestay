@@ -46,7 +46,7 @@ export default function Experiences() {
           />
           <div>
             <Reveal>
-              <p className="font-serif text-[64px] leading-none text-clay/25">01</p>
+              <p className="font-serif text-[64px] leading-none text-clay/25">{signature.index.split(" / ")[0]}</p>
             </Reveal>
             <Reveal>
               <Eyebrow className="mt-2">{signature.overviewLabel}</Eyebrow>
@@ -56,7 +56,7 @@ export default function Experiences() {
               <p className="mt-6 max-w-md text-[16px] leading-[26px] text-stone">{signature.overviewBody}</p>
             </Reveal>
             <Stagger className="mt-8 flex flex-wrap gap-x-10 gap-y-4">
-              {signature.facts?.map((fact) => (
+              {signature.facts.map((fact) => (
                 <Item key={fact.label} className="flex flex-col gap-1.5">
                   <span className="font-mono text-[9px] tracking-[1.8px] text-clay">{fact.label}</span>
                   <span className="font-serif text-[19px]">{fact.value}</span>
@@ -64,7 +64,7 @@ export default function Experiences() {
               ))}
             </Stagger>
             <Reveal delay={0.1} className="mt-8">
-              <GhostButton to={`/experiences/${signature.slug}`} label="EXPLORE THE RICE-FIELD WALK" />
+              <GhostButton to={`/experiences/${signature.slug}`} label={`EXPLORE ${signature.title.toUpperCase()}`} />
             </Reveal>
           </div>
         </div>
@@ -104,7 +104,11 @@ export default function Experiences() {
         </div>
       </section>
 
-      <ClosingBand eyebrow="ENQUIRE ABOUT YOUR STAY" title={["Explore at Sidemen’s pace."]} />
+      <ClosingBand
+        eyebrow="ENQUIRE ABOUT YOUR STAY"
+        title={["Explore at Sidemen’s pace."]}
+        cta={{ label: "ENQUIRE ABOUT YOUR STAY", to: "/booking" }}
+      />
     </>
   );
 }
