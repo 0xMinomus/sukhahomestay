@@ -17,6 +17,13 @@ Provider, source page, photographer, and source-stated location below come from 
 
 | Slot | Direct URL | Provider | Source page | Photographer | Source-stated location | Review date |
 | --- | --- | --- | --- | --- | --- | --- |
+| `img.amenitiesHero` | `https://images.unsplash.com/photo-1552683613-9082655c370b?q=80&w=2400&auto=format&fit=crop` | Unsplash | https://unsplash.com/photos/vacant-pool-during-golden-hour-Sddql3q8ehg | Christian Lambert | Unknown | 2026-09-26 |
+| `img.amenitiesPoolside` | `https://images.unsplash.com/photo-1663172868750-520eab6b89e5?q=80&w=1200&h=1500&fit=crop&crop=entropy&auto=format` | Unsplash | https://unsplash.com/photos/a-body-of-water-with-trees-and-plants-around-it-HFhYNeRTVrM | Bernard Hermant | Ubud, Gianyar Regency, Bali, Indonesia | 2026-09-26 |
+| `img.bookingGarden` | `https://images.unsplash.com/photo-1775195560641-4fee7a5a7bfe?q=80&w=1600&h=1200&fit=crop&crop=entropy&auto=format` | Unsplash | https://unsplash.com/photos/a-stone-path-leads-through-a-lush-tropical-garden--wKVNSZ-m2k | Zongnan Bao | Puerto Maldonado, Peru | 2026-09-26 |
+| `img.diningBreakfast` | `https://images.unsplash.com/photo-1559293824-67dfb8dd2451?q=80&w=1200&h=1600&fit=crop&crop=entropy&auto=format` | Unsplash | https://unsplash.com/photos/food-photography-of-sliced-bananas-and-strawberries-beside-rice-lQSK7SzAGEI | Content Pixie | Mule Malu, Uluwatu, Bali | 2026-09-26 |
+| `img.diningHero` | `https://images.unsplash.com/photo-1707082053794-5df6a02287ae?q=80&w=2400&auto=format&fit=crop` | Unsplash | https://unsplash.com/photos/a-wooden-table-topped-with-plates-and-bowls-UxplNiWr0VY | Rodrigo Rodrigues \| WOLF Λ R T | Unknown | 2026-09-26 |
+| `img.diningLongtable` | `https://images.unsplash.com/photo-1760533536461-714a23877e2d?q=80&w=1600&h=1200&fit=crop&crop=entropy&auto=format` | Unsplash | https://unsplash.com/photos/long-wooden-table-with-candles-by-the-ocean-kIXNJ5PETyM | Tomi Saputra | Unknown | 2026-09-26 |
+| `img.landingTable` | `https://images.unsplash.com/photo-1777835664050-d11132c2c008?q=80&w=1200&h=1600&fit=crop&crop=entropy&auto=format` | Unsplash | https://unsplash.com/photos/long-wooden-table-set-for-outdoor-dining-with-floor-cushions-W5QT1mUUCkk | Anis Rahman | Unknown | 2026-09-26 |
 | `img.roomCanopyDetail` | `https://images.unsplash.com/photo-1691819989762-93910fc9a3f8?q=80&w=2400&auto=format&fit=crop` | Unsplash | https://unsplash.com/photos/a-wicker-chair-sitting-on-top-of-a-cement-floor-1ZiBSwM1iwQ | Fito García | Tulum, Mexico | 2026-09-26 |
 | `img.roomCanopyHero` | `https://images.pexels.com/photos/16436918/pexels-photo-16436918.jpeg?auto=compress&cs=tinysrgb&w=2000` | Pexels | https://www.pexels.com/photo/room-with-the-view-of-palm-trees-in-a-tropical-resort-16436918/ | Luis Zambrano | Unknown | 2026-09-26 |
 | `img.roomCanopyMain` | `https://images.unsplash.com/photo-1727079586096-5278670ab910?q=80&w=1400&h=1050&fit=crop&crop=entropy&auto=format` | Unsplash | https://unsplash.com/photos/a-bedroom-with-a-view-of-the-forest-m0eShioKzr8 | Polina Kuzovkova | Bali, Indonesia | 2026-09-26 |
@@ -37,19 +44,12 @@ The following images are bundled under `src/assets/img/` and imported by `src/da
 
 | File | Slot | Status |
 | --- | --- | --- |
-| `amenities-hero.webp` | `img.amenitiesHero` | Source/licence unknown — owner verification required |
-| `amenities-poolside.jpg` | `img.amenitiesPoolside` | Source/licence unknown — owner verification required |
-| `booking-garden.jpg` | `img.bookingGarden` | Source/licence unknown — owner verification required |
-| `dining-breakfast.jpg` | `img.diningBreakfast` | Source/licence unknown — owner verification required |
-| `dining-hero.webp` | `img.diningHero` | Source/licence unknown — owner verification required |
-| `dining-longtable.jpg` | `img.diningLongtable` | Source/licence unknown — owner verification required |
 | `experiences-craft.jpg` | `EXPERIENCES["hands-at-work"].img` | Source/licence unknown — owner verification required |
 | `experiences-hero.webp` | `img.experiencesHero` | Source/licence unknown — owner verification required |
 | `experiences-mountain.jpg` | `EXPERIENCES["sunrise-on-the-ridge"].img` | Source/licence unknown — owner verification required |
 | `experiences-river.jpg` | `EXPERIENCES["river-stones-waterfalls"].img` | Source/licence unknown — owner verification required |
 | `landing-hero.webp` | `img.landingHero` | Source/licence unknown — owner verification required |
 | `landing-mountain.jpg` | `img.landingMountain` | Source/licence unknown — owner verification required |
-| `landing-table.jpg` | `img.landingTable` | Source/licence unknown — owner verification required |
 | `landing-village.jpg` | `img.landingVillage` | Source/licence unknown — owner verification required |
 | `landing-water.jpg` | `img.landingWater` | Source/licence unknown — owner verification required |
 | `stay-hero.webp` | `img.stayHero` | Source/licence unknown — owner verification required |
@@ -73,8 +73,17 @@ The following files were present in the repository but are no longer imported by
 - `stay-terrace.jpg`
 - `experiences-rice-terrace.jpg`
 - `landing-garden-suite.jpg`
+- `amenities-hero.webp`
+- `amenities-poolside.jpg`
+- `booking-garden.jpg`
+- `dining-breakfast.jpg`
+- `dining-hero.webp`
+- `dining-longtable.jpg`
+- `landing-table.jpg`
 
 Their slots are now served by the remote images listed above. Nothing about how these files were produced is recorded here: the repository holds no source URL, EXIF data, licence file, or author record for them, so no claim is made that they were AI-generated, stock, commissioned, or owner-shot. They are simply retired and unverified.
+
+The last seven entries — `amenities-hero.webp`, `amenities-poolside.jpg`, `booking-garden.jpg`, `dining-breakfast.jpg`, `dining-hero.webp`, `dining-longtable.jpg` and `landing-table.jpg` — are the AI-generated images the owner asked to replace. They carried no usable provenance record, and their slots are now served by the Unsplash photographs listed in the Remote images table.
 
 ## What this manifest is and is not
 

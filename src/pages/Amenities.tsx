@@ -23,7 +23,7 @@ export default function Amenities() {
     <>
       <Hero
         img={img.amenitiesHero}
-        imgAlt="A stone-edged soaking tub filled with flower petals beside a garden pool"
+        imgAlt="A garden pool at sunset framed by coconut palms"
         eyebrow="AMENITIES · SIDEMEN, EAST BALI"
         title={["Comfort, quietly", "considered."]}
         description="Facilities and simple comforts for a slower stay in Sidemen."

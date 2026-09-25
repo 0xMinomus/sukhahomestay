@@ -15,21 +15,21 @@ import {
   type LucideIcon,
 } from "lucide-react";
 
-import amenitiesHero from "../assets/img/amenities-hero.webp";
-import amenitiesPoolside from "../assets/img/amenities-poolside.jpg";
-import bookingGarden from "../assets/img/booking-garden.jpg";
-import diningBreakfast from "../assets/img/dining-breakfast.jpg";
-import diningHero from "../assets/img/dining-hero.webp";
-import diningLongtable from "../assets/img/dining-longtable.jpg";
 import experiencesCraft from "../assets/img/experiences-craft.jpg";
 import experiencesHero from "../assets/img/experiences-hero.webp";
 import experiencesMountain from "../assets/img/experiences-mountain.jpg";
 import experiencesRiver from "../assets/img/experiences-river.jpg";
 import landingHero from "../assets/img/landing-hero.webp";
 import landingMountain from "../assets/img/landing-mountain.jpg";
-import landingTable from "../assets/img/landing-table.jpg";
 import landingVillage from "../assets/img/landing-village.jpg";
 import landingWater from "../assets/img/landing-water.jpg";
+const amenitiesHero = "https://images.unsplash.com/photo-1552683613-9082655c370b?q=80&w=2400&auto=format&fit=crop";
+const amenitiesPoolside = "https://images.unsplash.com/photo-1663172868750-520eab6b89e5?q=80&w=1200&h=1500&fit=crop&crop=entropy&auto=format";
+const bookingGarden = "https://images.unsplash.com/photo-1775195560641-4fee7a5a7bfe?q=80&w=1600&h=1200&fit=crop&crop=entropy&auto=format";
+const diningBreakfast = "https://images.unsplash.com/photo-1559293824-67dfb8dd2451?q=80&w=1200&h=1600&fit=crop&crop=entropy&auto=format";
+const diningHero = "https://images.unsplash.com/photo-1707082053794-5df6a02287ae?q=80&w=2400&auto=format&fit=crop";
+const diningLongtable = "https://images.unsplash.com/photo-1760533536461-714a23877e2d?q=80&w=1600&h=1200&fit=crop&crop=entropy&auto=format";
+const landingTable = "https://images.unsplash.com/photo-1777835664050-d11132c2c008?q=80&w=1200&h=1600&fit=crop&crop=entropy&auto=format";
 const roomCanopyDetail = "https://images.unsplash.com/photo-1691819989762-93910fc9a3f8?q=80&w=2400&auto=format&fit=crop";
 const roomCanopyHero = "https://images.pexels.com/photos/16436918/pexels-photo-16436918.jpeg?auto=compress&cs=tinysrgb&w=2000";
 const roomCanopyMain = "https://images.unsplash.com/photo-1727079586096-5278670ab910?q=80&w=1400&h=1050&fit=crop&crop=entropy&auto=format";

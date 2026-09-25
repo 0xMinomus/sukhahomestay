@@ -14,7 +14,7 @@ export default function Dining() {
     <>
       <Hero
         img={img.diningHero}
-        imgAlt="Two plates of fried rice with salad and tall glasses of juice on a garden table"
+        imgAlt="A breakfast table laid with patterned ceramics, green glasses and oranges"
         eyebrow="DINING · SIDEMEN, EAST BALI"
         title={["Breakfast, supper and", "the Sidemen table."]}
         description="Seasonal Balinese-inspired dishes, served slowly at our long table."
