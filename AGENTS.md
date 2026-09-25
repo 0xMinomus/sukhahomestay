@@ -29,3 +29,10 @@ This repo is a Vite + React + TypeScript website for Sukha Homestay. Treat `sukh
 ## MCP and memory
 - Project MCP config is `.mcp.json`; root sessions may also use `../.mcp.json`.
 - Keep memory minimal: write durable project facts here or in README, not in global memory, unless the user asks for cross-project recall.
+
+## Team agents
+- Use `orchestrator` for multi-role planning and delegation.
+- Use `scout` for read-only codebase discovery, `task` for implementation, `tester`/`qa-lead` for verification, and `reviewer`/`security-reviewer` for independent review.
+- Use `project-lead`, `project-manager`, or `product-owner` when scope, sequencing, or user-visible acceptance needs clarification.
+- Use `frontend`, `backend`, `deploy`, or `technical-writer` for the matching specialist slice.
+- The main agent remains the integration owner and the only role that commits and pushes after verification.
