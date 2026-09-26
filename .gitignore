@@ -29,3 +29,9 @@ dist-ssr
 *.sw?
 .code-graph/
 .mcp-servers/
+
+# Munder Difflin floor state — app-owned runtime, never commit.
+# hive/ is its own nested git repo; adding it would embed the floor as a gitlink.
+/hive/
+/roster-backups/
+/roster.json
