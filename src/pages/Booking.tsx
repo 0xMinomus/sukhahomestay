@@ -12,11 +12,6 @@ type FormError = { field: ErrorField; message: string };
 const inputCls =
   "w-full border-b border-line bg-transparent py-3 text-[15px] text-ink outline-none transition-colors placeholder:text-stone/50 focus:border-clay";
 
-/* The native calendar icon is a second affordance on top of the CalendarDays glyph, so it is
-   made invisible rather than removed. opacity-0 keeps it hit-testable, so clicking the icon
-   still opens the OS picker; appearance-none would delete the hit target with the glyph. */
-const dateInputCls = `${inputCls} [&::-webkit-calendar-picker-indicator]:opacity-0`;
-
 const DATE_RE = /^\d{4}-\d{2}-\d{2}$/;
 
 function toISODate(date: Date): string {
@@ -52,6 +47,90 @@ function Field({
       <span className="font-mono text-[9px] tracking-[1.8px] text-clay">{label}</span>
       <span className="mt-1 block">{children}</span>
     </label>
+  );
+}
+
+/* A date input with appearance-none keeps the native picker hit target, so the field is a
+   house underline carrying our own formatted value, and a real button stands in for the
+   native indicator: focusable, keyboard-operable, and the only thing that opens the picker.
+   The input stays in the DOM with its name, ref, min and aria wiring, and is hidden by
+   painting alone — absolute, opacity-0, and not pointer-events-none — so it can never
+   swallow a click meant for the button. */
+function DateField({
+  name,
+  label,
+  value,
+  min,
+  inputRef,
+  invalid,
+  describedBy,
+  onChange,
+}: {
+  name: string;
+  label: string;
+  value: string;
+  min: string;
+  inputRef: React.RefObject<HTMLInputElement | null>;
+  invalid: boolean;
+  describedBy?: string;
+  onChange: (value: string) => void;
+}) {
+  const openPicker = () => {
+    const el = inputRef.current;
+    if (!el) return;
+    try {
+      el.showPicker();
+    } catch {
+      // NotAllowedError without a fresh user gesture, InvalidStateError when the picker is
+      // already open. Both are expected and there is nothing to recover.
+    }
+  };
+  const openFromKey = (e: React.KeyboardEvent) => {
+    if (e.key === "ArrowDown" || e.key === "ArrowUp") {
+      e.preventDefault();
+      openPicker();
+    }
+  };
+  const labelId = `${name}-label`;
+
+  return (
+    <div>
+      <span id={labelId} className="font-mono text-[9px] tracking-[1.8px] text-clay">
+        {label}
+      </span>
+      <div className="relative mt-1 flex items-center justify-between border-b border-line py-3 transition-colors focus-within:border-clay">
+        <span
+          aria-hidden="true"
+          className={`text-[15px] ${value ? "text-ink" : "text-stone/50"}`}
+        >
+          {value ? formatStayDate(value) : "Select a date"}
+        </span>
+        <span aria-hidden="true" className="text-clay">
+          <CalendarDays size={15} />
+        </span>
+        <input
+          ref={inputRef}
+          type="date"
+          name={name}
+          value={value}
+          min={min}
+          aria-labelledby={labelId}
+          aria-invalid={invalid}
+          aria-describedby={describedBy}
+          onChange={(e) => onChange(e.target.value)}
+          onKeyDown={openFromKey}
+          className="absolute inset-0 h-full w-full appearance-none bg-transparent opacity-0"
+        />
+        <button
+          type="button"
+          tabIndex={-1}
+          onClick={openPicker}
+          onKeyDown={openFromKey}
+          aria-label={`Choose ${label.toLowerCase()} date`}
+          className="absolute inset-x-0 top-0 -bottom-px z-10 cursor-pointer"
+        />
+      </div>
+    </div>
   );
 }
 
@@ -305,44 +384,32 @@ export default function Booking() {
                 >
                   <h3 className="font-serif text-[28px]">Your stay enquiry</h3>
                   <div className="grid grid-cols-1 gap-6 min-[420px]:grid-cols-2">
-                    <Field label="CHECK IN">
-                      <span className="relative block">
-                        <CalendarDays size={15} className="pointer-events-none absolute top-1/2 right-1 -translate-y-1/2 text-stone" />
-                        <input
-                          ref={checkInRef}
-                          type="date"
-                          name="checkIn"
-                          value={checkIn}
-                          min={today}
-                          aria-invalid={error?.field === "checkIn"}
-                          aria-describedby={error?.field === "checkIn" ? "booking-error" : undefined}
-                          onChange={(e) => {
-                            setCheckIn(e.target.value);
-                            clearErrorFor("checkIn");
-                          }}
-                          className={dateInputCls}
-                        />
-                      </span>
-                    </Field>
-                    <Field label="CHECK OUT">
-                      <span className="relative block">
-                        <CalendarDays size={15} className="pointer-events-none absolute top-1/2 right-1 -translate-y-1/2 text-stone" />
-                        <input
-                          ref={checkOutRef}
-                          type="date"
-                          name="checkOut"
-                          value={checkOut}
-                          min={checkIn || today}
-                          aria-invalid={error?.field === "checkOut"}
-                          aria-describedby={error?.field === "checkOut" ? "booking-error" : undefined}
-                          onChange={(e) => {
-                            setCheckOut(e.target.value);
-                            clearErrorFor("checkOut");
-                          }}
-                          className={dateInputCls}
-                        />
-                      </span>
-                    </Field>
+                    <DateField
+                      name="checkIn"
+                      label="CHECK IN"
+                      value={checkIn}
+                      min={today}
+                      inputRef={checkInRef}
+                      invalid={error?.field === "checkIn"}
+                      describedBy={error?.field === "checkIn" ? "booking-error" : undefined}
+                      onChange={(v) => {
+                        setCheckIn(v);
+                        clearErrorFor("checkIn");
+                      }}
+                    />
+                    <DateField
+                      name="checkOut"
+                      label="CHECK OUT"
+                      value={checkOut}
+                      min={checkIn || today}
+                      inputRef={checkOutRef}
+                      invalid={error?.field === "checkOut"}
+                      describedBy={error?.field === "checkOut" ? "booking-error" : undefined}
+                      onChange={(v) => {
+                        setCheckOut(v);
+                        clearErrorFor("checkOut");
+                      }}
+                    />
                     <Field label="GUESTS">
                       <span className="relative block">
                         <select value={guests} onChange={(e) => setGuests(e.target.value)} className={`${inputCls} appearance-none`}>
