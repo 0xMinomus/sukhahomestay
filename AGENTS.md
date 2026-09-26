@@ -39,6 +39,7 @@ This repo is the folder of a Munder Difflin floor (app 0.5.4, ticket prefix `SHM
 - Webhook and Slack setup goes through `hive/connections/requests/<id>.json`; the app answers in `hive/connections/results/<id>.json` and the current picture in `hive/connections/state.json`. See `hive/connections/README.md` for the op list.
 - `hive/COMMANDS.md` is the fleet's Claude Code command reference; `hive/PROTOCOL.md` is the messaging and task protocol.
 - This machine has `pi` on PATH and no `claude`. The floor config still defaults to `defaultCommand: "claude"`, so any new agent or temp that does not name `pi` explicitly will fail to start.
+- The three hire manifests for this project's floor live in `docs/munder-difflin/hires/`, with the import steps in `docs/munder-difflin/README.md`.
 
 ## Team agents
 - Use `orchestrator` for multi-role planning and delegation.
