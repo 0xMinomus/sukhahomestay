@@ -20,9 +20,6 @@ import experiencesHero from "../assets/img/experiences-hero.webp";
 import experiencesMountain from "../assets/img/experiences-mountain.jpg";
 import experiencesRiver from "../assets/img/experiences-river.jpg";
 import landingHero from "../assets/img/landing-hero.webp";
-import landingMountain from "../assets/img/landing-mountain.jpg";
-import landingVillage from "../assets/img/landing-village.jpg";
-import landingWater from "../assets/img/landing-water.jpg";
 const amenitiesHero = "https://images.unsplash.com/photo-1552683613-9082655c370b?q=80&w=2400&auto=format&fit=crop";
 const amenitiesPoolside = "https://images.unsplash.com/photo-1663172868750-520eab6b89e5?q=80&w=1200&h=1500&fit=crop&crop=entropy&auto=format";
 const bookingGarden = "https://images.unsplash.com/photo-1775195560641-4fee7a5a7bfe?q=80&w=1600&h=1200&fit=crop&crop=entropy&auto=format";
@@ -30,6 +27,9 @@ const diningBreakfast = "https://images.unsplash.com/photo-1559293824-67dfb8dd24
 const diningHero = "https://images.unsplash.com/photo-1707082053794-5df6a02287ae?q=80&w=2400&auto=format&fit=crop";
 const diningLongtable = "https://images.unsplash.com/photo-1760533536461-714a23877e2d?q=80&w=1600&h=1200&fit=crop&crop=entropy&auto=format";
 const landingTable = "https://images.unsplash.com/photo-1777835664050-d11132c2c008?q=80&w=1200&h=1600&fit=crop&crop=entropy&auto=format";
+const landingMountain = "https://images.unsplash.com/photo-1609590959678-09adc5cbbe00?q=80&w=1200&h=1600&fit=crop&crop=entropy&auto=format";
+const landingVillage = "https://images.unsplash.com/photo-1743620046657-9664328712f4?q=80&w=1200&h=1600&fit=crop&crop=entropy&auto=format";
+const landingWater = "https://images.unsplash.com/photo-1768700203085-bb9fb4b02078?q=80&w=1200&h=1600&fit=crop&crop=entropy&auto=format";
 const roomCanopyDetail = "https://images.unsplash.com/photo-1691819989762-93910fc9a3f8?q=80&w=2400&auto=format&fit=crop";
 const roomCanopyHero = "https://images.pexels.com/photos/16436918/pexels-photo-16436918.jpeg?auto=compress&cs=tinysrgb&w=2000";
 const roomCanopyMain = "https://images.unsplash.com/photo-1727079586096-5278670ab910?q=80&w=1400&h=1050&fit=crop&crop=entropy&auto=format";
@@ -92,12 +92,12 @@ export const imgAlt: Record<ImgKey, string> = {
   landingHero:
     "A low villa under a wide thatched roof, lit from within at dusk, with tall palms either side and a lit pool in front.",
   landingMountain:
-    "A conical mountain peak above red-tiled village roofs and palms, with two people on the stone path below.",
+    "A conical volcano peak rising above a thick layer of morning cloud that fills the valley below, lit by the first warm light of dawn.",
   landingTable: "A low table and floor cushions set on a raised deck on a lawn beneath spreading trees.",
   landingVillage:
-    "A man in a conical hat walking a narrow raised bund between green terraced rice fields, with palms and misty hills behind.",
+    "A stone-paved lane running straight between grass verges, flowering shrubs and rows of thatched Balinese houses, one small figure walking away in the distance.",
   landingWater:
-    "A man in a conical hat wading in a shallow rocky stream in dense forest, a basket on his back.",
+    "Clear water rippling over moss-covered boulders and a small cascade in a shallow tropical forest stream, with ferns above in dappled light.",
   roomCanopyDetail:
     "A white cylindrical side table and a black-and-white woven mat on a pale concrete floor, in hard shadow.",
   roomCanopyHero:

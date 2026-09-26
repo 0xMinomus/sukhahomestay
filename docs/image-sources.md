@@ -28,6 +28,9 @@ Provider, source page, photographer, and source-stated location below come from 
 | `img.diningBreakfast` | `https://images.unsplash.com/photo-1559293824-67dfb8dd2451?q=80&w=1200&h=1600&fit=crop&crop=entropy&auto=format` | Unsplash | https://unsplash.com/photos/food-photography-of-sliced-bananas-and-strawberries-beside-rice-lQSK7SzAGEI | Content Pixie | Mule Malu, Uluwatu, Bali | 2026-09-26 |
 | `img.diningHero` | `https://images.unsplash.com/photo-1707082053794-5df6a02287ae?q=80&w=2400&auto=format&fit=crop` | Unsplash | https://unsplash.com/photos/a-wooden-table-topped-with-plates-and-bowls-UxplNiWr0VY | Rodrigo Rodrigues \| WOLF Λ R T | Unknown | 2026-09-26 |
 | `img.diningLongtable` | `https://images.unsplash.com/photo-1760533536461-714a23877e2d?q=80&w=1600&h=1200&fit=crop&crop=entropy&auto=format` | Unsplash | https://unsplash.com/photos/long-wooden-table-with-candles-by-the-ocean-kIXNJ5PETyM | Tomi Saputra | Unknown | 2026-09-26 |
+| `img.landingMountain` | `https://images.unsplash.com/photo-1609590959678-09adc5cbbe00?q=80&w=1200&h=1600&fit=crop&crop=entropy&auto=format` | Unsplash | https://unsplash.com/photos/white-clouds-over-mountains-during-daytime-9lLE2mJecqM | Dennis van Dalen | Mount Batur, looking out over Mount Agung, Bali, Indonesia | 2026-09-27 |
+| `img.landingVillage` | `https://images.unsplash.com/photo-1743620046657-9664328712f4?q=80&w=1200&h=1600&fit=crop&crop=entropy&auto=format` | Unsplash | https://unsplash.com/photos/a-long-brick-road-leads-through-a-village-biIu17e9CHU | Nadot Yannick | Bali, Indonesia (page states no village name) | 2026-09-27 |
+| `img.landingWater` | `https://images.unsplash.com/photo-1768700203085-bb9fb4b02078?q=80&w=1200&h=1600&fit=crop&crop=entropy&auto=format` | Unsplash | https://unsplash.com/photos/a-clear-stream-flows-over-rocks-in-a-lush-forest-uv82e8q-91k | You Le | Mari Mari Cultural Village, Inanam, Kota Kinabalu, Sabah, Malaysia | 2026-09-27 |
 | `img.landingTable` | `https://images.unsplash.com/photo-1777835664050-d11132c2c008?q=80&w=1200&h=1600&fit=crop&crop=entropy&auto=format` | Unsplash | https://unsplash.com/photos/long-wooden-table-set-for-outdoor-dining-with-floor-cushions-W5QT1mUUCkk | Anis Rahman | Unknown | 2026-09-26 |
 | `img.roomCanopyDetail` | `https://images.unsplash.com/photo-1691819989762-93910fc9a3f8?q=80&w=2400&auto=format&fit=crop` | Unsplash | https://unsplash.com/photos/a-wicker-chair-sitting-on-top-of-a-cement-floor-1ZiBSwM1iwQ | Fito García | Tulum, Mexico | 2026-09-26 |
 | `img.roomCanopyHero` | `https://images.pexels.com/photos/16436918/pexels-photo-16436918.jpeg?auto=compress&cs=tinysrgb&w=2000` | Pexels | https://www.pexels.com/photo/room-with-the-view-of-palm-trees-in-a-tropical-resort-16436918/ | Luis Zambrano | Unknown | 2026-09-26 |
@@ -54,9 +57,6 @@ The following images are bundled under `src/assets/img/` and imported by `src/da
 | `experiences-mountain.jpg` | `EXPERIENCES["sunrise-on-the-ridge"].img` | Source/licence unknown — owner verification required |
 | `experiences-river.jpg` | `EXPERIENCES["river-stones-waterfalls"].img` | Source/licence unknown — owner verification required |
 | `landing-hero.webp` | `img.landingHero` | Source/licence unknown — owner verification required |
-| `landing-mountain.jpg` | `img.landingMountain` | Source/licence unknown — owner verification required |
-| `landing-village.jpg` | `img.landingVillage` | Source/licence unknown — owner verification required |
-| `landing-water.jpg` | `img.landingWater` | Source/licence unknown — owner verification required |
 | `stay-hero.webp` | `img.stayHero` | Source/licence unknown — owner verification required |
 | `stay-ritual.jpg` | `img.stayRitual` | Source/licence unknown — owner verification required |
 
