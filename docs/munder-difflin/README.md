@@ -145,10 +145,12 @@ dropped if you would rather approve each tool call by hand in the terminal.
    `codex` and `cursor`, and it rejects any command flag outside a four-name allowlist
    (`--model`, `--max-turns`, `--output-format`, `--verbose`).
 4. **Check the working directory on every card.** The app has been handing new hires the
-   `hires/` folder as their cwd, which has no `package.json`: a bare `npm run build` dies
-   before it reaches the site, and an agent that retries a failing command trips the
-   circuit breaker. Set the field to the repo root if the modal offers it. If it does
-   not, that is fine now — every goal in this folder carries the absolute repo path and
+   `hires/` folder as their cwd. That is not the repo, and a bare `npm` command is a
+   coin flip from there: npm walks *up* looking for a `package.json`, finds the repo's
+   and succeeds, while from an unrelated parent directory the same command dies with
+   `ENOENT` before it reaches the site. An agent that retries a failing command trips
+   the circuit breaker. Set the field to the repo root if the modal offers it. If it
+   does not, that is fine — every goal in this folder carries the absolute repo path and
    spells npm as `npm --prefix "C:\Users\Andika\Documents\SUKHA Homestay\sukha-homestay"
    run <script>` — but expect the agent's `memory.md` to be written next to the manifests
    rather than into `hive/agents/<id>/`. Those strays are git-ignored, so they cannot be
