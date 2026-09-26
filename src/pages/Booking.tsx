@@ -1,6 +1,6 @@
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
-import { ArrowUpRight, CalendarDays, ChevronDown } from "lucide-react";
-import { useMemo, useRef, useState, type FormEvent } from "react";
+import { ArrowUpRight, CalendarDays, Check, ChevronDown } from "lucide-react";
+import { useEffect, useId, useMemo, useRef, useState, type FormEvent } from "react";
 import { Eyebrow, Headline, Item, ParallaxImage, Reveal, Stagger } from "../components/motion";
 import { ASSURANCES, BOOKING_STEPS, PHONE_DISPLAY, ROOMS, WHATSAPP_URL, img } from "../data/content";
 
@@ -11,6 +11,9 @@ type FormError = { field: ErrorField; message: string };
 
 const inputCls =
   "w-full border-b border-line bg-transparent py-3 text-[15px] text-ink outline-none transition-colors placeholder:text-stone/50 focus:border-clay";
+
+const GUEST_OPTIONS = ["1 adult", "2 adults", "2 adults + 1 child", "2 adults + 2 children"];
+const ROOM_OPTIONS = ROOMS.map((r) => r.name);
 
 const DATE_RE = /^\d{4}-\d{2}-\d{2}$/;
 
@@ -98,7 +101,7 @@ function DateField({
       <span id={labelId} className="font-mono text-[9px] tracking-[1.8px] text-clay">
         {label}
       </span>
-      <div className="relative mt-1 flex items-center justify-between border-b border-line py-3 transition-colors focus-within:border-clay">
+      <div className="relative mt-1 flex items-center justify-between border-b border-line py-3 transition-colors hover:border-blushline focus-within:border-clay">
         <span
           aria-hidden="true"
           className={`text-[15px] ${value ? "text-ink" : "text-stone/50"}`}
@@ -114,6 +117,11 @@ function DateField({
           name={name}
           value={value}
           min={min}
+          /* The trigger below is the one tab stop for this field, so the input is reachable
+             by script and by assistive tech but not twice by keyboard. Leaving it tabbable
+             also made Tab walk its internal day/month/year segments — three stops the guest
+             cannot see. */
+          tabIndex={-1}
           aria-labelledby={labelId}
           aria-invalid={invalid}
           aria-describedby={describedBy}
@@ -121,14 +129,172 @@ function DateField({
           onKeyDown={openFromKey}
           className="absolute inset-0 h-full w-full appearance-none bg-transparent opacity-0"
         />
+        {/* type="button" keeps Enter from implicitly submitting the form and Space from
+            scrolling the page; the native button semantics then open the picker for free.
+            The label carries the current value because the visible text is aria-hidden. */}
         <button
           type="button"
-          tabIndex={-1}
           onClick={openPicker}
           onKeyDown={openFromKey}
-          aria-label={`Choose ${label.toLowerCase()} date`}
+          aria-label={`Choose ${label.toLowerCase()} date${value ? `, currently ${formatStayDate(value)}` : ""}`}
           className="absolute inset-x-0 top-0 -bottom-px z-10 cursor-pointer"
         />
+      </div>
+    </div>
+  );
+}
+
+/* A select-only combobox, following the W3C APG pattern: the trigger keeps DOM focus at all
+   times and the highlighted option is published through aria-activedescendant, so Escape
+   closes the list without focus ever leaving the field. The option list is house-styled
+   rather than drawn by the OS, which is the only way the open state can be on-brand — a
+   native <select> menu is drawn in the system font on the system surface and no CSS
+   reaches it. */
+function SelectField({
+  label,
+  value,
+  options,
+  onChange,
+}: {
+  label: string;
+  value: string;
+  options: string[];
+  onChange: (value: string) => void;
+}) {
+  const uid = useId();
+  const labelId = `${uid}-label`;
+  const listId = `${uid}-list`;
+  const optionId = (i: number) => `${listId}-opt-${i}`;
+  const [open, setOpen] = useState(false);
+  const [active, setActive] = useState(0);
+  const [flip, setFlip] = useState(false);
+  const rootRef = useRef<HTMLDivElement>(null);
+
+  const show = () => {
+    const rect = rootRef.current?.getBoundingClientRect();
+    if (rect) {
+      const below = window.innerHeight - rect.bottom;
+      setFlip(below < 200 && rect.top > below);
+    }
+    setActive(Math.max(0, options.indexOf(value)));
+    setOpen(true);
+  };
+  const commit = (i: number) => {
+    onChange(options[i]);
+    setOpen(false);
+  };
+
+  /* A pointer-down anywhere else closes the list. The setState lives in the listener, not
+     in the effect body, so it is a genuine outside interaction rather than a render-phase
+     update. */
+  useEffect(() => {
+    if (!open) return;
+    const onPointerDown = (e: PointerEvent) => {
+      if (!rootRef.current?.contains(e.target as Node)) setOpen(false);
+    };
+    document.addEventListener("pointerdown", onPointerDown);
+    return () => document.removeEventListener("pointerdown", onPointerDown);
+  }, [open]);
+
+  const onKeyDown = (e: React.KeyboardEvent) => {
+    switch (e.key) {
+      case "Enter":
+      case " ":
+        e.preventDefault();
+        if (open) commit(active);
+        else show();
+        break;
+      case "ArrowDown":
+        e.preventDefault();
+        if (!open) show();
+        else setActive((i) => Math.min(options.length - 1, i + 1));
+        break;
+      case "ArrowUp":
+        e.preventDefault();
+        if (!open) show();
+        else setActive((i) => Math.max(0, i - 1));
+        break;
+      case "Home":
+        if (!open) return;
+        e.preventDefault();
+        setActive(0);
+        break;
+      case "End":
+        if (!open) return;
+        e.preventDefault();
+        setActive(options.length - 1);
+        break;
+      case "Escape":
+        if (!open) return;
+        e.preventDefault();
+        setOpen(false);
+        break;
+      case "Tab":
+        setOpen(false);
+        break;
+    }
+  };
+
+  return (
+    <div ref={rootRef}>
+      <span id={labelId} className="font-mono text-[9px] tracking-[1.8px] text-clay">
+        {label}
+      </span>
+      <div className="relative mt-1">
+        {/* The trigger is a real button carrying the value and the chevron, not a
+            transparent overlay: an empty overlay is invisible to naive hit-testing, and the
+            field has to be clickable for a guest, a screen reader and a test harness alike. */}
+        <button
+          type="button"
+          role="combobox"
+          aria-haspopup="listbox"
+          aria-expanded={open}
+          aria-controls={listId}
+          aria-labelledby={labelId}
+          aria-activedescendant={open ? optionId(active) : undefined}
+          onClick={() => (open ? setOpen(false) : show())}
+          onKeyDown={onKeyDown}
+          className="flex w-full cursor-pointer items-center justify-between gap-3 border-b border-line py-3 text-left transition-colors hover:border-blushline focus:border-clay"
+        >
+          <span className="text-[15px] text-ink">{value}</span>
+          <span
+            aria-hidden="true"
+            className={`shrink-0 text-clay transition-transform duration-300 ${open ? "rotate-180" : ""}`}
+          >
+            <ChevronDown size={15} />
+          </span>
+        </button>
+        {/* Always in the DOM, hidden when collapsed, so aria-controls resolves to a real
+            element id in both states rather than dangling at null while closed. */}
+        <ul
+          id={listId}
+          role="listbox"
+          aria-labelledby={labelId}
+          className={`absolute inset-x-0 z-30 overflow-hidden rounded-[4px] border border-line bg-cream py-1 shadow-[0_20px_40px_-24px_rgba(41,36,31,0.35)] ${
+            open ? (flip ? "bottom-full mb-1" : "top-full mt-1") : "hidden"
+          }`}
+        >
+            {options.map((o, i) => (
+              <li
+                key={o}
+                id={optionId(i)}
+                role="option"
+                aria-selected={o === value}
+                onMouseEnter={() => setActive(i)}
+                onClick={() => commit(i)}
+                className={`flex min-h-[44px] cursor-pointer items-center justify-between gap-3 px-4 text-[15px] transition-colors ${
+                  i === active ? "bg-sand text-ink" : "text-ink"
+                }`}
+              >
+                <span>{o}</span>
+                {o === value && (
+                  <span className="shrink-0 text-clay">
+                    <Check size={14} strokeWidth={2} />
+                  </span>
+                )}
+              </li>
+            ))}
+        </ul>
       </div>
     </div>
   );
@@ -410,27 +576,18 @@ export default function Booking() {
                         clearErrorFor("checkOut");
                       }}
                     />
-                    <Field label="GUESTS">
-                      <span className="relative block">
-                        <select value={guests} onChange={(e) => setGuests(e.target.value)} className={`${inputCls} appearance-none`}>
-                          {["1 adult", "2 adults", "2 adults + 1 child", "2 adults + 2 children"].map((g) => (
-                            <option key={g}>{g}</option>
-                          ))}
-                        </select>
-                        <ChevronDown size={15} className="pointer-events-none absolute top-1/2 right-1 -translate-y-1/2 text-stone" />
-                      </span>
-                    </Field>
-                    <Field label="ROOM PREFERENCE">
-                      <span className="relative block">
-                        <select value={room} onChange={(e) => setRoom(e.target.value)} className={`${inputCls} appearance-none`}>
-                          {ROOMS.map((r) => (
-                            <option key={r.slug}>{r.name}</option>
-                          ))}
-                          <option>Advise me</option>
-                        </select>
-                        <ChevronDown size={15} className="pointer-events-none absolute top-1/2 right-1 -translate-y-1/2 text-stone" />
-                      </span>
-                    </Field>
+                    <SelectField
+                      label="GUESTS"
+                      value={guests}
+                      options={GUEST_OPTIONS}
+                      onChange={setGuests}
+                    />
+                    <SelectField
+                      label="ROOM PREFERENCE"
+                      value={room}
+                      options={[...ROOM_OPTIONS, "Advise me"]}
+                      onChange={setRoom}
+                    />
                   </div>
 
                   <div className="flex items-center justify-between rounded-[4px] bg-sand px-4 py-3 font-mono text-[10px] tracking-[1.4px]">
