@@ -11,6 +11,52 @@ Setiap entri mencantumkan tanggal, hari, dan waktu lokal 24 jam sampai detik.
 
 ## 2026-09-26 — Sabtu
 
+### 14:10:00 — Aturan tetap dari human: "release" = push ke GitHub, Asgard selalu ikut
+
+Human mengoreksi saya, dan dia benar dua kali. Yang pertama: "lah kan tugas deploy ada
+si asgard? kamu kasi tugas ke dia lah". Yang kedua, soal maksudnya: **"bukan deploy ke
+vercel langsung, aku mau dia push update ke repo github project saya, nah nanti vercel
+kan otomatis update. kalian ga perlu apa-apain vercel saya, cukup push github aja."**
+
+**Akar masalahnya adalah satu file, bukan salah baca pesan.** File
+`docs/munder-difflin/hires/deploy.hire.json` menyebut peran itu sebagai "checks build
+artifacts, **Vercel configuration**, Git state, and deployment readiness", mencantumkan
+`vercel` di capabilities, dan berakhir dengan "never ... deploy without the user's
+explicit release request". Saya membaca file itu, menyimpulkan Vercel-lah targetnya,
+menulis kartu untuk Asgard yang berburu mencari project Vercel, lalu memberitahu human
+bahwa deploy "tidak mungkin dari mesin ini". Human harus mengoreksi saya dua kali.
+
+**File itu sekarang sudah diperbaiki** — description, goal, dan capabilities semuanya
+kata push-to-GitHub, dengan satu kalimat tegas bahwa kalau ia mulai memikirkan Vercel,
+artinya ia salah paham tugasnya. **Perbaikan filenya yang penting; pesan saja tidak
+cukup, karena manifest akan menuntun agent berikutnya ke arah yang sama.**
+
+Tiga aturan tetap dari human, berlaku mulai sekarang:
+
+1. **"Release" berarti push ke GitHub. Jangan sentuh Vercel sama sekali.** CLI, login,
+   pembuatan project, token, billing, environment variable — semuanya dilarang.
+2. **Asgard yang push, di akhir setiap perubahan yang selesai, selalu.** Saya verifikasi
+   dan stage; dia menjalankan gate, commit, push, dan membuktikan push-nya mendarat
+   (hash commit, branch, remote, exit code nyata, 0 ahead / 0 behind, tree bersih).
+   Ini **sengaja menggantikan** aturan di `AGENTS.md` yang menyebut saya satu-satunya
+   yang commit dan push — human pemilik repo ini dan sudah mengatakannya dua kali.
+3. **Creed dan Meredith dilibatkan lebih awal untuk tugas kompleks atau berat** — Creed
+   untuk mengurutkan dan memecah pekerjaan, Meredith untuk menetapkan ruang lingkup dan
+   kriteria terima, keduanya **sebelum** kode ditulis. Tidak wajib untuk pekerjaan kecil.
+
+Ketiganya sudah ditulis ke memory saya dan ke manifest, jadi tidak perlu human
+mengingatkan lagi. SHM-18 sudah ditulis ulang: judulnya "Push finished work to the
+GitHub repository — Vercel redeploys on its own", dan tidak ada satu pun langkah Vercel
+di dalamnya. Asgard sudah diberi koreksi bahwa brief lamanya basi karena manifest yang
+salah.
+
+Status repo saat ini: `main` di `c5328bf`, sudah terpush, 0 ahead / 0 behind, tree
+bersih. Jadi tidak ada yang tertinggal untuk di-push — keluhan human bukan karena ada
+push yang terlewat, tapi karena tidak ada yang mengerjakan pekerjaan ini sama sekali, dan
+dua perubahan terakhir keluar di tangan saya, bukan di tangan Asgard.
+
+
+
 ### 13:44:26 — Permintaan human: dropdown `/booking` masih tampilan default
 
 Human minta (dalam Bahasa Indonesia): di `/booking`, card **Your stay enquiry**, style
