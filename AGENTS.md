@@ -1,17 +1,17 @@
 # Sukha Homestay agent guide
 
 ## Scope
-This repo is a Vite + React + TypeScript website for Sukha Homestay. Treat `sukha-homestay/` as the source of truth for code, assets, and deploy config.
+This repo is a Vite + React + TypeScript website for Sukha Homestay. This repo (`sukha-homestay/`) is the source of truth for code, assets, and deploy config.
 
 ## Commands
 - Install/update deps with npm; `package-lock.json` is authoritative.
-- Build check: `npm run build`.
+- Build check: `npm run build`. It is `tsc -b && vite build`, so it is also this project's only type gate: a type error fails the build with exit 2 before Vite runs. **Do not substitute `npx tsc --noEmit`** — the root `tsconfig.json` is solution-style (`"files": []` plus `references`), so `npx tsc --noEmit` type-checks zero files and exits 0 even with a type error sitting in `src/` (verified 2026-09-26). There is no `typecheck` script.
 - Lint check: `npm run lint`.
 - Local UI smoke: `npm run dev -- --host 127.0.0.1`, then inspect with browser/Playwright.
 - Route list, house patterns, exact command outputs and the open-defect list live in `docs/CONTRIBUTING.md`. Read it before changing anything a visitor can see.
 
 ## Editing rules
-- Source lives in `src/`; public/static deploy files live in `public/`, `index.html`, `vercel.json`.
+- Source lives in `src/`; public/static deploy files live in `public/`, `index.html`, `vercel.json`. Production is live at `https://sukhahomestay.vercel.app` (HTTP 200, `<title>Sukha Homestay — Sidemen, East Bali</title>`, and the `vercel.json` CSP and `X-Frame-Options: DENY` headers are being served, checked 2026-09-26). Do not conclude a deploy is impossible or unconfigured from this machine: a dashboard-side Vercel Git integration leaves no trace in the repo — no `.vercel` directory and no `.github/workflows` — so their absence proves nothing.
 - Do not edit generated output in `dist/`, dependency folders, or `.code-graph/`.
 - Keep content data centralized in `src/data/content.ts` when the same copy/image is reused.
 - Reuse existing component patterns in `src/components/` before adding new abstractions.
@@ -19,7 +19,7 @@ This repo is a Vite + React + TypeScript website for Sukha Homestay. Treat `sukh
 
 ## Verification
 - UI-visible changes need an actual browser smoke against the changed route or component.
-- Code/config changes need the narrow command first, then `npm run build` when behavior or imports changed.
+- Code/config changes need the narrow command first, then `npm run build` for anything touching types, behavior or imports — it is the only type gate, so a type-only change still needs it.
 - `npm run lint` has a baseline of two known warnings, `src/components/motion.tsx:5` (`only-export-components`, the `EASE` export) and `src/components/Navbar.tsx:46` (`set-state-in-effect`). Do not hide them by loosening rules. A third warning is yours.
 - There is no test suite: no `test` script and no test framework. Lint and build are the only automated gates, so a UI-visible change is unproven until someone has looked at it in a browser.
 
@@ -42,7 +42,7 @@ This repo is the folder of a Munder Difflin floor (app 0.5.4, ticket prefix `SHM
 - `hive/COMMANDS.md` is the fleet's Claude Code command reference; `hive/PROTOCOL.md` is the messaging and task protocol.
 - The floor config (userData `munder-difflin/config.json`, not this repo) is `defaultCommand: "omp"` with `godProvider: "custom"`; every hired agent runs the same way on `opencode-zen/space-bunny-free`. `omp` is on PATH at `C:\Users\Andika\.bun\bin\omp.exe` and is the binary the floor actually runs. **An earlier version of this line said `claude` was not installed at all. That is false**: `claude.cmd` is on PATH at `C:\Users\Andika\AppData\Roaming\npm\claude.cmd` and `claude --version` reports `2.1.283 (Claude Code)`, exit 0 (checked 2026-09-26). Having `claude` available does not change which binary the floor uses — `defaultCommand` is `omp`. The config file itself lives in the app's userData directory, not in this repo, so the `defaultCommand` value was not re-verified here; if you need it, read the file, do not repeat this line from memory.
 - **Hired agents get the wrong working directory.** All of them default to `docs/munder-difflin/hires`, which is not the project. `npm` walks *up* the folder tree looking for a `package.json`, so from that folder a bare `npm run build` happens to find the repo's and succeeds; from the workspace root `C:\Users\Andika\Documents\SUKHA Homestay`, which has no `package.json` anywhere above it, the same command fails with `npm error code ENOENT` and exit 38 before it reaches the site. The command is neither reliably broken nor reliably fine, which is why it burns people. Never trust a bare `npm` command from a hire: use `npm --prefix "C:\Users\Andika\Documents\SUKHA Homestay\sukha-homestay" run <script>`, read source files by their full path under the repo root, and run `npm prefix` to confirm you are in the right place. If a command fails, report the exact error and stop — an agent that retries a failing command trips the circuit breaker.
-- The sixteen hire manifests for this project's floor — one per role in `.omp/agents/`, plus a content/image owner and a single-agent intern for small chores — live in `docs/munder-difflin/hires/`, with the import steps in `docs/munder-difflin/README.md`. Each goal already carries the `--prefix` rule and the absolute repo path, so a hire cannot trip over its own working directory.
+- The sixteen hire manifests for this project's floor — one for each of the 14 hired roles in `.omp/agents/` (all 15 except `orchestrator`, which is god and is never hired), plus a content/image owner and a single-agent intern for small chores — live in `docs/munder-difflin/hires/` as `*.hire.json`, with the import steps in `docs/munder-difflin/README.md`. Each goal already carries the `--prefix` rule and the absolute repo path, so a hire cannot trip over its own working directory. The `*.memory.md` files sitting in that same folder are per-agent runtime memory and are git-ignored by the `*.memory.md` rule in `.gitignore`; they are not manifests and never belong in a commit.
 
 ## Team agents
 - Use `orchestrator` for multi-role planning and delegation.

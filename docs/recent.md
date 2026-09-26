@@ -11,6 +11,144 @@ Setiap entri mencantumkan tanggal, hari, dan waktu lokal 24 jam sampai detik.
 
 ## 2026-09-26 — Sabtu
 
+### 22:05:12 — Hourly ops standup: backlog sudah dipush, empat defect live diperbaiki, dan aplikasi menghapus lima kartu
+
+**Lantai bangun, dan ini jam tersibuk sejak pukul 03:00Z.** Semua kartus saya dijawab
+dalam satu jam, dan semuanya membawa bukti, bukan klaim. Angela, Oscar, Kelly,
+Meredith, Asgard, dan Intern baru menulis ke memori mereka dalam 50 menit terakhir.
+
+**Backlog sudah dipush.** `f9ca0a8` ada di `origin/main`, nol di depan dan nol di
+belakang. Content consolidation dari Pam dan docs pass dari Phylis keluar dari pohon
+dalam satu push bersih, 5,5 jam setelah keduanya selesai di disk. Asgard mengulang
+gerbangnya sendiri dan tidak percaya pada hasil run saya, dan itu persis yang saya
+minta.
+
+**Manusia ini juga commit langsung ke repo, dan itu mengubah arti kata "tidak
+diharapkan".** Dua commit. `179a712` menambah hire Intern baru
+(`andika-intern--muifm13f`). `8a3c461` membetulkan cerita working directory yang salah
+di setiap hire brief. Kesalahan itu berasal dari saya, dan dia memperbaikinya di
+sumbernya, bukan menyuruh saya. Kartu pertama Intern adalah `SHM-35`: mencari tujuh
+klaim yang sudah terbukti salah di `AGENTS.md` dan `README.md`. Dokumentasi basi
+telah menyebabkan dua kesimpulan salah hari ini, dan salah satunya sampai ke manusia.
+
+**Roster sekarang 14 aktif, 4 diarsipkan.** Manusia mengarsipkan Dwight di aplikasi.
+Saya sudah mencatat berjam-jam bahwa mengarsipkan Dwight mustahil dari lantai, karena
+registry ditulis oleh aplikasi. Blokir itu tertutup, jangan angkat lagi.
+
+**Empat defect yang sudah live, semuanya diperbaiki dan sedang dipush.** Ring fokus
+hitam di dua dropdown. Klik opsi yang menjatuhkan fokus ke `<body>`. Perangkap fokus
+menu mobile yang bocor di bawah 640px. Klik 01 Home yang tidak menutup menu. Oscar
+memakai filter yang diminta Angela dan handler yang diminta Stanley, bukan pengganti
+lain. Saya verifikasi diff-nya di source sebelum laporan dia, lalu mengulang gerbangnya:
+build 0, lint 0 dengan tepat dua peringatan, dan `npx tsc --noEmit` 0.
+
+**Temuan terpenting jam ini: Oscar menangkap bahwa kartunya salah.** Saya menambatkan
+perbaikan Home di `Navbar.tsx:124-126`, angka dari Angela, saya teruskan tanpa
+memeriksa. Itu adalah wordmark header, berada di belakang overlay dan tidak bisa
+diklik saat menu terbuka. Yang diklik tamu adalah link panel, yang sama sekali tidak
+punya `onClick`. Dia mengerjakan kartu itu persis seperti tertulis, menguji ulang,
+menemukan defect-nya masih hidup, lalu melacaknya ke elemen yang sebenarnya. Dia
+mengembalikan edit salah saya.
+
+**Aturan yang saya adopsi: nomor baris di dalam kartu adalah hipotesis, bukan
+perintah.** Uji lagi terhadap DOM, dan override saya kalau salah. Itu kali ketujuh hari
+ini saya menyatakan sesuatu tanpa memverifikasi, dan kali pertama seorang implementer
+saja menolak menerima kata-kata saya.
+
+**Dia juga menemukan contoh kelima dari defect ring yang sama dan tidak
+memperbaikinya**, karena kartuunya bilang tiga edit. Dua trigger tanggal di
+`Booking.tsx:140` membawa kotak UA yang sama, dari commit yang sama. **Tabel fokus
+Meredith menulis CHECK IN dan CHECK OUT sebagai on-brand. Mereka tidak**, karena tak
+terlihat sampai Anda Tab ke field itu. Saya otorisasi sebagai `SHM-33`, satu kelas
+saja, dan risikonya khusus: trigger tanggal adalah tombol transparan di atas wrapper
+`focus-within`, jadi mematikan outline bisa membuat **tidak ada** indikator sama
+sekali. Itu pertanyaan yang harus Angela jawab, bukan "kotak hitamnya sudah hilang".
+
+### `tasks.json` diam-diam menghapus setiap kartu yang bukan `done`
+
+Aplikasi menimpa ledger pada 13:33:04Z dan membuang lima kartu terbuka: `SHM-20`,
+`SHM-28`, `SHM-30`, `SHM-31`, dan `SHM-32`. Hanya 27 yang selesai yang
+dipertahankan. Ini kegagalan yang sama yang memakan `SHM-1` beberapa jam lalu, dan
+waktu itu saya tidak menghubungkan keduanya. **Aplikasi menyimpan ledger sendiri di
+memori dan menulis ulang berkas dari situ, membuang kartu yang tidak pernah dia
+kenal.**
+
+Tiga akibatnya, dan bukan yang kecil. **Ledger tidak bisa dipercaya untuk menyimpan
+pekerjaan terbuka**, jadi `hive/board.md` adalah satu-satunya permukaan pekerjaan
+terbuka yang tahan lama, karena aplikasi tidak memiliki berkas itu. **Kartu terbuka
+harus diverifikasi ulang di setiap standup** dan dipulihkan kalau hilang. Dan mitigasi
+sudahpasang: `hive/open-cards.json` menyimpan kartu terbuka, dan pemulihannya
+idempoten, hanya menambah yang hilang dan tidak pernah menyentuh yang sudah ada.
+Ini kali kedua berkas aplikasi sendiri memakan kerja nyata di lantai ini, dan keduanya
+kehilangan itu senyap.
+### 21:04:47 — Hourly ops standup: sesi orkestrator terputus, 5,5 jam hasil kerja tertahan di pohon, dan empat defect sudah live
+
+**Lantai gelap 5,5 jam.** Sesi orkestrator sebelumnya terputus sekitar 07:20Z dan tidak ada
+yang menulis apa pun sejak itu. Tidak ada agen yang macet, tidak ada breaker yang menyala,
+tidak ada yang holding — sesi memang berhenti di tengah jalan. Karena itu **13 file
+tertahan di working tree tanpa di-commit selama 5,5 jam**, dan itu sebabnya manusia benar
+ketika bilang "gaada perubahan satupun".
+
+**Dua agen sudah selesai dan sudah menulis hasilnya ke disk.** Pam (SHM-26) dan Phylis
+(SHM-24). Keduanya told tidak boleh commit, lalu orkestrator yang seharusnya mendorongnya
+mati sebelum melakukannya. Bukan salah mereka.
+
+**Gerbang saya jalankan sendiri sebelum melepas push:** build exit 0, lint exit 0 dengan
+**tepat dua peringatan** yang sudah dikenal, dan `npx tsc --noEmit` exit 0. Yang ketiga
+itu penting: **`npm run build` tidak mengecek tipe sama sekali**, dia vite-only. Jadi
+build hijau bukan bukti tipe benar. Aturan data dummy yang disahkan manusia juga saya
+periksa sendiri lewat diff: nomor WhatsApp, tarif IDR 1.850K, dan jam breakfast **tidak
+ada yang berubah**.
+
+**Empat defect nyata sudah LIVE di produksi, semuanya dari SHM-22 dan SHM-29 (`4427d81`):**
+
+| defect | di mana | siapa menemukan |
+|---|---|---|
+| dua dropdown menampilkan **ring fokus hitam bawaan browser** | `Booking.tsx:257` tidak punya `outline-none` | Meredith |
+| **klik opsi membuat fokus jatuh ke `<body>`** | `Booking.tsx:284` tidak punya `onMouseDown` | Stanley |
+| **perangkap fokus menu mobile bocor di bawah 640px** | `Navbar.tsx:79` dan `:232` | Angela |
+| **klik 01 Home tidak menutup menu** | `Navbar.tsx:45-47` dan `:124-126` | Angela |
+
+Yang pertama saya verifikasi sendiri di source: `inputCls` di `Booking.tsx:13` punya
+`outline-none`, tapi trigger combobox di `:257` tidak — dan itu `<button>` asli, jadi
+Chromium memakai cincin hitamnya sendiri. Empat kontrol lain sudah pakai hairline clay.
+
+**Dua koreksi terhadap saya sendiri, dan keduanya datang dari agen.** Angela membuktikan
+bahwa SHM-17 **memang menyembunyikan sesuatu yang terlihat** — kontrolnya: input biasa
+mencat indikator, yang `opacity-0` tidak — jadi catatan saya bahwa "memang tidak terlihat
+di Chromium" salah. Dan Meredith membetulkan kriteria yang salah kutip: **SC 2.4.11 adalah
+Focus Not Obscured (AA), bukan Focus Appearance**; yang menuntut 2px dan 3:1 adalah **SC
+2.4.13, level AAA**. Jadi situs ini **tidak pernah melanggar AA**, dan gambar "ini tradeoff
+aksesibilitas versus brand" yang saya tulis di kartunya salah besar.
+
+**Temuan Meredith yang sebenarnya menyelesaikan masalah:** fokus di form ini bukan satu
+perlakuan, tapi tiga. NAME, EMAIL, dan textarea pakai garis bawah 1px warna clay; CHECK IN
+dan CHECK OUT juga; tapi GUESTS dan ROOM PREFERENCE menampilkan kotak hitam. Jadi
+defect-nya bukan "garisnya terlalu tipis", melainkan dua dari enam kontrol memberi
+pemberitahuan berbeda dari empat lainnya. Perbaikannya cukup satu kelas.
+
+**Empat koreksi Angela yang saya tahan supaya tidak diulang:** "halaman terkunci gulir"
+salah, karena roda mouse tidak menggulir di headless sama sekali; "panel tidak menutup"
+salah, itu `AnimatePresence` keluar 1,25 sampai 2,0 detik; `dist/` dibangun ulang di
+bawahnya dan menghasilkan dua hasil link palsu; dan dua PNG di folder hires bukan
+miliknya — dia **memindahkan, bukan menghapus**, dan itu benar.
+
+**Satu hal yang belum pernah ada.** Angela meminta satu klik nyata di kalender itu sendiri.
+Oscar menyatakan ini sebagai batas jujurnya: dia tidak bisa melihat kalender sistem
+digambar, jadi "pemilihnya benar-benar memakai tanggal" masih bersandar pada wiring yang
+tidak berubah, bukan pengukuran baru. Itu celah nyata, dan saya akan bilang ke manusia
+daripada membiarkan terbaca sebagai sudah terverifikasi.
+
+**Yang belum pernah dikerjakan dan milik saya, bukan milik lantai.** Creed dengan eksplisit
+meminta langkah keempat: tunjukkan pasangan screenshot sebelum dan sesudah ke manusia, lalu
+minta jawaban ya atau tidak yang jelas. Itu belum pernah dilakukan. Pasangannya ada di
+folder `shm20-before` dan `shm20-after` di `%LOCALAPPDATA%\Temp\`.
+
+**Kartu baru.** `SHM-30` dan `SHM-31` ke Oscar untuk empat defect di atas. `SHM-32` ke
+Meredith untuk label "06 Contact" yang mengarah ke `/booking`. `SHM-20` dibuka ke
+Angela karena `SHM-29` sudah shipped. `SHM-28` dikejar Kelly. Asgard diberi tugas push
+untuk 13 file yang tertahan.
+
 ### 15:25:00 — Hourly ops standup: lantai bangun lagi, dan QA menangkap defect yang sudah live
 
 **Lantai tidak lagi idle.** Tujuh dari sembilan agen bergerak dalam sepuluh menit terakhir

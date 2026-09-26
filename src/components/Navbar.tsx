@@ -73,7 +73,12 @@ export default function Navbar({ tone }: { tone: "light" | "dark" }) {
       }
       const panel = panelRef.current;
       if (e.key !== "Tab" || !panel) return;
-      const focusables = panel.querySelectorAll<HTMLElement>("a[href], button:not([disabled])");
+      /* Only elements that can actually hold focus. The rooms/whatsapp column is
+         display:none below 640px, so an unfiltered list makes its hidden EMAIL link the
+         tail and the wrap never fires — focus walks out of the dialog into the page. */
+      const focusables = Array.from(
+        panel.querySelectorAll<HTMLElement>("a[href], button:not([disabled])"),
+      ).filter((el) => el.getClientRects().length > 0);
       if (focusables.length === 0) return;
       const first = focusables[0];
       const last = focusables[focusables.length - 1];
@@ -212,6 +217,12 @@ export default function Navbar({ tone }: { tone: "light" | "dark" }) {
                   >
                     <Link
                       to={l.to}
+                      onClick={() => {
+                        /* Home is the one link that does not change the pathname, so the
+                           close effect above never runs for it: without this the panel
+                           stays open over the page with the body still scroll-locked. */
+                        if (l.to === "/") setOpen(false);
+                      }}
                       className="group flex items-baseline gap-3 py-0.5 sm:gap-4 sm:py-1"
                     >
                       <span className="font-mono text-[10px] tracking-[2px] text-claylight">

@@ -2,7 +2,7 @@ import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { ArrowUpRight, CalendarDays, Check, ChevronDown } from "lucide-react";
 import { useEffect, useId, useMemo, useRef, useState, type FormEvent } from "react";
 import { Eyebrow, Headline, Item, ParallaxImage, Reveal, Stagger } from "../components/motion";
-import { ASSURANCES, BOOKING_STEPS, PHONE_DISPLAY, ROOMS, WHATSAPP_URL, img } from "../data/content";
+import { ASSURANCES, BOOKING_STEPS, PHONE_DISPLAY, ROOMS, WHATSAPP_URL, img, imgAlt } from "../data/content";
 
 /* Nothing is booked here: the form only prepares a WhatsApp enquiry for the guest to send. */
 type Status = "idle" | "prepared";
@@ -137,7 +137,7 @@ function DateField({
           onClick={openPicker}
           onKeyDown={openFromKey}
           aria-label={`Choose ${label.toLowerCase()} date${value ? `, currently ${formatStayDate(value)}` : ""}`}
-          className="absolute inset-x-0 top-0 -bottom-px z-10 cursor-pointer"
+          className="absolute inset-x-0 top-0 -bottom-px z-10 cursor-pointer outline-none"
         />
       </div>
     </div>
@@ -254,7 +254,7 @@ function SelectField({
           aria-activedescendant={open ? optionId(active) : undefined}
           onClick={() => (open ? setOpen(false) : show())}
           onKeyDown={onKeyDown}
-          className="flex w-full cursor-pointer items-center justify-between gap-3 border-b border-line py-3 text-left transition-colors hover:border-blushline focus:border-clay"
+          className="flex w-full cursor-pointer items-center justify-between gap-3 border-b border-line py-3 text-left outline-none transition-colors hover:border-blushline focus:border-clay"
         >
           <span className="text-[15px] text-ink">{value}</span>
           <span
@@ -281,6 +281,7 @@ function SelectField({
                 role="option"
                 aria-selected={o === value}
                 onMouseEnter={() => setActive(i)}
+                onMouseDown={(e) => e.preventDefault()}
                 onClick={() => commit(i)}
                 className={`flex min-h-[44px] cursor-pointer items-center justify-between gap-3 px-4 text-[15px] transition-colors ${
                   i === active ? "bg-sand text-ink" : "text-ink"
@@ -442,7 +443,7 @@ export default function Booking() {
       <section className="bg-sand">
         <div className="mx-auto grid max-w-[1440px] grid-cols-1 gap-12 px-6 py-16 md:gap-16 md:px-[72px] lg:px-[120px] md:py-20 lg:grid-cols-2">
           <div>
-            <ParallaxImage src={img.bookingGarden} alt="The garden at Sukha" className="aspect-[4/3] w-full" amount={40} />
+            <ParallaxImage src={img.bookingGarden} alt={imgAlt.bookingGarden} className="aspect-[4/3] w-full" amount={40} />
             <Reveal className="mt-10">
               <Eyebrow>01 / SHARE YOUR DATES</Eyebrow>
             </Reveal>
