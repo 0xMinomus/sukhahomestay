@@ -41,6 +41,48 @@ omp models | grep zen    opencode-zen (43)
                          space-bunny-free   1M ctx   minimal..xhigh thinking
 ```
 
+`omp` also already defaults to that model, so a bare `omp` is enough:
+
+```
+~/.omp/agent/config.yml
+  modelRoles:
+    default: opencode-zen/space-bunny-free:xhigh
+    smol:    opencode-zen/space-bunny-free
+    memory:  opencode-zen/space-bunny-free
+    vision:  opencode-zen/space-bunny-free
+```
+
+## Michael on omp too
+
+`omp` is not one of Munder Difflin's provider ids (`claude`, `codex`, `grok`, `kimi`,
+`gemini`, `antigravity`, `qwen`, `opencode`, `crush`, `pi`, `copilot`, `cursor`,
+`custom`), so the orchestrator runs it as **Custom**. In the app's `config.json`:
+
+```json
+{ "defaultCommand": "omp", "godProvider": "custom" }
+```
+
+The `custom` preset has no binary of its own, so it falls back to `defaultCommand`,
+and `supportsModel: false` means no `--model` is spliced in — which is fine, because
+`omp`'s own default is already the free space-bunny at xhigh thinking. Restart the app
+and Michael respawns as `omp`.
+
+Two consequences of Custom, both from the app's own preset table:
+
+- **No auto-approve.** The preset's `autoModeFlag` is empty, so the floor's auto mode
+  injects nothing. Add `--auto-approve` to Michael's command by hand, or he stops on
+  every tool call waiting for you in the terminal.
+- **No lifecycle bridge.** `canReceiveInbox: false`, so the router has no drain path
+  into his session. Typed messages still reach him (it is a plain PTY), but the
+  scheduled missions — the enabled `ops-standup` heartbeat, for one — are the thing
+  most likely to go quiet. Check that one still lands after the switch; if it does
+  not, put `godProvider` back to `opencode` and keep the three workers on `omp`.
+
+Keeping a bridge and still running `omp` means picking the **Pi** preset and editing
+the binary, which is untested: the pi bridge is written against the pi CLI's extension
+API, the pi fork of that code is unverified on oh-my-pi, and the preset appends
+`--approve`, which `omp` does not know.
+
 So the command every agent on this floor should run is:
 
 ```
