@@ -21,12 +21,25 @@ role in `.omp/agents/`, plus the steps to import them. The floor's orchestrator 
 | `hires/project-manager.hire.json` | Project Manager | Ordered plan, dependencies, status | angela | space-bunny-free |
 | `hires/project-lead.hire.json` | Project Lead | Scope, architecture, tradeoffs, delivery risk | gareth | space-bunny-free:xhigh |
 | `hires/pam-content.hire.json` | Pam | Hospitality copy and real-photo sourcing (no `.omp` role covers this) | pam | space-bunny-free |
+| `hires/intern.hire.json` | Intern | Single-agent generalist for small chores: copy, design tweak, bug fix, release prep | aaron | space-bunny-free, 500k cap |
 
 Every `description` is the role's own `description` from `.omp/agents/<role>.md`, and every
 `goal` is that role's responsibility, method and rules, rewritten against this repo's
 real commands, routes and constraints, plus the house block: read `AGENTS.md` first, npm
 only, never touch `dist/`, never an AI-generated image, never commit or push, never touch
 `hive/`, report to god.
+
+**The Intern** is the floor's single-agent generalist and the answer to "this is too small
+to deserve a specialist". One card, one craft at a time: it writes copy, adjusts a design,
+fixes a bug, or prepares a release, alone, end to end. Its goal tells it to hand a card
+back the moment the job stops being small — an architectural boundary, a security-sensitive
+path, a migration, an unverified fix, or a bug whose root cause it has not actually found.
+It runs on the plain free model with a 500k token cap instead of the 2M the specialists
+get, because the work is meant to be light.
+
+Michael routes to it: brief the orchestrator once, in his terminal, that the intern takes
+small chores and specialists take everything else. Nothing in `hive/` needs editing for
+that — `board.md` and `tasks.json` are god's to write, not the intern's and not yours.
 
 **`orchestrator` is deliberately missing.** The floor already has one, and the hive
 protocol makes god the sole orchestrator and the sole scribe of `board.md`; a second
