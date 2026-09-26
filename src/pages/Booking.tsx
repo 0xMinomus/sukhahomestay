@@ -12,6 +12,11 @@ type FormError = { field: ErrorField; message: string };
 const inputCls =
   "w-full border-b border-line bg-transparent py-3 text-[15px] text-ink outline-none transition-colors placeholder:text-stone/50 focus:border-clay";
 
+/* The native calendar icon is a second affordance on top of the CalendarDays glyph, so it is
+   made invisible rather than removed. opacity-0 keeps it hit-testable, so clicking the icon
+   still opens the OS picker; appearance-none would delete the hit target with the glyph. */
+const dateInputCls = `${inputCls} [&::-webkit-calendar-picker-indicator]:opacity-0`;
+
 const DATE_RE = /^\d{4}-\d{2}-\d{2}$/;
 
 function toISODate(date: Date): string {
@@ -315,7 +320,7 @@ export default function Booking() {
                             setCheckIn(e.target.value);
                             clearErrorFor("checkIn");
                           }}
-                          className={inputCls}
+                          className={dateInputCls}
                         />
                       </span>
                     </Field>
@@ -334,7 +339,7 @@ export default function Booking() {
                             setCheckOut(e.target.value);
                             clearErrorFor("checkOut");
                           }}
-                          className={inputCls}
+                          className={dateInputCls}
                         />
                       </span>
                     </Field>

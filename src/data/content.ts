@@ -382,3 +382,13 @@ export const ASSURANCES = [
   { icon: Coffee, heading: "BREAKFAST INCLUDED", copy: "A Balinese breakfast is served each morning." },
   { icon: MessageCircle, heading: "PERSONAL HOSTING", copy: "A host can help with questions during your stay." },
 ];
+
+/* --------------------------- page fallback -------------------------------- */
+
+export const PAGE_FALLBACK = {
+  eyebrow: "A PAUSE IN THE GARDEN",
+  title: ["This page is", "resting."],
+  copy: "Something did not load as we expected. The rest of the house is open, and your host can help with whatever you came for.",
+  homeLabel: "WANDER HOME",
+  hostLabel: "MESSAGE OUR HOST",
+};

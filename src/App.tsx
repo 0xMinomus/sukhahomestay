@@ -1,6 +1,7 @@
 import { AnimatePresence, motion } from "motion/react";
 import { useEffect } from "react";
 import { BrowserRouter, Link, Route, Routes, useLocation } from "react-router-dom";
+import ErrorBoundary from "./components/ErrorBoundary";
 import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
 import { Eyebrow, Headline } from "./components/motion";
@@ -188,17 +189,19 @@ function Shell() {
           exit={{ opacity: 0, y: -16 }}
           transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
         >
-          <Routes location={location}>
-            <Route path="/" element={<Landing />} />
-            <Route path="/stay" element={<Stay />} />
-            <Route path="/rooms/:slug" element={<RoomDetail />} />
-            <Route path="/amenities" element={<Amenities />} />
-            <Route path="/dining" element={<Dining />} />
-            <Route path="/experiences" element={<Experiences />} />
-            <Route path="/experiences/:slug" element={<ExperienceDetail />} />
-            <Route path="/booking" element={<Booking />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
+          <ErrorBoundary>
+            <Routes location={location}>
+              <Route path="/" element={<Landing />} />
+              <Route path="/stay" element={<Stay />} />
+              <Route path="/rooms/:slug" element={<RoomDetail />} />
+              <Route path="/amenities" element={<Amenities />} />
+              <Route path="/dining" element={<Dining />} />
+              <Route path="/experiences" element={<Experiences />} />
+              <Route path="/experiences/:slug" element={<ExperienceDetail />} />
+              <Route path="/booking" element={<Booking />} />
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </ErrorBoundary>
         </motion.main>
       </AnimatePresence>
       <Footer />
