@@ -11,6 +11,62 @@ Setiap entri mencantumkan tanggal, hari, dan waktu lokal 24 jam sampai detik.
 
 ## 2026-09-26 — Sabtu
 
+### 13:44:26 — Permintaan human: dropdown `/booking` masih tampilan default
+
+Human minta (dalam Bahasa Indonesia): di `/booking`, card **Your stay enquiry**, style
+dropdown pada CHECK IN, CHECK OUT, dan lainnya masih memakai tampilan bawaan browser dan
+harus
+dibuat proper serta nyambung dengan design system. Diminta untuk dibagi ke agent,
+ditandai sederhana, dan ingin selesai cepat serta tepat.
+
+**`SHM-17` → Oscar (high).** Ini satu-satunya kartu yang diminta human secara langsung,
+jadi mendahului SHM-16. Saya baca source dulu sebelum menulis kartunya, dan
+ternyata keempat kontrol **tidak** dalam kondisi sama — itu sebabnya kelihatan tidak
+konsisten:
+- **GUESTS** (`Booking.tsx:343`) dan **ROOM PREFERENCE** (`Booking.tsx:353`) adalah
+  `<select>` dan **sudah** pakai `appearance-none` plus `ChevronDown` kustom, jadi
+ Keadaan tertutupnya sudah sesuai design system
+- **CHECK IN** (`Booking.tsx:306`) dan **CHECK OUT** (`Booking.tsx:325`) adalah
+  `<input type="date">` **tanpa** `appearance-none`, sehingga kotak tanggal bawaan browser
+  dan ikon kalender native menimpa gaya underline. Itulah yang terlihat "default"
+- Lebih buruk: ada ikon `CalendarDays` dekoratif di baris 305/324, jadi tiap field tanggal
+  sekarang menampilkan **dua** affordance kalender yang saling bertabrakan
+
+Gaya rumah ada di `inputCls` (`Booking.tsx:12`): field garis bawah, `border-b
+border-line bg-transparent py-3`, `focus:border-clay`. Token di `src/index.css:3-16`:
+line `#ddd4c8`, ink `#29241f`, stone `#726a60`, clay `#a7533a`, cream `#fffdf9`, sand
+`#f3eee6`. Kartu mewajibkan pakai ulang keduanya, tanpa warna baru dan tanpa hex hardcode.
+
+** Jebakan yang saya tandai di kartu:** menyembunyikan indikator native bisa membuat
+popup tanggal tidak terbuka saat diklik di sebagian browser. Harus dibuktikan popup tetap
+membuka — diklik **dan** lewat keyboard, di setiap lebar yang diuji. Field yang lebih
+cantik tapi tidak lagi membuka kalender adalah kerugian bersih di satu-satunya jalur
+konversi situs ini.
+
+**Yang tidak mungkin dilakukan, supaya tidak membuang waktu:** daftar terbuka sebuah
+`<select>` dan popup kalender itu digambar oleh sistem operasi, dan tidak ada CSS yang
+mengubahnya. Itu batas platform, bukan kekurangan pekerjaan. Human sudah saya beri tahu.
+Kartu ini **melarang** membangun widget kalender atau listbox custom untuk akal-acal
+mengatasinya — itu perubahan besar dan sensitif aksesibilitas di satu-satunya jalur
+konversi, padahal human meminta sesuatu yang sederhana. Kalau Oscar merasa widget custom
+memang perlu, ia diminta menulis proposal, bukan membangunnya.
+
+**Batas yang harus dijaga, semua hasil ukur Angela:** `Booking.tsx:193` bebannya berat —
+form jadi satu kolom di bawah `lg` dengan `md:px-[72px]`; grid dua kolom dan padding
+120px pernah mendarat di breakpoint yang sama dan menghancurkan field jadi 63px di 768px.
+Tidak boleh digeser. Semua kontrol form tetap 48px atau lebih tinggi. Nol overflow
+horizontal di 390/768/1023/1024/1440.
+
+Selesai definition: build exit 0, lint exit 0 dengan tepat dua warning, screenshot
+Chromium sungguhan di empat lebar, satu affordance kalender per field, popup terbuka via
+klik dan keyboard, focus ring terlihat di keempat field, dan nol overflow.
+
+**SHM-16 (error boundary) diturunkan ke low** dan menunggu di belakang. Itu satu-satunya
+pekerjaan yang belum diuji siapa pun di lantai ini, dan tidak boleh menggeser permintaan
+human yang eksplisit.
+
+
+
 ### 13:17:48 — Hourly ops standup: `SHM-14` Oscar selesai dan saya verifikasi sendiri
 
 **`SHM-14` (Oscar) selesai** — 20 insertions, 5 deletions, 4 file. Tidak commit, tidak
