@@ -25,7 +25,7 @@ export default function Stay() {
 
       {/* collection */}
       <section className="bg-cream">
-        <div className="mx-auto max-w-[1440px] px-6 pt-20 pb-8 md:px-[120px] md:pt-28">
+        <div className="mx-auto max-w-[1440px] px-6 pt-20 pb-8 md:px-[72px] lg:px-[120px] md:pt-28">
           <Reveal>
             <Eyebrow>A SMALL COLLECTION</Eyebrow>
           </Reveal>
@@ -38,7 +38,7 @@ export default function Stay() {
           </Reveal>
         </div>
 
-        <div className="mx-auto flex max-w-[1440px] flex-col gap-20 px-6 pb-24 md:px-[120px] md:pb-32">
+        <div className="mx-auto flex max-w-[1440px] flex-col gap-20 px-6 pb-24 md:px-[72px] lg:px-[120px] md:pb-32">
           {ROOMS.map((room, i) => (
             <article
               key={room.slug}
@@ -99,7 +99,7 @@ export default function Stay() {
 
       {/* rituals + quote */}
       <section className="bg-sand">
-        <div className="mx-auto grid max-w-[1440px] grid-cols-1 items-center gap-12 px-6 py-20 md:grid-cols-2 md:gap-20 md:px-[120px] md:py-28">
+        <div className="mx-auto grid max-w-[1440px] grid-cols-1 items-center gap-12 px-6 py-20 md:grid-cols-2 md:gap-20 md:px-[72px] lg:px-[120px] md:py-28">
           <div>
             <Reveal>
               <Eyebrow>COMFORT THROUGHOUT YOUR STAY</Eyebrow>
@@ -134,7 +134,7 @@ export default function Stay() {
 
       {/* arrival notes + terrace */}
       <section className="bg-cream">
-        <div className="mx-auto grid max-w-[1440px] grid-cols-1 items-center gap-12 px-6 py-20 md:grid-cols-2 md:gap-16 md:px-[120px] md:py-28">
+        <div className="mx-auto grid max-w-[1440px] grid-cols-1 items-center gap-12 px-6 py-20 md:grid-cols-2 md:gap-16 md:px-[72px] lg:px-[120px] md:py-28">
           <div className="order-2 md:order-1">
             <Reveal>
               <Eyebrow>BEFORE YOU ARRIVE</Eyebrow>

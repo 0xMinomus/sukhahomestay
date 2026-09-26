@@ -66,7 +66,7 @@ export default function RoomDetail() {
 
       {/* overview */}
       <section className="bg-cream">
-        <div className="mx-auto grid max-w-[1440px] grid-cols-1 items-center gap-10 px-6 py-20 md:grid-cols-2 md:gap-20 md:px-[120px] md:py-28">
+        <div className="mx-auto grid max-w-[1440px] grid-cols-1 items-center gap-10 px-6 py-20 md:grid-cols-2 md:gap-20 md:px-[72px] lg:px-[120px] md:py-28">
           <div>
             <Reveal>
               <Eyebrow>{room.overviewLabel}</Eyebrow>
@@ -138,7 +138,7 @@ export default function RoomDetail() {
 
       {/* inclusions */}
       <section className="bg-cream">
-        <div className="mx-auto max-w-[1440px] px-6 py-20 md:px-[120px] md:py-24">
+        <div className="mx-auto max-w-[1440px] px-6 py-20 md:px-[72px] lg:px-[120px] md:py-24">
           <div className="flex flex-col justify-between gap-4 md:flex-row md:items-end">
             <Headline lines={["Everything included."]} className="text-4xl md:text-[43px]" />
             <Reveal>
@@ -159,7 +159,7 @@ export default function RoomDetail() {
 
       {/* booking card */}
       <section className="bg-sand">
-        <div className="mx-auto max-w-[1440px] px-6 py-20 md:px-[120px] md:py-24">
+        <div className="mx-auto max-w-[1440px] px-6 py-20 md:px-[72px] lg:px-[120px] md:py-24">
           <Reveal className="mx-auto max-w-3xl rounded-[6px] border border-line bg-cream p-8 text-center md:p-14">
             <Eyebrow>{room.bookingLabel}</Eyebrow>
             <p className="mt-5 font-serif text-4xl md:text-[44px]">{room.price}</p>

@@ -34,7 +34,7 @@ export default function Landing() {
 
       {/* welcome statement */}
       <section className="bg-cream">
-        <div className="mx-auto max-w-[1440px] px-6 py-24 md:px-[120px] md:py-32">
+        <div className="mx-auto max-w-[1440px] px-6 py-24 md:px-[72px] lg:px-[120px] md:py-32">
           <Reveal>
             <Eyebrow>WELCOME TO SIDEMEN</Eyebrow>
           </Reveal>
@@ -53,7 +53,7 @@ export default function Landing() {
 
       {/* stay teaser */}
       <section className="bg-sand">
-        <div className="mx-auto grid max-w-[1440px] grid-cols-1 items-center gap-12 px-6 py-20 md:grid-cols-2 md:gap-20 md:px-[120px] md:py-28">
+        <div className="mx-auto grid max-w-[1440px] grid-cols-1 items-center gap-12 px-6 py-20 md:grid-cols-2 md:gap-20 md:px-[72px] lg:px-[120px] md:py-28">
           <div>
             <Reveal>
               <Eyebrow>01 / STAY</Eyebrow>
@@ -98,7 +98,7 @@ export default function Landing() {
 
       {/* experiences teaser */}
       <section className="bg-cream">
-        <div className="mx-auto max-w-[1440px] px-6 py-20 md:px-[120px] md:py-28">
+        <div className="mx-auto max-w-[1440px] px-6 py-20 md:px-[72px] lg:px-[120px] md:py-28">
           <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
             <div>
               <Reveal>
@@ -137,7 +137,7 @@ export default function Landing() {
 
       {/* dining teaser */}
       <section className="bg-sand">
-        <div className="mx-auto grid max-w-[1440px] grid-cols-1 items-center gap-12 px-6 py-20 md:grid-cols-2 md:gap-20 md:px-[120px] md:py-28">
+        <div className="mx-auto grid max-w-[1440px] grid-cols-1 items-center gap-12 px-6 py-20 md:grid-cols-2 md:gap-20 md:px-[72px] lg:px-[120px] md:py-28">
           <motion.div
             initial={{ opacity: 0, scale: 0.96 }}
             whileInView={{ opacity: 1, scale: 1 }}
@@ -184,7 +184,7 @@ export default function Landing() {
 
       {/* closing */}
       <section className="bg-cream">
-        <div className="mx-auto max-w-[1440px] px-6 py-24 text-center md:px-[120px] md:py-32">
+        <div className="mx-auto max-w-[1440px] px-6 py-24 text-center md:px-[72px] lg:px-[120px] md:py-32">
           <Reveal>
             <Eyebrow>YOUR QUIET PLACE IN EAST BALI</Eyebrow>
           </Reveal>

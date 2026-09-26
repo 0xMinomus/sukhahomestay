@@ -157,7 +157,7 @@ export default function Booking() {
     <>
       {/* header — cream, so the nav renders in dark tone */}
       <section className="bg-cream pt-[76px]">
-        <div className="mx-auto grid max-w-[1440px] grid-cols-1 gap-10 px-6 pt-14 pb-16 md:grid-cols-[1.2fr_1fr] md:items-end md:px-[120px] md:pt-20">
+        <div className="mx-auto grid max-w-[1440px] grid-cols-1 gap-10 px-6 pt-14 pb-16 md:grid-cols-[1.2fr_1fr] md:items-end md:px-[72px] lg:px-[120px] md:pt-20">
           <div>
             <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }}>
               <Eyebrow>PLAN YOUR STAY</Eyebrow>
@@ -190,7 +190,7 @@ export default function Booking() {
 
       {/* reservation + form */}
       <section className="bg-sand">
-        <div className="mx-auto grid max-w-[1440px] grid-cols-1 gap-12 px-6 py-16 md:grid-cols-2 md:gap-16 md:px-[120px] md:py-20">
+        <div className="mx-auto grid max-w-[1440px] grid-cols-1 gap-12 px-6 py-16 md:gap-16 md:px-[72px] lg:px-[120px] md:py-20 lg:grid-cols-2">
           <div>
             <ParallaxImage src={img.bookingGarden} alt="The garden at Sukha" className="aspect-[4/3] w-full" amount={40} />
             <Reveal className="mt-10">
@@ -223,7 +223,7 @@ export default function Booking() {
           </div>
 
           {/* form card */}
-          <Reveal delay={0.1} className="h-fit rounded-[6px] border border-line bg-cream p-7 md:sticky md:top-24 md:p-10">
+          <Reveal delay={0.1} className="h-fit rounded-[6px] border border-line bg-cream p-7 lg:sticky lg:top-24 md:p-10">
             <AnimatePresence mode="wait">
               {status === "prepared" ? (
                 <motion.div
@@ -456,7 +456,7 @@ export default function Booking() {
 
       {/* assurances */}
       <section className="bg-cream">
-        <div className="mx-auto max-w-[1440px] px-6 py-20 md:px-[120px] md:py-24">
+        <div className="mx-auto max-w-[1440px] px-6 py-20 md:px-[72px] lg:px-[120px] md:py-24">
           <div className="flex flex-col justify-between gap-3 md:flex-row md:items-end">
             <Headline lines={["Arrive with ease."]} className="text-4xl md:text-[43px]" />
             <Reveal>

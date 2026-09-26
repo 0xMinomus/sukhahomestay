@@ -64,7 +64,7 @@ export default function Hero({
       <motion.div
         style={{ opacity: fade }}
         className={cn(
-          "absolute inset-0 mx-auto flex max-w-[1440px] flex-col justify-center px-6 md:px-[120px]",
+          "absolute inset-0 mx-auto flex max-w-[1440px] flex-col justify-center px-6 md:px-[72px] lg:px-[120px]",
           align === "center" && "items-center text-center",
         )}
       >

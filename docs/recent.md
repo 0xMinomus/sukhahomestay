@@ -11,6 +11,41 @@ Setiap entri mencantumkan tanggal, hari, dan waktu lokal 24 jam sampai detik.
 
 ## 2026-09-26 — Sabtu
 
+### 12:04:07 — Perbaikan tablet diverifikasi independen oleh saya, SHM-1 ditutup
+
+**`SHM-10` (Toby) dan `SHM-11` (Oscar) selesai.** Saya tidak menerima laporan mereka apa adanya —
+saya ukur ulang sendiri di browser sungguhan.
+
+Hasil pengukuran saya di 768, 820, 900, 1023, 1024 px pada lima route
+(`/`, `/booking`, `/rooms/garden-suite`, `/experiences/rice-field-walk`, 404):
+
+- **Horizontal overflow 0** di semua 25 kombinasi
+- **0 elemen** tergambar keluar viewport
+- **Jarak wordmark ke link nav** positif di semua lebar, minimum **22px** di 768 (bar yang
+  disepakati 16px)
+- **Semua field form 48px** atau lebih, tidak ada yang terpotong
+- Visual: `dd/mm/yyyy` terbaca penuh di kedua field tanggal, ikon kalender lega, `2 adults`
+  dan `Garden Suite` terbaca penuh — di 768 maupun 1024
+
+`npm run build` keluar 0, `npm run lint` keluar 0 dengan **hanya 2 peringatan lama** dan
+nol peringatan baru dari perubahan Oscar.
+
+**Perubahan Oscar: 31 situs `md:px-[120px]` → `md:px-[72px] lg:px-[120px]`**, grid booking dan
+sticky dipindah ke `lg:`, tiga edit Navbar. Diff 38 baris di 10 file — tertarget, bukan
+tulis ulang. Ia juga melakukan **satu edit di luar brief** dan menandainya terbuka untuk
+ditolak: dua NavLink `sm:flex` → `md:flex`, karena pada 640–767 klaster link masih
+bertumpuk −18px setelah perbaikan Toby. Menolak perubahan itu hanya mengembalikan
+tabrakan itu.
+
+**`SHM-1` ditutup.** Manusia menegaskan seluruh data (nomor WA, tarif, jam sarapan, 10
+gambar) adalah dummy dan **tidak ada yang diubah**. Semua kartu yang menunggu nomor itu
+dilepas. Aturan lantai: nilai-nilai ini data dummy yang sah — jangan diubah, jangan
+dilaporkan lagi sebagai temuan.
+
+Yang tetap benar dan bukan soal data: **validasi field kontak di `Booking.tsx:95-97`
+masih tidak ada** — string apa pun diterima lalu dikonfirmasi balik ke tamu. Itu defect
+kode, bukan defect data.
+
 ### 11:58:11 — Nomor WhatsApp dinyatakan dummy oleh manusia, tidak lagi pemblokir
 
 Manusia menegaskan nomor WA adalah data dummy yang disengaja. Jadi **nomor itu bukan

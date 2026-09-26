@@ -22,7 +22,7 @@ export default function Dining() {
 
       {/* intro */}
       <section className="bg-cream">
-        <div className="mx-auto grid max-w-[1440px] grid-cols-1 items-center gap-10 px-6 py-16 md:grid-cols-2 md:gap-20 md:px-[120px] md:py-24">
+        <div className="mx-auto grid max-w-[1440px] grid-cols-1 items-center gap-10 px-6 py-16 md:grid-cols-2 md:gap-20 md:px-[72px] lg:px-[120px] md:py-24">
           <div>
             <Reveal>
               <Eyebrow>THE SUKHA TABLE</Eyebrow>
@@ -40,7 +40,7 @@ export default function Dining() {
 
       {/* breakfast */}
       <section className="bg-sand">
-        <div className="mx-auto grid max-w-[1440px] grid-cols-1 items-center gap-12 px-6 py-20 md:grid-cols-2 md:gap-20 md:px-[120px] md:py-24">
+        <div className="mx-auto grid max-w-[1440px] grid-cols-1 items-center gap-12 px-6 py-20 md:grid-cols-2 md:gap-20 md:px-[72px] lg:px-[120px] md:py-24">
           <ParallaxImage
             src={img.diningBreakfast}
             alt="Breakfast served daily"
@@ -73,7 +73,7 @@ export default function Dining() {
 
       {/* supper */}
       <section className="bg-cream">
-        <div className="mx-auto grid max-w-[1440px] grid-cols-1 items-center gap-12 px-6 py-20 md:grid-cols-2 md:gap-20 md:px-[120px] md:py-24">
+        <div className="mx-auto grid max-w-[1440px] grid-cols-1 items-center gap-12 px-6 py-20 md:grid-cols-2 md:gap-20 md:px-[72px] lg:px-[120px] md:py-24">
           <div>
             <Reveal>
               <Eyebrow>02 / EVENING</Eyebrow>
@@ -106,7 +106,7 @@ export default function Dining() {
 
       {/* seasonal */}
       <section className="bg-blush">
-        <div className="mx-auto max-w-[1440px] px-6 py-16 md:px-[120px] md:py-20">
+        <div className="mx-auto max-w-[1440px] px-6 py-16 md:px-[72px] lg:px-[120px] md:py-20">
           <div className="flex flex-col justify-between gap-3 md:flex-row md:items-end">
             <Headline lines={["What’s on the table."]} className="text-4xl md:text-[43px]" />
             <Reveal>

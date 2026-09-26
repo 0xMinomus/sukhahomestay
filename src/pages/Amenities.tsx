@@ -31,7 +31,7 @@ export default function Amenities() {
 
       {/* intro */}
       <section className="bg-cream">
-        <div className="mx-auto grid max-w-[1440px] grid-cols-1 items-center gap-10 px-6 py-16 md:grid-cols-2 md:gap-20 md:px-[120px] md:py-24">
+        <div className="mx-auto grid max-w-[1440px] grid-cols-1 items-center gap-10 px-6 py-16 md:grid-cols-2 md:gap-20 md:px-[72px] lg:px-[120px] md:py-24">
           <div>
             <Reveal>
               <Eyebrow>AT SUKHA</Eyebrow>
@@ -49,7 +49,7 @@ export default function Amenities() {
 
       {/* index grid */}
       <section className="bg-sand">
-        <div className="mx-auto max-w-[1440px] px-6 py-16 md:px-[120px] md:py-20">
+        <div className="mx-auto max-w-[1440px] px-6 py-16 md:px-[72px] lg:px-[120px] md:py-20">
           <div className="flex flex-col justify-between gap-3 md:flex-row md:items-end">
             <Headline lines={["Facilities at a glance."]} className="text-4xl md:text-[44px]" />
             <Reveal>
@@ -75,7 +75,7 @@ export default function Amenities() {
 
       {/* a day at sukha */}
       <section className="bg-cream">
-        <div className="mx-auto grid max-w-[1440px] grid-cols-1 items-center gap-12 px-6 py-20 md:grid-cols-[1.3fr_1fr] md:gap-[84px] md:px-[120px] md:py-24">
+        <div className="mx-auto grid max-w-[1440px] grid-cols-1 items-center gap-12 px-6 py-20 md:grid-cols-[1.3fr_1fr] md:gap-[84px] md:px-[72px] lg:px-[120px] md:py-24">
           <ParallaxImage
             src={img.amenitiesPoolside}
             alt="A slow morning by the pool"
@@ -120,7 +120,7 @@ export default function Amenities() {
 
       {/* practical details */}
       <section className="bg-blush">
-        <div className="mx-auto max-w-[1440px] px-6 py-16 md:px-[120px] md:py-20">
+        <div className="mx-auto max-w-[1440px] px-6 py-16 md:px-[72px] lg:px-[120px] md:py-20">
           <div className="flex flex-col justify-between gap-3 md:flex-row md:items-end">
             <Headline lines={["Good to know."]} className="text-4xl md:text-[43px]" />
             <Reveal>

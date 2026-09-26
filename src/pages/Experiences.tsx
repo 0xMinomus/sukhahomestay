@@ -19,7 +19,7 @@ export default function Experiences() {
 
       {/* intro */}
       <section className="bg-cream">
-        <div className="mx-auto grid max-w-[1440px] grid-cols-1 items-center gap-10 px-6 py-16 md:grid-cols-2 md:gap-20 md:px-[120px] md:py-24">
+        <div className="mx-auto grid max-w-[1440px] grid-cols-1 items-center gap-10 px-6 py-16 md:grid-cols-2 md:gap-20 md:px-[72px] lg:px-[120px] md:py-24">
           <div>
             <Reveal>
               <Eyebrow>EXPLORING SIDEMEN</Eyebrow>
@@ -37,7 +37,7 @@ export default function Experiences() {
 
       {/* signature journey */}
       <section className="bg-sand">
-        <div className="mx-auto grid max-w-[1440px] grid-cols-1 items-center gap-12 px-6 py-20 md:grid-cols-2 md:gap-20 md:px-[120px] md:py-24">
+        <div className="mx-auto grid max-w-[1440px] grid-cols-1 items-center gap-12 px-6 py-20 md:grid-cols-2 md:gap-20 md:px-[72px] lg:px-[120px] md:py-24">
           <ParallaxImage
             src={signature.img}
             alt={signature.imageAlt}
@@ -73,7 +73,7 @@ export default function Experiences() {
 
       {/* more ways */}
       <section className="bg-cream">
-        <div className="mx-auto max-w-[1440px] px-6 py-20 md:px-[120px] md:py-24">
+        <div className="mx-auto max-w-[1440px] px-6 py-20 md:px-[72px] lg:px-[120px] md:py-24">
           <div className="flex flex-col justify-between gap-3 md:flex-row md:items-end">
             <Headline lines={["More ways to wander."]} className="text-4xl md:text-[44px]" />
             <Reveal>
@@ -92,7 +92,7 @@ export default function Experiences() {
 
       {/* booking pathway */}
       <section className="bg-sand">
-        <div className="mx-auto max-w-[1440px] px-6 py-20 text-center md:px-[120px] md:py-24">
+        <div className="mx-auto max-w-[1440px] px-6 py-20 text-center md:px-[72px] lg:px-[120px] md:py-24">
           <Reveal>
             <Headline lines={["Start planning your days", "in Sidemen."]} className="mx-auto max-w-3xl text-4xl leading-[1.08] md:text-[48px]" />
           </Reveal>

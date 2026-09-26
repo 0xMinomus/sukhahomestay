@@ -18,7 +18,7 @@ export default function ExperienceDetail() {
       <Hero img={experience.img} imgAlt={experience.imageAlt} eyebrow={experience.index} title={experience.heroTitle} />
 
       <section className="bg-cream">
-        <div className="mx-auto grid max-w-[1440px] grid-cols-1 items-center gap-10 px-6 py-20 md:grid-cols-2 md:gap-20 md:px-[120px] md:py-28">
+        <div className="mx-auto grid max-w-[1440px] grid-cols-1 items-center gap-10 px-6 py-20 md:grid-cols-2 md:gap-20 md:px-[72px] lg:px-[120px] md:py-28">
           <div>
             <Reveal>
               <Eyebrow>DETAILS TO CONFIRM</Eyebrow>
@@ -34,7 +34,7 @@ export default function ExperienceDetail() {
       </section>
 
       <section className="bg-cream">
-        <div className="mx-auto max-w-[1440px] px-6 py-20 md:px-[120px] md:py-24">
+        <div className="mx-auto max-w-[1440px] px-6 py-20 md:px-[72px] lg:px-[120px] md:py-24">
           <div className="flex flex-col justify-between gap-4 md:flex-row md:items-end">
             <Headline lines={["Before you go."]} className="text-4xl md:text-[43px]" />
             <Reveal>
@@ -59,7 +59,7 @@ export default function ExperienceDetail() {
       </section>
 
       <section className="bg-sand">
-        <div className="mx-auto max-w-[1440px] px-6 py-20 md:px-[120px] md:py-24">
+        <div className="mx-auto max-w-[1440px] px-6 py-20 md:px-[72px] lg:px-[120px] md:py-24">
           <div className="flex flex-col justify-between gap-3 md:flex-row md:items-end">
             <Headline lines={["More ways to wander."]} className="text-4xl md:text-[44px]" />
             <Reveal>

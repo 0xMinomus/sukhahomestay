@@ -103,7 +103,7 @@ export default function Navbar({ tone }: { tone: "light" | "dark" }) {
         }}
         className="fixed inset-x-0 top-0 z-50 border-b border-transparent"
       >
-        <nav className="mx-auto flex h-[68px] max-w-[1440px] items-center justify-between px-4 sm:h-[76px] sm:px-6 md:px-14">
+        <nav className="mx-auto flex h-[68px] max-w-[1440px] items-center justify-between px-4 sm:h-[76px] sm:px-6 md:px-8 lg:px-14">
           <button
             ref={openButtonRef}
             onClick={() => {
@@ -131,14 +131,14 @@ export default function Navbar({ tone }: { tone: "light" | "dark" }) {
             <span className="font-mono text-[6px] tracking-[2.4px] sm:text-[7px] sm:tracking-[3.2px] md:text-[8px]">BALI HOMESTAY</span>
           </Link>
 
-          <div className="flex items-center gap-5 md:gap-7">
-            <NavLink to="/stay" className={({ isActive }) => cn(linkCls(isActive), "hidden sm:flex")}>
+          <div className="flex items-center gap-5 md:gap-6">
+            <NavLink to="/stay" className={({ isActive }) => cn(linkCls(isActive), "hidden md:flex")}>
               <span className="relative inline-flex">
                 STAY
                 <Underline />
               </span>
             </NavLink>
-            <NavLink to="/experiences" className={({ isActive }) => cn(linkCls(isActive), "hidden sm:flex")}>
+            <NavLink to="/experiences" className={({ isActive }) => cn(linkCls(isActive), "hidden md:flex")}>
               <span className="relative inline-flex">
                 EXPERIENCES
                 <Underline />
@@ -152,8 +152,8 @@ export default function Navbar({ tone }: { tone: "light" | "dark" }) {
                   scrolled ? "hover:bg-ink hover:text-cream" : "hover:bg-cream/15",
                 )}
               >
-                <span className="hidden min-[480px]:inline">BOOK YOUR STAY</span>
-                <span className="min-[480px]:hidden">BOOK</span>
+                <span className="hidden lg:inline">BOOK YOUR STAY</span>
+                <span className="lg:hidden">BOOK</span>
                 <ArrowUpRight size={14} />
               </Link>
             </motion.div>
