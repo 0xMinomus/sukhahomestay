@@ -6,53 +6,75 @@ specialists it briefs.
 
 | Manifest | Agent | Owns | Model | Budget |
 | --- | --- | --- | --- | --- |
-| `hires/oscar-frontend.hire.json` | Oscar | UI, routes, components, responsive, a11y | `opencode/space-bunny-free` | 2,000,000 tokens |
-| `hires/pam-content.hire.json` | Pam | Copy in `src/data/content.ts`, image sourcing, `docs/image-sources.md` | `opencode/space-bunny-free` | 2,000,000 tokens |
-| `hires/dwight-qa.hire.json` | Dwight | Build/lint gate and browser verification | `opencode/space-bunny-free` | 2,000,000 tokens |
+| `hires/oscar-frontend.hire.json` | Oscar | UI, routes, components, responsive, a11y | `opencode-zen/space-bunny-free` | 2,000,000 tokens |
+| `hires/pam-content.hire.json` | Pam | Copy in `src/data/content.ts`, image sourcing, `docs/image-sources.md` | `opencode-zen/space-bunny-free` | 2,000,000 tokens |
+| `hires/dwight-qa.hire.json` | Dwight | Build/lint gate and browser verification | `opencode-zen/space-bunny-free` | 2,000,000 tokens |
 
-All three run on the free OpenCode Zen model, pinned explicitly. That matters: the
-Munder Difflin source notes that with OpenCode and no model pinned, the CLI silently
-falls back to whatever it can reach while the app keeps reporting the model you picked.
-Pinning `opencode/space-bunny-free` is what makes the card honest.
-`opencode-go/space-bunny-free` is the other free id `opencode models` lists, if you
-prefer that route.
+All three run on the free oh-my-pi model, pinned explicitly rather than left to a
+default, so the card and the terminal always agree on what is running.
 
 `isolate: false` on all three, deliberately: they edit disjoint files (components and
 pages, one content file, and read-only verification), so a shared worktree avoids merge
 overhead and lets the orchestrator see every diff immediately. Turn it on only if two
 agents ever need to touch the same file at the same time.
 
-## Before you import — one blocking prerequisite
+## The binary is `omp`, not `pi`
 
-The app builds each agent's command from the provider preset, and a hire manifest may
-only name `claude`, `antigravity`, `codex` or `cursor` — the validator rejects anything
-else, `opencode` and `pi` included. These manifests therefore **omit `provider`** and
-inherit your default command, so the default has to be the CLI that is actually
-installed:
+This is the one thing that trips people up on this machine. Two different CLIs are
+installed and only one of them is the one you want:
 
 ```
-config.json (floor)  "defaultCommand": "claude"     <- wrong, not installed
-where claude          not found
-where pi              C:\Users\Andika\AppData\Roaming\npm\pi.cmd
-where opencode        opencode 1.18.32
+where pi        C:\Users\Andika\AppData\Roaming\npm\pi.cmd
+                -> @earendil-works/pi-coding-agent 0.85.1  (NOT oh-my-pi, and its
+                   `pi models` currently answers "Invalid bearer token")
+
+C:\Users\Andika\.bun\bin\omp.exe
+                -> @oh-my-pi/pi-coding-agent 18.3.1  (oh-my-pi; bin name is "omp",
+                   not "pi", so nothing called "pi" points at it)
 ```
 
-So in **Settings set the default command to `opencode`** first (or `pi`, if you would
-rather keep the orchestrator on Pi and only run the workers on OpenCode). Import before
-that and every agent will pre-fill with `claude` and fail to start.
+oh-my-pi is the one that offers the free model:
+
+```
+omp --version            omp/18.3.1
+omp models | grep zen    opencode-zen (43)
+                         space-bunny-free   1M ctx   minimal..xhigh thinking
+```
+
+So the command every agent on this floor should run is:
+
+```
+omp --model opencode-zen/space-bunny-free --auto-approve
+```
+
+`--auto-approve` is oh-my-pi's own flag (the pi CLI spells it `--approve`; do not mix
+them up). It is what the floor's auto mode would otherwise inject, and it can be
+dropped if you would rather approve each tool call by hand in the terminal.
 
 ## Import
 
 1. **Add agent → import hire…**
 2. Select all three files at once from
    `C:\Users\Andika\Documents\SUKHA Homestay\sukha-homestay\docs\munder-difflin\hires\`
-3. Review each pre-filled card. The command should read
-   `opencode --model opencode/space-bunny-free`. Nothing else is needed: OpenCode has no
-   skip-permissions flag, and when the floor's auto mode is on the harness injects
-   `permission:allow` into the agent's OpenCode config instead.
-4. Set the working directory to the repo root if the modal offers a field for it. The
-   floor's own folder is already the repo, so it should default correctly.
-5. Spawn. The three appear as separate cards on the floor once each is running.
+3. On each pre-filled card set the provider to **Custom** and make the command field read
+   exactly `omp --model opencode-zen/space-bunny-free --auto-approve`. Import cannot set
+   the provider for you: the validator only accepts `claude`, `antigravity`, `codex` and
+   `cursor`, and it rejects any command flag outside a four-name allowlist
+   (`--model`, `--max-turns`, `--output-format`, `--verbose`).
+4. Set the working directory to the repo root if the modal offers a field. The floor's
+   own folder is already the repo, so it should default correctly.
+5. Spawn.
+
+Picking the **Pi** preset instead and only editing the binary to `omp` is worth a try:
+that path keeps Munder Difflin's pi lifecycle bridge, but the bridge is written against
+the pi CLI's extension API and has not been verified against the oh-my-pi fork, and the
+preset appends `--approve`, which oh-my-pi does not know. Custom is the honest choice
+until that is tested.
+
+Already spawned an agent on the wrong binary? Edit the command on its card if the app
+offers it; otherwise archive the agent and re-spawn from the manifest. Archiving is
+recoverable — the roster keeps archived agents and the app writes a copy of every
+roster change into `roster-backups/`.
 
 ## How they fit together
 
@@ -69,6 +91,6 @@ changed there changes what the floor is told without touching these files.
 
 All three manifests were run through the app's own validator
 (`src/shared/hire.ts` from the Munder Difflin repo) and returned `ok: true`, with
-`model: "opencode/space-bunny-free"` accepted. The same harness confirms the two
-constraints: `provider: "opencode"` and `provider: "pi"` are both rejected, as is
+`model: "opencode-zen/space-bunny-free"` accepted. The same harness confirms the
+constraints above: `provider: "opencode"` and `provider: "pi"` are both rejected, as is
 `commandFlags: ["--approve"]`.
