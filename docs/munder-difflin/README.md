@@ -1,22 +1,47 @@
 # Munder Difflin team for Sukha Homestay
 
-Three hire manifests for the Munder Difflin floor whose folder is this repo, plus the
-steps to import them. The floor's orchestrator is `god` (Michael); these three are the
-specialists it briefs.
+Fifteen hire manifests for the Munder Difflin floor whose folder is this repo, one per
+role in `.omp/agents/`, plus the steps to import them. The floor's orchestrator is `god`
+(Michael); these are the specialists it briefs.
 
-| Manifest | Agent | Owns | Model | Budget |
+| Manifest | Agent | Role | Cast | Model |
 | --- | --- | --- | --- | --- |
-| `hires/oscar-frontend.hire.json` | Oscar | UI, routes, components, responsive, a11y | `opencode-zen/space-bunny-free` | 2,000,000 tokens |
-| `hires/pam-content.hire.json` | Pam | Copy in `src/data/content.ts`, image sourcing, `docs/image-sources.md` | `opencode-zen/space-bunny-free` | 2,000,000 tokens |
-| `hires/dwight-qa.hire.json` | Dwight | Build/lint gate and browser verification | `opencode-zen/space-bunny-free` | 2,000,000 tokens |
+| `hires/frontend.hire.json` | Frontend | React/TS UI, responsive, a11y, browser-verified changes | oscar | space-bunny-free |
+| `hires/backend.hire.json` | Backend | APIs, data contracts, validation, integrations | kevin | space-bunny-free |
+| `hires/deploy.hire.json` | Deploy | Build artifacts, Vercel config, git state, release readiness | andy | space-bunny-free |
+| `hires/task.hire.json` | Task | Bounded implementation slice, generalist | darryl | space-bunny-free |
+| `hires/scout.hire.json` | Scout | Read-only codebase mapping and evidence handoff | stanley | space-bunny-free |
+| `hires/tester.hire.json` | Tester | Hands-on CLI/web/responsive/regression runs | kelly | space-bunny-free |
+| `hires/qa-lead.hire.json` | QA Lead | Risk-based strategy, acceptance scenarios, release gate | dwight | space-bunny-free |
+| `hires/reviewer.hire.json` | Reviewer | Patch-introduced correctness and regressions | jim | space-bunny-free:xhigh |
+| `hires/security-reviewer.hire.json` | Security Reviewer | Untrusted input to dangerous sink, CWE evidence | creed | space-bunny-free:xhigh |
+| `hires/technical-writer.hire.json` | Technical Writer | Docs, guides, provenance records | phyllis | space-bunny-free |
+| `hires/sonic.hire.json` | Sonic | Tightly scoped mechanical edits and renames | tobias | space-bunny-free |
+| `hires/product-owner.hire.json` | Product Owner | User value, scope, UX intent, acceptance | meredith | space-bunny-free |
+| `hires/project-manager.hire.json` | Project Manager | Ordered plan, dependencies, status | angela | space-bunny-free |
+| `hires/project-lead.hire.json` | Project Lead | Scope, architecture, tradeoffs, delivery risk | gareth | space-bunny-free:xhigh |
+| `hires/pam-content.hire.json` | Pam | Hospitality copy and real-photo sourcing (no `.omp` role covers this) | pam | space-bunny-free |
 
-All three run on the free oh-my-pi model, pinned explicitly rather than left to a
-default, so the card and the terminal always agree on what is running.
+Every `description` is the role's own `description` from `.omp/agents/<role>.md`, and every
+`goal` is that role's responsibility, method and rules, rewritten against this repo's
+real commands, routes and constraints, plus the house block: read `AGENTS.md` first, npm
+only, never touch `dist/`, never an AI-generated image, never commit or push, never touch
+`hive/`, report to god.
 
-`isolate: false` on all three, deliberately: they edit disjoint files (components and
-pages, one content file, and read-only verification), so a shared worktree avoids merge
-overhead and lets the orchestrator see every diff immediately. Turn it on only if two
-agents ever need to touch the same file at the same time.
+**`orchestrator` is deliberately missing.** The floor already has one, and the hive
+protocol makes god the sole orchestrator and the sole scribe of `board.md`; a second
+orchestrator would be a protocol violation, not a teammate. `project-lead` is the closest
+safe second pair of eyes: it produces the brief, god routes it.
+
+The `:xhigh` suffix goes to the three roles that `.omp` marks `@slow` (reviewer,
+security-reviewer, project-lead) — the thinking tier omp supports on the free model, as
+`~/.omp/agent/config.yml` already uses for its default role. There is only one free model
+available, so the `@smol` / `@task` / `@slow` split collapses onto it; the tier survives
+only as reasoning depth.
+
+`isolate: false` on all of them, deliberately: they edit disjoint files, so a shared
+worktree avoids merge overhead and lets god see every diff immediately. Turn it on only
+when two writers genuinely need the same file at the same time.
 
 ## The binary is `omp`, not `pi`
 
@@ -96,15 +121,22 @@ dropped if you would rather approve each tool call by hand in the terminal.
 ## Import
 
 1. **Add agent → import hire…**
-2. Select all three files at once from
+2. Select the manifests you want at once from
    `C:\Users\Andika\Documents\SUKHA Homestay\sukha-homestay\docs\munder-difflin\hires\`
+   (all fifteen, or just the ones you want on the floor — you do not need the whole roster
+   resident at once).
 3. On each pre-filled card set the provider to **Custom** and make the command field read
-   exactly `omp --model opencode-zen/space-bunny-free --auto-approve`. Import cannot set
-   the provider for you: the validator only accepts `claude`, `antigravity`, `codex` and
-   `cursor`, and it rejects any command flag outside a four-name allowlist
+   `omp --model opencode-zen/space-bunny-free --auto-approve` — drop the `:xhigh` suffix
+   from the three reviewer/lead roles if you would rather they think faster. Import
+   cannot set the provider for you: the validator only accepts `claude`, `antigravity`,
+   `codex` and `cursor`, and it rejects any command flag outside a four-name allowlist
    (`--model`, `--max-turns`, `--output-format`, `--verbose`).
-4. Set the working directory to the repo root if the modal offers a field. The floor's
-   own folder is already the repo, so it should default correctly.
+4. **Set the working directory to the repo root on every card.** This is the step that is
+   easy to skip and expensive to miss: an agent whose cwd is the `hires/` folder reads the
+   repo by absolute path but writes its memory and any edit into that folder instead of
+   the project. If a `memory.md` appears next to the manifests, that agent's cwd is wrong.
+   (Those stray files are git-ignored, so they cannot be committed by accident, but the
+   work still lands in the wrong place.)
 5. Spawn.
 
 Picking the **Pi** preset instead and only editing the binary to `omp` is worth a try:
@@ -121,18 +153,23 @@ roster change into `roster-backups/`.
 ## How they fit together
 
 `god` owns the board (`hive/board.md`), the ticket ledger (`hive/tasks.json`) and the
-commit. None of the three manifests contains a commit, push or git instruction beyond
-"never commit, push or run destructive git commands" — the harness is the only thing
-that runs git on the floor. None of them touches `hive/`, `roster.json` or
-`roster-backups/`; those are app-owned and git-ignored.
+commit. No manifest contains a commit, push or git instruction beyond "never commit, push
+or run destructive git commands" — the harness is the only thing that runs git on the
+floor. None of them touches `hive/`, `roster.json` or `roster-backups/`; those are
+app-owned and git-ignored.
 
 The house rules they are briefed on come from `AGENTS.md` at the repo root, so a rule
 changed there changes what the floor is told without touching these files.
 
 ## Verified
 
-All three manifests were run through the app's own validator
-(`src/shared/hire.ts` from the Munder Difflin repo) and returned `ok: true`, with
-`model: "opencode-zen/space-bunny-free"` accepted. The same harness confirms the
-constraints above: `provider: "opencode"` and `provider: "pi"` are both rejected, as is
-`commandFlags: ["--approve"]`.
+All fifteen manifests were run through the app's own validator (`src/shared/hire.ts` from
+the Munder Difflin repo) and returned `ok: true`, with both
+`model: "opencode-zen/space-bunny-free"` and the `:xhigh` variant accepted. The same
+harness confirms the constraints above: `provider: "opencode"` and `provider: "pi"` are
+both rejected, as is `commandFlags: ["--approve"]`.
+
+The earlier character-named manifests (`oscar-frontend`, `dwight-qa`) were removed when
+the role-named ones landed, so there is exactly one manifest per role and no duplicate
+frontend or QA agent in the import list. Agents already spawned from the old files keep
+running; archive the ones that duplicate a role you now spawn.
