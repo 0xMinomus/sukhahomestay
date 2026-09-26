@@ -34,11 +34,12 @@ This repo is a Vite + React + TypeScript website for Sukha Homestay. Treat `sukh
 This repo is the folder of a Munder Difflin floor (app 0.5.4, ticket prefix `SHM`). The app writes its runtime into the working tree, and those paths are git-ignored: `hive/`, `roster.json`, `roster-backups/`. `hive/` is its own nested git repo.
 
 - Never edit, stage, or commit `hive/`, `roster.json`, or `roster-backups/`. They are app-owned; the app overwrites them and keeps a write audit in `roster-backups/`.
-- The floor's orchestrator is the `god` agent (Michael, provider `pi`, cwd = this repo). It is the only scribe of `hive/board.md`, and only the orchestrator may write `hive/spawn-requests/*.json` to start a temp.
+- The floor's orchestrator is the `god` agent (Michael, provider `custom` on oh-my-pi, cwd = this repo). It is the only scribe of `hive/board.md`, and only the orchestrator may write `hive/spawn-requests/*.json` to start a temp.
 - Shared work surfaces: `hive/board.md` (narrative plan), `hive/tasks.json` (ticket ledger, `todo/doing/blocked/done`), `hive/registry.json` + `hive/fleet.json` (roster and live per-agent state), `hive/log.jsonl` (event feed).
 - Webhook and Slack setup goes through `hive/connections/requests/<id>.json`; the app answers in `hive/connections/results/<id>.json` and the current picture in `hive/connections/state.json`. See `hive/connections/README.md` for the op list.
 - `hive/COMMANDS.md` is the fleet's Claude Code command reference; `hive/PROTOCOL.md` is the messaging and task protocol.
-- This machine has `pi` on PATH and no `claude`. The floor config still defaults to `defaultCommand: "claude"`, so any new agent or temp that does not name `pi` explicitly will fail to start.
+- The floor config (userData `munder-difflin/config.json`, not this repo) is `defaultCommand: "omp"` with `godProvider: "custom"`; every hired agent runs the same way on `opencode/space-bunny-free`. `omp` is on PATH and `claude` is not installed at all. Agents therefore do not need to name a command to start.
+- **Hired agents get the wrong working directory.** All of them defaulted to `docs/munder-difflin/hires`, which has no `package.json`, so a bare `npm run build` fails before it reaches the site — and an agent that retries a failing command trips the circuit breaker. Never trust a bare `npm` command from a hire. Use `npm --prefix "C:\Users\Andika\Documents\SUKHA Homestay\sukha-homestay" run <script>`, and read source files by their full path under the repo root.
 - The three hire manifests for this project's floor live in `docs/munder-difflin/hires/`, with the import steps in `docs/munder-difflin/README.md`.
 
 ## Team agents
