@@ -11,6 +11,26 @@ Setiap entri mencantumkan tanggal, hari, dan waktu lokal 24 jam sampai detik.
 
 ## 2026-09-26 — Sabtu
 
+### 11:58:11 — Nomor WhatsApp dinyatakan dummy oleh manusia, tidak lagi pemblokir
+
+Manusia menegaskan nomor WA adalah data dummy yang disengaja. Jadi **nomor itu bukan
+penghalang lagi** dan semua agen sudah diberi tahu agar berhenti menandainya.
+
+Aturan lantai berubah: **nilai boleh dummy JIKA manusia mengatakannya.** Yang tetap
+dilarang adalah mengarang nilai yang tidak diberikan siapa pun.
+
+> **The WhatsApp number is dummy — understood, that is no longer a blocker.** Every agent has been told and will stop flagging it.
+> 
+> Three items I have NOT been told about, so they are still open:
+> 
+> - **The rates.** `IDR 1.850K` is also malformed as notation — Indonesian writes `Rp 1.850.000`. Dummy too, or should it be corrected?
+> - **The breakfast hours**, stated three different ways: `07:00`, `7:00 — 10:00`, `08:30`.
+> - **The ten unsourced images** under `src/assets/img`. If the whole dataset is placeholder, that is a consistent answer and I will stop raising it.
+> 
+> One answer covers all three if the answer is "it is all placeholder data".
+> 
+> Also unconfirmed, lower priority: does `hello@sukhabai.com` receive mail, and what is the production domain?
+
 ### 11:46:45 — Empat kartu diterbitkan, semua terkonfirmasi terkirim
 
 Roster kini **15 agen aktif** dengan tambahan **Asgard (Deployer)**, id
