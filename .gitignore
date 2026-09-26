@@ -41,3 +41,8 @@ dist-ssr
 /memory.md
 *.memory.md
 /docs/munder-difflin/**/memory.md
+
+# MemPalace semantic-memory store, created in the repo root when mempalace first
+# runs. Machine-local state, same category as hive/ — never commit.
+/palace/
+/hallways.json

@@ -8,6 +8,7 @@ This repo is a Vite + React + TypeScript website for Sukha Homestay. Treat `sukh
 - Build check: `npm run build`.
 - Lint check: `npm run lint`.
 - Local UI smoke: `npm run dev -- --host 127.0.0.1`, then inspect with browser/Playwright.
+- Route list, house patterns, exact command outputs and the open-defect list live in `docs/CONTRIBUTING.md`. Read it before changing anything a visitor can see.
 
 ## Editing rules
 - Source lives in `src/`; public/static deploy files live in `public/`, `index.html`, `vercel.json`.
@@ -19,7 +20,8 @@ This repo is a Vite + React + TypeScript website for Sukha Homestay. Treat `sukh
 ## Verification
 - UI-visible changes need an actual browser smoke against the changed route or component.
 - Code/config changes need the narrow command first, then `npm run build` when behavior or imports changed.
-- `npm run lint` currently reports warnings in existing files; do not hide warnings by loosening rules.
+- `npm run lint` has a baseline of two known warnings, `src/components/motion.tsx:5` (`only-export-components`, the `EASE` export) and `src/components/Navbar.tsx:46` (`set-state-in-effect`). Do not hide them by loosening rules. A third warning is yours.
+- There is no test suite: no `test` script and no test framework. Lint and build are the only automated gates, so a UI-visible change is unproven until someone has looked at it in a browser.
 
 ## Git safety
 - Push completed work automatically to the configured remote after verification, without waiting for a second confirmation.
@@ -39,7 +41,7 @@ This repo is the folder of a Munder Difflin floor (app 0.5.4, ticket prefix `SHM
 - Webhook and Slack setup goes through `hive/connections/requests/<id>.json`; the app answers in `hive/connections/results/<id>.json` and the current picture in `hive/connections/state.json`. See `hive/connections/README.md` for the op list.
 - `hive/COMMANDS.md` is the fleet's Claude Code command reference; `hive/PROTOCOL.md` is the messaging and task protocol.
 - The floor config (userData `munder-difflin/config.json`, not this repo) is `defaultCommand: "omp"` with `godProvider: "custom"`; every hired agent runs the same way on `opencode-zen/space-bunny-free`. `omp` is on PATH and `claude` is not installed at all. Agents therefore do not need to name a command to start.
-- **Hired agents get the wrong working directory.** All of them defaulted to `docs/munder-difflin/hires`, which has no `package.json`, so a bare `npm run build` fails before it reaches the site — and an agent that retries a failing command trips the circuit breaker. Never trust a bare `npm` command from a hire. Use `npm --prefix "C:\Users\Andika\Documents\SUKHA Homestay\sukha-homestay" run <script>`, and read source files by their full path under the repo root.
+- **Hired agents get the wrong working directory.** All of them default to `docs/munder-difflin/hires`, which is not the project. `npm` walks *up* the folder tree looking for a `package.json`, so from that folder a bare `npm run build` happens to find the repo's and succeeds; from the workspace root `C:\Users\Andika\Documents\SUKHA Homestay`, which has no `package.json` anywhere above it, the same command fails with `npm error code ENOENT` and exit 38 before it reaches the site. The command is neither reliably broken nor reliably fine, which is why it burns people. Never trust a bare `npm` command from a hire: use `npm --prefix "C:\Users\Andika\Documents\SUKHA Homestay\sukha-homestay" run <script>`, read source files by their full path under the repo root, and run `npm prefix` to confirm you are in the right place. If a command fails, report the exact error and stop — an agent that retries a failing command trips the circuit breaker.
 - The fifteen hire manifests for this project's floor — one per role in `.omp/agents/`, plus a content/image owner — live in `docs/munder-difflin/hires/`, with the import steps in `docs/munder-difflin/README.md`. Each goal already carries the `--prefix` rule and the absolute repo path, so a hire cannot trip over its own working directory.
 
 ## Team agents
