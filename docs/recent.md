@@ -11,6 +11,46 @@ Setiap entri mencantumkan tanggal, hari, dan waktu lokal 24 jam sampai detik.
 
 ## 2026-09-26 — Sabtu
 
+### 12:15:58 — Hourly ops standup: 12 dari 13 kartu selesai, Kelly dan Asgard lapor
+
+**`SHM-2` (Kelly) selesai** — kartu yang gagal di tiga agen berturut-turut. Verdict:
+**tidak ada blocker.** 14 route PASS di 390px dan 1440px, di dev server maupun build
+produksi, nol console error, nol overflow, nol gambar rusak, 8 kontrol nav diklik sungguhan
+dan semua mendarat benar.
+
+Yang membuat laporan ini bernilai justru yang ia **batalkan**, bukan yang ia temukan:
+- Section `opacity: 0` yang tampak kosong — ditelusuri dengan scrolling realistis 400px/320ms,
+  terbukti beranimasi 0 → 1 dan bertahan. Halaman kosong di screenshot adalah artefak
+  capture, bukan defect
+- Hero yang tampak memudar (0.55, 0.77) — ternyata dari jump-scroll 300px instan; dengan
+  scrolling lambat balik ke 1
+- 12 gambar yang sempat flagged rusak — semuanya HTTP 200, decode 0.4–3.7s
+- Crop `object-fit: cover` yang berat — memang disengaja; **0 gambar benar-benar terdistorsi**
+  di 28 kombinasi route/viewport
+
+Temuan: **soft 404** (URL tak dikenal balas HTTP 200 karena rewrite `/(.*)` → `/`),
++ nit soal active nav di `/booking`, berat aset, dan celah CSP. **Keputusan saya: soft 404
+diterima, tidak diperbaiki** — perbaikannya butuh middleware Vercel yang memanggil fungsi
+di setiap request dan berisiko merusak rewrite yang justru membuat deep link berfungsi.
+Buruk untuk situs brosur 3 kamar.
+
+**`SHM-13` (Asgard) selesai** — ternyata tidak ada yang perlu di-push (0 ahead, 0 behind,
+tree bersih). Kontribusi paling bergajinya: ia **sengaja membatalkan laporannya sendiri** — build dan lint-nya sudah tidak berlaku karena sepuluh file sumber berubah di bawahnya saat ia mematikan preview server, dan ia meminta kedua gate diulang. Sudah saya ulangi: exit 0 keduanya.
+lint-nya sudah tidak berlaku** karena sepuluh file sumber berubah di bawahnya saat ia
+matikan preview server, dan meminta kedua gate diulang. Sudah saya ulangi: exit 0 keduanya.
+
+**Catatan waktu:** baseline Kelly diambil **sebelum** perbaikan tablet masuk, jadi ia
+menggambarkan tree pra-fix. Tidak bertentangan dengan pekerjaan tablet — ia menguji 390 dan
+1440, sedangkan defect tablet ada di 768–1023 yang tidak pernah ia klaim.
+
+**Angela (`SHM-12`) masih jalan** — memverifikasi lebar yang tidak saya sampling: 767 dan
+1023 (dua piksel tepat di bawah switch), plus 740/800/1060, dan memberi putusan atas
+perubahan nav 640–767. File scratch-nya kini **tiga** (`_sweep-baseline.json`,
+`_sweep-detector.js`, `_sweep-half1.json`) dan belum dihapus.
+
+**Dwight** (`dwight-muhsg4yo`) tetap sunyi — 93 byte, tanpa kartu, 83 menit. Saya tidak
+bisa mengarsipkan dari lantai karena `registry.json` ditulis aplikasi. Butuh aksi manusia.
+
 ### 12:04:07 — Perbaikan tablet diverifikasi independen oleh saya, SHM-1 ditutup
 
 **`SHM-10` (Toby) dan `SHM-11` (Oscar) selesai.** Saya tidak menerima laporan mereka apa adanya —
