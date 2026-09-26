@@ -3,29 +3,14 @@ import { Link } from "react-router-dom";
 import { GhostButton } from "../components/bits";
 import Hero from "../components/Hero";
 import { Eyebrow, Headline, ParallaxImage, Reveal, Stagger, Item } from "../components/motion";
-import { ROOMS, WHATSAPP_URL, img } from "../data/content";
-
-const WANDERS = [
-  { kicker: "01 VILLAGE", headline: "Walk old paths", img: img.landingVillage },
-  { kicker: "02 MOUNTAIN", headline: "Meet the morning", img: img.landingMountain },
-  { kicker: "03 WATER", headline: "Follow the river", img: img.landingWater },
-];
-
-const TASTE_TICKS = ["DAILY BREAKFAST INCLUDED", "SEASONAL INGREDIENTS", "VEGETARIAN FRIENDLY"];
-
-const STATS = [
-  { value: "03", label: "ROOMS" },
-  { value: "02", label: "GUESTS / ROOM" },
-  { value: "07:00", label: "BREAKFAST FROM" },
-  { value: "01", label: "GARDEN POOL" },
-];
+import { ROOMS, STATS, TASTE_TICKS, WANDERS, WHATSAPP_URL, img, imgAlt } from "../data/content";
 
 export default function Landing() {
   return (
     <>
       <Hero
         img={img.landingHero}
-        imgAlt="A thatched-roof villa lit from within at dusk, with palms and a garden pool in front"
+        imgAlt={imgAlt.landingHero}
         eyebrow="SIDEMEN · EAST BALI"
         title={["Come home to the", "quiet side of Bali."]}
         description="A family-led village homestay in Sidemen, set among rice terraces, rivers and quiet gardens."
@@ -90,7 +75,7 @@ export default function Landing() {
           >
             <ParallaxImage
               src={img.roomGardenMain}
-              alt="The Garden Suite"
+              alt={imgAlt.roomGardenMain}
               caption="THE GARDEN SUITE · 2 GUESTS · PRIVATE TERRACE"
               className="aspect-[3/4] w-full"
               amount={50}
@@ -121,7 +106,7 @@ export default function Landing() {
                   <div className="relative aspect-[3/4] overflow-hidden">
                     <img
                       src={w.img}
-                      alt={w.headline}
+                      alt={w.alt}
                       loading="lazy"
                       className="h-full w-full object-cover transition-transform duration-[1.2s] ease-out group-hover:scale-[1.06]"
                     />
@@ -150,7 +135,7 @@ export default function Landing() {
           >
             <ParallaxImage
               src={img.landingTable}
-              alt="The long table every morning"
+              alt={imgAlt.landingTable}
               caption="THE LONG TABLE · EVERY MORNING"
               className="aspect-[3/4] w-full"
               amount={50}

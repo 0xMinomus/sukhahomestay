@@ -9,6 +9,11 @@ Sources inspected for this record:
 - `src/data/content.ts` — the `img` map and the `EXPERIENCES` registry, the only place remote image URLs are declared.
 - `vercel.json` — `img-src` permits `https://images.unsplash.com` and `https://images.pexels.com`, which is consistent with the URL list below.
 
+Alt text for every image is not recorded in this file. It lives in `src/data/content.ts`
+in the `imgAlt` table (one entry per key of `img`) and in the `imageAlt` field of each
+`EXPERIENCES` entry. As of 2026-09-26 each description was written by inspecting the
+photograph itself, and none of them is a room name, a headline or a caption.
+
 Review date for the entries below: **2026-09-26**.
 
 ## Remote images

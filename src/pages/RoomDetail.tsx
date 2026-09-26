@@ -5,15 +5,9 @@ import { Navigate, useParams } from "react-router-dom";
 import { GhostButton } from "../components/bits";
 import Hero from "../components/Hero";
 import { Eyebrow, Headline, Item, ParallaxImage, Reveal, Stagger } from "../components/motion";
-import { ROOMS, WHATSAPP_URL } from "../data/content";
+import { ROOMS, WHATSAPP_URL, img, imgAlt } from "../data/content";
 
 const BENEFITS = "BREAKFAST INCLUDED · ENQUIRE WITH THE HOST DIRECTLY";
-
-const ROOM_HERO_ALT: Record<string, string> = {
-  "garden-suite": "A bedroom with a large bed and timber floors, glass doors open onto green foliage",
-  "canopy-room": "A bed beside timber-framed windows looking out into dense green treetops",
-  "courtyard-studio": "A tiled room interior with a black-framed window opening onto a planted garden, with a timber console and potted greenery",
-};
 
 export default function RoomDetail() {
   const { slug } = useParams();
@@ -56,8 +50,8 @@ export default function RoomDetail() {
   return (
     <>
       <Hero
-        img={room.heroImg}
-        imgAlt={ROOM_HERO_ALT[room.slug] ?? room.name}
+        img={img[room.heroImg]}
+        imgAlt={imgAlt[room.heroImg]}
         eyebrow={`${room.index} / ${room.name.toUpperCase()}`}
         title={[room.name]}
         description={room.tagline}
@@ -91,11 +85,11 @@ export default function RoomDetail() {
             transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
             onClick={(e) => {
               triggerRef.current = e.currentTarget;
-              setLightbox({ src: room.mainImg, alt: `${room.name} — ${room.mainCaption}` });
+              setLightbox({ src: img[room.mainImg], alt: imgAlt[room.mainImg] });
             }}
             className="group relative block cursor-zoom-in overflow-hidden text-left"
           >
-            <ParallaxImage src={room.mainImg} alt={room.name} caption={room.mainCaption} className="aspect-[4/3] w-full" amount={40} />
+            <ParallaxImage src={img[room.mainImg]} alt={imgAlt[room.mainImg]} caption={room.mainCaption} className="aspect-[4/3] w-full" amount={40} />
             <span className="absolute top-5 right-5 rounded-full bg-cream/90 px-4 py-2 font-mono text-[9px] tracking-[1.6px] opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-focus-visible:opacity-100">
               ENLARGE +
             </span>
@@ -110,14 +104,14 @@ export default function RoomDetail() {
               transition={{ duration: 0.9, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
               onClick={(e) => {
                 triggerRef.current = e.currentTarget;
-                setLightbox({ src: room.detailImg, alt: `${room.name} — room detail` });
+                setLightbox({ src: img[room.detailImg], alt: imgAlt[room.detailImg] });
               }}
               className="group relative block cursor-zoom-in overflow-hidden text-left"
             >
               <div className="aspect-[16/10] overflow-hidden">
                 <img
-                  src={room.detailImg}
-                  alt={`${room.name} detail`}
+                  src={img[room.detailImg]}
+                  alt={imgAlt[room.detailImg]}
                   loading="lazy"
                   className="h-full w-full object-cover transition-transform duration-[1.2s] ease-out group-hover:scale-[1.05]"
                 />

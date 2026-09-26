@@ -2,7 +2,7 @@ import ExperienceCard from "../components/ExperienceCard";
 import { ClosingBand, GhostButton } from "../components/bits";
 import Hero from "../components/Hero";
 import { Eyebrow, Headline, Item, ParallaxImage, Reveal, Stagger } from "../components/motion";
-import { EXPERIENCES, img } from "../data/content";
+import { EXPERIENCES, img, imgAlt } from "../data/content";
 
 export default function Experiences() {
   const [signature, ...secondaryExperiences] = EXPERIENCES;
@@ -10,7 +10,7 @@ export default function Experiences() {
     <>
       <Hero
         img={img.experiencesHero}
-        imgAlt="Two people walking a path through misty terraced fields below a palm-covered hillside"
+        imgAlt={imgAlt.experiencesHero}
         eyebrow="EXPERIENCES · SIDEMEN, EAST BALI"
         title={["Let Sidemen set", "the pace."]}
         description="Village walks, field paths and mountain light around Sukha Homestay."

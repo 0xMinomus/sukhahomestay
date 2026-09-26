@@ -2,7 +2,7 @@ import { motion } from "motion/react";
 import { ClosingBand } from "../components/bits";
 import Hero from "../components/Hero";
 import { Eyebrow, Headline, Item, ParallaxImage, Reveal, Stagger } from "../components/motion";
-import { AMENITIES_ROW_1, AMENITIES_ROW_2, PRACTICAL, RHYTHM, img, type Amenity } from "../data/content";
+import { AMENITIES_ROW_1, AMENITIES_ROW_2, PRACTICAL, RHYTHM, img, imgAlt, type Amenity } from "../data/content";
 
 function AmenityCell({ amenity }: { amenity: Amenity }) {
   return (
@@ -23,7 +23,7 @@ export default function Amenities() {
     <>
       <Hero
         img={img.amenitiesHero}
-        imgAlt="A garden pool at sunset framed by coconut palms"
+        imgAlt={imgAlt.amenitiesHero}
         eyebrow="AMENITIES · SIDEMEN, EAST BALI"
         title={["Comfort, quietly", "considered."]}
         description="Facilities and simple comforts for a slower stay in Sidemen."
@@ -78,7 +78,7 @@ export default function Amenities() {
         <div className="mx-auto grid max-w-[1440px] grid-cols-1 items-center gap-12 px-6 py-20 md:grid-cols-[1.3fr_1fr] md:gap-[84px] md:px-[72px] lg:px-[120px] md:py-24">
           <ParallaxImage
             src={img.amenitiesPoolside}
-            alt="A slow morning by the pool"
+            alt={imgAlt.amenitiesPoolside}
             caption="A SLOW MORNING · SUKHA"
             className="aspect-[3/4] w-full md:aspect-[4/5]"
             amount={60}

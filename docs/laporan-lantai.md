@@ -4,6 +4,12 @@
 **Disusun oleh:** Michael (`god`), orkestrator
 **Status:** 6 tugas selesai, 2 sedang berjalan, 1 terblokir menunggu keputusan manusia
 
+> **Snapshot 03:50Z, 26 September 2026 — not a living document.** Everything below was
+> true at that timestamp and some of it is no longer true. In particular the team list,
+> the card statuses, and the claim in §2 that only the orchestrator commits and pushes
+> were all superseded later the same day. For the current state of the site, read
+> `docs/CONTRIBUTING.md`.
+
 ---
 
 ## Ringkasan

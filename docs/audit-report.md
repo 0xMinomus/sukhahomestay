@@ -8,7 +8,7 @@ The original audit used read-only source inspection, internal link and import se
 
 - **Previous baseline:** browser and gate evidence captured before the experience-detail cutover.
 - **Current source evidence:** the four experience routes, their shared data and rendering architecture, overview cutover, enquiry behavior, and metadata wiring confirmed by source inspection for this report.
-- **Final integration verification:** reserved for the main agent to add after checking the complete integrated source. No new browser, build, lint, or deployment result is claimed in this update.
+- **Final integration verification:** recorded below, after the integrated tree was checked. It covers build, lint, real Chromium at 1440×900 and 390×844, and the git diff check. It does **not** cover any remote deployment, because none was performed for that feature.
 
 ## Route audit
 
@@ -29,7 +29,7 @@ The original audit used read-only source inspection, internal link and import se
 | `/booking` | Validated enquiry composer and WhatsApp handoff |
 | `*` | Branded Not Found recovery page |
 
-The four experience paths above are the current canonical in-app experience routes. “Canonical” here means the supported route identity within the application; the repository still does not define an approved production-domain URL or a canonical-link SEO tag.
+The four experience paths above are the current canonical in-app experience routes. "Canonical" here means the supported route identity within the application. The site is deployed and reachable at `https://sukhahomestay.vercel.app` — that is a live host, verified 2026-09-26, not a source-tree fact, and the repository still defines no canonical-link SEO tag.
 
 All primary pages have substantive content, are connected to navigation, footer, discovery, or CTA paths, and render route-specific metadata. The shared room-detail and experience-detail components are deliberate data-driven patterns, not duplicate page code. The landing-page sections overlap with their destination pages only as teasers.
 
@@ -72,7 +72,7 @@ Each detail page uses its registry `enquiryLabel` for the CTA and links to `/boo
 
 `src/App.tsx` uses the same normalized pathname and `getExperienceBySlug` lookup to create a known detail title as `<experience title> · Sukha Homestay` and uses that registry entry's `seoDescription`. On client navigation, the existing metadata effect updates the document title, description, Open Graph title, Open Graph description, Open Graph URL, Twitter title, and Twitter description.
 
-This is client-injected runtime metadata. No production-domain canonical URL, approved social image, sitemap, structured data, or static/prerendered deep-link metadata has been added. Source wiring alone is not runtime, crawler, deployment, or production-domain verification.
+This is client-injected runtime metadata. No canonical URL, approved social image, sitemap, structured data, or static/prerendered deep-link metadata has been added to the source. Source wiring alone is not runtime, crawler, deployment, or production-domain verification.
 
 ## Clean and dead-code audit
 
@@ -179,12 +179,12 @@ The main agent and independent verification workers completed the following chec
 - Keyboard activation, accessible link names, mobile menu Escape/focus return, reduced-motion rendering, image loading, and existing-route regression checks passed in real Chromium.
 - `git diff --check` passed with only checkout line-ending warnings.
 
-No deployment or Vercel preview was run for this feature. Runtime metadata remains client-injected; production-domain canonical URLs, social images, sitemap, structured data, and HTTP 404 behavior remain separate owner/deployment decisions.
+No deployment or Vercel preview was run for this feature, and the checks below are all local. Runtime metadata remains client-injected. For the record, independently of this feature: the site is live at `https://sukhahomestay.vercel.app` and returns HTTP 200 with the `vercel.json` CSP, deep links included — so canonical URLs, social images, sitemap, structured data, and HTTP 404 behavior are still open, but "there is no deployment" is not one of them.
 
 ## Follow-up decisions and risks
 
 1. **Business owner:** replace and verify the placeholder-looking WhatsApp number, phone, and email before publication. Approve or correct all room, price, capacity, amenity, meal, service, policy, location, and experience claims.
-2. **Deployment owner:** verify a Vercel preview for all four experience deep links, Google Fonts/CSP, security/cache headers, and not-found HTTP behavior. A client redirect or Not Found page is not evidence of an HTTP 404 response.
-3. **SEO owner:** decide whether client-injected metadata is sufficient. Canonical URLs, an approved social image, sitemap, structured data, and static/prerendered deep-link metadata were not added because the production domain and content policy are unverified.
+2. **Deployment owner:** decide whether to adopt `https://sukhahomestay.vercel.app` as the canonical production domain in `vercel.json` and the metadata, and confirm the security/cache headers and the Google Fonts CSP origins in production. A client redirect or Not Found page is not evidence of an HTTP 404 response; an unknown path returns 200. Deep-link reachability and the CSP have since been checked against the live host and are fine.
+3. **SEO owner:** decide whether client-injected metadata is sufficient, and supply the content policy. Canonical URLs, an approved social image, sitemap, structured data, and static/prerendered deep-link metadata were not added. The domain is no longer the blocker — it is known and live. The unresolved inputs are the content policy and the unverified business facts.
 4. **Privacy owner:** decide whether a real privacy destination/policy is required before introducing a backend or additional personal-data handling. The prepared WhatsApp URL contains guest-entered data and should be treated as sensitive.
 5. **Release status:** the experience-detail implementation and local integration checks are complete. Publication remains conditional on owner verification of the operational contact and business facts. No deployment was performed or claimed during this feature update.

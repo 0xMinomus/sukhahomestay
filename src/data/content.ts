@@ -70,6 +70,56 @@ export const img = {
   stayTerrace,
 };
 
+export type ImgKey = keyof typeof img;
+
+/**
+ * One honest description per image, kept next to the URLs above so a slot can
+ * never carry a title or a caption as its alt text. Every key in `img` must
+ * have an entry here.
+ */
+export const imgAlt: Record<ImgKey, string> = {
+  amenitiesHero:
+    "A still garden pool reflecting the last of the sunset, with tall palms silhouetted behind it.",
+  amenitiesPoolside:
+    "A turquoise pool with a planted islet and a single palm, smooth boulders at its edge and a wooden deck in front.",
+  bookingGarden:
+    "Round cut-log stepping stones running through dense tropical planting towards a low thatched-roof structure.",
+  diningBreakfast:
+    "A coconut-shell bowl of sliced banana, strawberries and grated coconut beside a cappuccino, on a woven rattan mat.",
+  diningHero: "A round wooden table laid with patterned china, green cups, teapots and oranges.",
+  diningLongtable: "A long wooden table set with lit candles under a thatched roof, with the sea beyond.",
+  experiencesHero: "Misty terraced fields below a palm-covered hillside.",
+  landingHero:
+    "A low villa under a wide thatched roof, lit from within at dusk, with tall palms either side and a lit pool in front.",
+  landingMountain:
+    "A conical mountain peak above red-tiled village roofs and palms, with two people on the stone path below.",
+  landingTable: "A low table and floor cushions set on a raised deck on a lawn beneath spreading trees.",
+  landingVillage:
+    "A man in a conical hat walking a narrow raised bund between green terraced rice fields, with palms and misty hills behind.",
+  landingWater:
+    "A man in a conical hat wading in a shallow rocky stream in dense forest, a basket on his back.",
+  roomCanopyDetail:
+    "A white cylindrical side table and a black-and-white woven mat on a pale concrete floor, in hard shadow.",
+  roomCanopyHero:
+    "A white bed in a room with timber-framed windows looking into dense green tropical foliage.",
+  roomCanopyMain:
+    "A bed with white linen beside floor-to-ceiling glass, looking out over a hazy green hillside.",
+  roomCourtyardDetail:
+    "Potted plants along a window ledge above a pink-tiled wall, with a round globe lamp and two floor cushions below.",
+  roomCourtyardHero:
+    "Potted plants on a ledge beside a black-framed window, with a timber ladder shelf and counter below.",
+  roomCourtyardMain:
+    "A tiled built-in bench with a long brown bolster cushion, plants on the ledge above and a black-framed window behind.",
+  roomGardenDetail: "A shaded patio with wicker seating and pale cushions under a slatted pergola.",
+  roomGardenHero:
+    "A large bed with white linen and a rust-coloured runner, dark timber furniture beside sheer curtains and glass doors.",
+  roomGardenMain:
+    "A dim bedroom looking out through a glass door to a white balustrade and dense green trees.",
+  stayHero: "A tiled-roof pavilion behind a garden pond, framed by ceramic jars and trees.",
+  stayRitual: "A tray with a white teapot and cup, small plates of sliced papaya and orange, and a green cutting in a glass.",
+  stayTerrace: "A bamboo pavilion with a deep thatched roof over dining tables and chairs in a lush green garden.",
+};
+
 /* ---------------------------------- nav ---------------------------------- */
 
 export const NAV_LINKS = [
@@ -83,6 +133,32 @@ export const NAV_LINKS = [
 export const WHATSAPP_URL = "https://wa.me/6281234567890";
 export const EMAIL_URL = "mailto:hello@sukhabali.com";
 export const PHONE_DISPLAY = "+62 812 3456 7890";
+
+/* --------------------------------- landing --------------------------------- */
+
+export const WANDERS = [
+  { kicker: "01 VILLAGE", headline: "Walk old paths", img: img.landingVillage, alt: imgAlt.landingVillage },
+  { kicker: "02 MOUNTAIN", headline: "Meet the morning", img: img.landingMountain, alt: imgAlt.landingMountain },
+  { kicker: "03 WATER", headline: "Follow the river", img: img.landingWater, alt: imgAlt.landingWater },
+];
+
+export const TASTE_TICKS = ["DAILY BREAKFAST INCLUDED", "SEASONAL INGREDIENTS", "VEGETARIAN FRIENDLY"];
+
+export const STATS = [
+  { value: "03", label: "ROOMS" },
+  { value: "02", label: "GUESTS / ROOM" },
+  { value: "07:00", label: "BREAKFAST FROM" },
+  { value: "01", label: "GARDEN POOL" },
+];
+
+/* ----------------------------------- stay ----------------------------------- */
+
+export const RITUALS = ["DAILY BREAKFAST", "BATH SALTS", "BICYCLES", "WIFI"];
+
+export const HOUSE_RULES = [
+  { label: "CHECK-IN", value: "2:00 PM" },
+  { label: "CHECK-OUT", value: "11:00 AM" },
+];
 
 /* ---------------------------------- rooms --------------------------------- */
 
@@ -101,10 +177,10 @@ export interface Room {
   overviewLabel: string;
   overviewTitle: [string, string];
   overviewBody: string;
-  heroImg: string;
-  mainImg: string;
+  heroImg: ImgKey;
+  mainImg: ImgKey;
   mainCaption: string;
-  detailImg: string;
+  detailImg: ImgKey;
   materialTitle: [string, string];
   materialCopy: string;
   specs: { guests: string; bed: string; size: string; outdoor: string };
@@ -135,10 +211,10 @@ export const ROOMS: Room[] = [
     overviewTitle: ["Where the garden", "comes inside."],
     overviewBody:
       "The Garden Suite opens directly to a shaded terrace framed by frangipani and palms. Inside, cool stone floors, local timber and handwoven textiles create a calm, tactile retreat.",
-    heroImg: roomGardenHero,
-    mainImg: roomGardenMain,
+    heroImg: "roomGardenHero",
+    mainImg: "roomGardenMain",
     mainCaption: "PRIVATE TERRACE · GARDEN VIEW",
-    detailImg: roomGardenDetail,
+    detailImg: "roomGardenDetail",
     materialTitle: ["Stone, timber,", "and woven cotton."],
     materialCopy: "Stone, local timber and handwoven textiles bring a tactile, natural palette.",
     specs: { guests: "2 GUESTS", bed: "KING BED", size: "46 M²", outdoor: "PRIVATE TERRACE" },
@@ -158,10 +234,10 @@ export const ROOMS: Room[] = [
     overviewTitle: ["Wake within", "the canopy."],
     overviewBody:
       "Perched above the garden, the Canopy Room looks toward palms and distant ridgelines. Breezes move through timber shutters while a private balcony becomes your front-row seat to sunrise.",
-    heroImg: roomCanopyHero,
-    mainImg: roomCanopyMain,
+    heroImg: "roomCanopyHero",
+    mainImg: "roomCanopyMain",
     mainCaption: "PRIVATE BALCONY · CANOPY VIEW",
-    detailImg: roomCanopyDetail,
+    detailImg: "roomCanopyDetail",
     materialTitle: ["Timber, rattan,", "and soft linen."],
     materialCopy: "Lightweight materials keep the room airy and connected to the trees.",
     specs: { guests: "2 GUESTS", bed: "QUEEN BED", size: "38 M²", outdoor: "CANOPY BALCONY" },
@@ -181,10 +257,10 @@ export const ROOMS: Room[] = [
     overviewTitle: ["A courtyard of", "your own."],
     overviewBody:
       "The Courtyard Studio is compact, grounded and deeply private. A walled garden draws daylight into the room while polished stone and hand-finished plaster keep the atmosphere cool.",
-    heroImg: roomCourtyardHero,
-    mainImg: roomCourtyardMain,
+    heroImg: "roomCourtyardHero",
+    mainImg: "roomCourtyardMain",
     mainCaption: "TILED WINDOW BENCH · DAYLIGHT",
-    detailImg: roomCourtyardDetail,
+    detailImg: "roomCourtyardDetail",
     materialTitle: ["Plaster, stone,", "and handmade tile."],
     materialCopy: "Polished stone and hand-finished plaster bring a cool, grounded palette.",
     specs: { guests: "2 GUESTS", bed: "KING BED", size: "34 M²", outdoor: "PRIVATE COURTYARD" },
@@ -240,6 +316,12 @@ export const SEASONAL: { label: string; copy: string }[] = [
   { label: "FIELDS", copy: "Heritage rice, cassava, corn" },
   { label: "MARKET", copy: "Tropical fruit, tempeh, mountain greens" },
   { label: "PANTRY", copy: "Cacao, coffee, palm sugar" },
+];
+
+export const SERVICE: { label: string; value: string }[] = [
+  { label: "SERVED", value: "7:00 — 10:00" },
+  { label: "STYLE", value: "BALINESE + CONTINENTAL" },
+  { label: "DIETARY", value: "VEGETARIAN FRIENDLY" },
 ];
 
 /* ------------------------------- experiences ------------------------------ */
@@ -302,7 +384,7 @@ export const EXPERIENCES: readonly Experience[] = [
     title: "River stones & waterfalls",
     heroTitle: ["River stones", "& waterfalls."],
     img: experiencesRiver,
-    imageAlt: "River stones and flowing water in the Sidemen landscape",
+    imageAlt: "A waterfall falling into a dark pool in dense forest, with a person seated on a rock at the bank.",
     imageCaption: "02 / RIVER STONES & WATERFALLS",
     tagline: "Ask about river places and waterfalls around Sidemen.",
     overviewLabel: "RIVER PLACES",
@@ -324,7 +406,7 @@ export const EXPERIENCES: readonly Experience[] = [
     title: "Sunrise on the ridge",
     heroTitle: ["Sunrise on", "the ridge."],
     img: experiencesMountain,
-    imageAlt: "Mountain light rising over the landscape near Sidemen",
+    imageAlt: "A conical volcano above mist filling the valleys, with terraced fields in the foreground.",
     imageCaption: "03 / SUNRISE ON THE RIDGE",
     tagline: "Ask about mountain light and the ridge around Sidemen.",
     overviewLabel: "MOUNTAIN LIGHT",
@@ -346,7 +428,7 @@ export const EXPERIENCES: readonly Experience[] = [
     title: "Hands at work",
     heroTitle: ["Hands at", "work."],
     img: experiencesCraft,
-    imageAlt: "Hands working with materials in a craft setting",
+    imageAlt: "An older woman weaving on a wooden floor loom in an open-sided pavilion.",
     imageCaption: "04 / HANDS AT WORK",
     tagline: "Ask about craft visits around Sidemen.",
     overviewLabel: "CRAFT VISITS",

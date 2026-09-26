@@ -3,21 +3,14 @@ import { Link } from "react-router-dom";
 import { ClosingBand, GhostButton } from "../components/bits";
 import Hero from "../components/Hero";
 import { Eyebrow, Headline, Item, ParallaxImage, Reveal, Stagger } from "../components/motion";
-import { ROOMS, img } from "../data/content";
-
-const RITUALS = ["DAILY BREAKFAST", "BATH SALTS", "BICYCLES", "WIFI"];
-
-const HOUSE_RULES = [
-  { label: "CHECK-IN", value: "2:00 PM" },
-  { label: "CHECK-OUT", value: "11:00 AM" },
-];
+import { HOUSE_RULES, RITUALS, ROOMS, img, imgAlt } from "../data/content";
 
 export default function Stay() {
   return (
     <>
       <Hero
         img={img.stayHero}
-        imgAlt="A tiled-roof pavilion behind a garden pond, framed by ceramic jars and trees"
+        imgAlt={imgAlt.stayHero}
         eyebrow="ROOMS · SIDEMEN, EAST BALI"
         title={["Wake gently,", "stay awhile."]}
         description="Three rooms in Sidemen, shaped by local materials, garden air and the slower rhythm of village life."
@@ -51,8 +44,8 @@ export default function Stay() {
               >
                 <div className="relative aspect-[4/3] overflow-hidden">
                   <img
-                    src={room.mainImg}
-                    alt={room.name}
+                    src={img[room.mainImg]}
+                    alt={imgAlt[room.mainImg]}
                     loading="lazy"
                     className="h-full w-full object-cover transition-transform duration-[1.2s] ease-out group-hover:scale-[1.05]"
                   />
@@ -121,7 +114,7 @@ export default function Stay() {
             </Stagger>
           </div>
           <div className="flex flex-col gap-6">
-            <ParallaxImage src={img.stayRitual} alt="Morning ritual" className="aspect-[3/2] w-full" amount={40} />
+            <ParallaxImage src={img.stayRitual} alt={imgAlt.stayRitual} className="aspect-[3/2] w-full" amount={40} />
             <Reveal delay={0.1} className="border-l-2 border-clay pl-6">
               <p className="font-serif text-[22px] leading-snug italic">
                 Stay for quiet mornings, garden views and days shaped by the Sidemen landscape.
@@ -170,7 +163,7 @@ export default function Stay() {
           </div>
           <ParallaxImage
             src={img.stayTerrace}
-            alt="Guest terrace"
+            alt={imgAlt.stayTerrace}
             caption="THE GUEST TERRACE · GARDEN PAVILION"
             className="order-1 aspect-[3/4] w-full md:order-2"
             amount={50}

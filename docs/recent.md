@@ -11,6 +11,64 @@ Setiap entri mencantumkan tanggal, hari, dan waktu lokal 24 jam sampai detik.
 
 ## 2026-09-26 — Sabtu
 
+### 15:25:00 — Hourly ops standup: lantai bangun lagi, dan QA menangkap defect yang sudah live
+
+**Lantai tidak lagi idle.** Tujuh dari sembilan agen bergerak dalam sepuluh menit terakhir
+(memori 15:07–15:11): Oscar, Angela, Phylis, Meredith, Stanley, Kelly, dan Pam. Creed
+selesai 14:17, Asgard 14:19 dan memang tidak punya kartu karena belum ada yang siap
+dipush.
+
+**Yang paling penting: QA menangkap defect nyata yang sudah live.** Angela menemukan
+bahwa trigger tanggal adalah `<button>` dengan `tabIndex={-1}` di `Booking.tsx:124-131`,
+jadi tidak pernah masuk urutan tab. Tab mendarat di `input[type="date"]` yang hanya
+menangani ArrowDown dan ArrowUp:
+
+| jalur | picker terbuka? |
+|---|---|
+| klik field | ya |
+| Tab, lalu ArrowDown | ya |
+| Tab, lalu Enter | **tidak — malah mengirim form** |
+| Tab, lalu Space | **tidak — halaman menggulir** |
+Ini **sudah live** di `4dfcd31` — pengguna keyboard menekan Enter di CHECK IN malah
+mengirim form, bukan membuka kalender; Space menggulir halaman. Angela kesimpulannya yang
+harus kita ingat: **"A mouse user is unaffected, which is why a click-only check waved
+this through."** Itu memang verifikasi saya. Aturan baru di lantai ini: **pemeriksaan
+klik saja tidak cukup untuk-whoosh sebuah kontrol interaktif.** Ini kesalahan yang
+sama seperti SHM-17, hanya kostumnya berbeda.
+
+**SHM-29 ke Oscar, prioritas tinggi** — trigger harus jadi tab stop sungguhan, Enter dan
+Space keduanya membuka picker, Enter tidak submit form, Space tidak menggulir, jalur klik
+tetap jalan, dan wiring aria tidak boleh regressi. Dia wajib melaporkan keempat jalur
+sebagai empat baris terpisah, bukan satu kalimat ringkasan. `SHM-22` diblokir di
+belakang `SHM-29` karena keduanya di `Booking.tsx` dan harus terkirim bersama.
+
+**SHM-22 sudah saya verifikasi sendiri dan hasilnya bagus.** Listbox-nya bekerja:
+`aria-controls` resolve, `aria-expanded` jadi true saat diklik, `aria-activedescendant`
+resolve ke `_r_5_-list-opt-1`, listbox 325×186, 8 opsi, `aria-selected` benar, nol
+overflow, dan daftar terbuka tampil house-styled dengan centang clay pada opsi terpilih.
+
+**Pilihan (b) dari Oscar terbukti benar, dan alasannya bukti, bukan selera.** Dia
+menguji lebih dulu apakah menu `<select>` native bisa difoto di harness ini: **tidak
+bisa, karena OS menggambarnya di luar paint tree halaman.** Jadi lapisan OS bukan hanya
+tidak bisa di-style, tapi juga tidak bisa diamati. Itu menjawab sekaligus kenapa
+DoD "bukti keadaan terbuka" mustahil dipenuhi dengan (a).
+
+**Working tree sekarang berisi tiga agen bekerja bersamaan, dan itu alasan saya menahan Asgard.**
+`Booking.tsx` (Oscar, terverifikasi tapi terblokir satu fix), tujuh file halaman plus
+`content.ts` (Pam, belum terverifikasi), dan empat file dokumentasi (Phylis, belum
+terverifikasi). Kalau itu dipush sebagai satu paket, tiga pekerjaan setengah jadi ikut ke
+situs live. **Aturan push: saya serahkan satu perubahan spesifik dan terverifikasi —
+bukan seluruh pohon saat ada lebih dari satu agen di dalamnya.** Asgard sudah diberi
+perintah eksplisit untuk menahan diri.
+
+**Angela juga menemukan dua jebakan harness yang berguna:** `preview --port 4173` diam-
+diam mendarat di 4176 dan mengenai dev server, bukan build; dan `dist/` dibangun ulang
+di bawahnya dua kali di tengah tes sehingga menghasilkan `ERR_ABORTED` dan dua hasil
+link palsu. Guards `curl -s ... | grep -c "vite/client"` harus 0 dia masukkan ke
+catatan sebagai cara membuktikan sedang menguji build dan bukan dev tree.
+
+
+
 ### 14:20:00 — Hourly ops standup: live URL ditemukan, dan liveness app ternyata mati total
 
 **Situsnya memang LIVE di `https://sukhahomestay.vercel.app` dan selalu ter-update di

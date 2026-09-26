@@ -1,20 +1,14 @@
 import { ClosingBand } from "../components/bits";
 import Hero from "../components/Hero";
 import { Eyebrow, Headline, Item, ParallaxImage, Reveal, Stagger } from "../components/motion";
-import { SEASONAL, img } from "../data/content";
-
-const FACTS = [
-  { label: "SERVED", value: "7:00 — 10:00" },
-  { label: "STYLE", value: "BALINESE + CONTINENTAL" },
-  { label: "DIETARY", value: "VEGETARIAN FRIENDLY" },
-];
+import { SEASONAL, SERVICE, img, imgAlt } from "../data/content";
 
 export default function Dining() {
   return (
     <>
       <Hero
         img={img.diningHero}
-        imgAlt="A breakfast table laid with patterned ceramics, green glasses and oranges"
+        imgAlt={imgAlt.diningHero}
         eyebrow="DINING · SIDEMEN, EAST BALI"
         title={["Breakfast, supper and", "the Sidemen table."]}
         description="Seasonal Balinese-inspired dishes, served slowly at our long table."
@@ -43,7 +37,7 @@ export default function Dining() {
         <div className="mx-auto grid max-w-[1440px] grid-cols-1 items-center gap-12 px-6 py-20 md:grid-cols-2 md:gap-20 md:px-[72px] lg:px-[120px] md:py-24">
           <ParallaxImage
             src={img.diningBreakfast}
-            alt="Breakfast served daily"
+            alt={imgAlt.diningBreakfast}
             caption="BREAKFAST · SERVED DAILY"
             className="aspect-[3/4] w-full"
             amount={55}
@@ -60,7 +54,7 @@ export default function Dining() {
               </p>
             </Reveal>
             <Stagger className="mt-8 grid grid-cols-1 gap-px border-t border-line bg-line sm:grid-cols-3">
-              {FACTS.map((f) => (
+              {SERVICE.map((f) => (
                 <Item key={f.label} className="flex flex-col gap-2 bg-sand py-5 pr-4">
                   <span className="font-mono text-[9px] tracking-[1.8px] text-clay">{f.label}</span>
                   <span className="font-serif text-[19px]">{f.value}</span>
@@ -96,7 +90,7 @@ export default function Dining() {
           </div>
           <ParallaxImage
             src={img.diningLongtable}
-            alt="Shared supper at the long table"
+            alt={imgAlt.diningLongtable}
             caption="SUPPER · WHEN SERVED"
             className="aspect-[4/3] w-full"
             amount={45}
