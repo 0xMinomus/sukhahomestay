@@ -152,8 +152,15 @@ export default function Navbar({ tone }: { tone: "light" | "dark" }) {
                   scrolled ? "hover:bg-ink hover:text-cream" : "hover:bg-cream/15",
                 )}
               >
-                <span className="hidden lg:inline">BOOK YOUR STAY</span>
-                <span className="lg:hidden">BOOK</span>
+                {/*
+                  Label threshold is a measured fit limit, not a layout one. "BOOK YOUR STAY"
+                  costs ~84px more than "BOOK", and the clearance left for the nav's right-hand
+                  cluster is only +22 to +55px across 740-834px, so the short label runs to 1024px.
+                  Pinned to an explicit 1024px rather than `lg` so the nav's own md:px-8 → lg:px-14
+                  padding step can never silently swap this copy again. Measured 2026-09-26.
+                */}
+                <span className="hidden min-[1024px]:inline">BOOK YOUR STAY</span>
+                <span className="min-[1024px]:hidden">BOOK</span>
                 <ArrowUpRight size={14} />
               </Link>
             </motion.div>

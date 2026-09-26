@@ -85,7 +85,7 @@ export default function Stay() {
                   <span className="font-serif text-2xl">FROM {room.price.replace("From ", "").split("/")[0].trim()}</span>
                   <Link
                     to={`/rooms/${room.slug}`}
-                    className="group flex items-center gap-2 font-mono text-[10px] tracking-[1.6px] text-clay"
+                    className="group flex min-h-[44px] items-center gap-2 font-mono text-[10px] tracking-[1.6px] text-clay"
                   >
                     VIEW DETAILS
                     <ArrowUpRight size={14} className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />

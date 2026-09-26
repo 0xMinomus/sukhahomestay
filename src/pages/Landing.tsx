@@ -69,7 +69,10 @@ export default function Landing() {
               {ROOMS.map((r) => (
                 <Item key={r.slug} className="flex items-center justify-between border-b border-line py-4">
                   <span className="font-serif text-2xl">{r.name}</span>
-                  <Link to={`/rooms/${r.slug}`} className="font-mono text-[10px] tracking-[1.6px] text-clay hover:underline">
+                  <Link
+                    to={`/rooms/${r.slug}`}
+                    className="inline-flex min-h-[44px] w-fit items-center font-mono text-[10px] tracking-[1.6px] text-clay hover:underline"
+                  >
                     VIEW →
                   </Link>
                 </Item>

@@ -167,7 +167,12 @@ export default function RoomDetail() {
             <p className="mt-6 font-mono text-[9px] tracking-[1.8px] text-clay">{BENEFITS}</p>
             <div className="mt-8 flex flex-col items-center gap-4">
               <GhostButton to="/booking" label="CHECK AVAILABILITY" />
-              <a href={WHATSAPP_URL} target="_blank" rel="noreferrer" className="group font-mono text-[10px] tracking-[1.6px] text-stone hover:text-clay">
+              <a
+                href={WHATSAPP_URL}
+                target="_blank"
+                rel="noreferrer"
+                className="group inline-flex min-h-[44px] w-fit items-center gap-1.5 font-mono text-[10px] tracking-[1.6px] text-stone hover:text-clay"
+              >
                 QUESTIONS? MESSAGE OUR HOST
                 <span className="inline-block transition-transform duration-300 group-hover:translate-x-1">→</span>
               </a>

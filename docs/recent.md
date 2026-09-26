@@ -11,6 +11,64 @@ Setiap entri mencantumkan tanggal, hari, dan waktu lokal 24 jam sampai detik.
 
 ## 2026-09-26 — Sabtu
 
+### 13:17:48 — Hourly ops standup: `SHM-14` Oscar selesai dan saya verifikasi sendiri
+
+**`SHM-14` (Oscar) selesai** — 20 insertions, 5 deletions, 4 file. Tidak commit, tidak
+push: dia benar-benar meninggalkannya ke saya. Laporannya ada di **kedua** jalur yang saya
+wajibkan, dan dia mendokumentasikan sendiri tabrakan nama dua jalur yang dulu membuat
+lantai ini kehilangan laporan.
+
+Yang ia kerjakan:
+- Tiga tautan 15px naik ke **44px**, memakai pola rumah yang sudah ada di `Navbar.tsx:8`
+  dan `Navbar.tsx:247`. Ia menulis eksplisit tidak ada abstraksi atau komponen baru
+- **Melepas label dari `lg`, dan lebih baik dari yang saya minta.** Saya minta decoupling
+  atau komentar; ia kerjakan dua-duanya: `min-[1024px]:inline` / `min-[1024px]:hidden`
+  plus komentar JSX yang mencatat bahwa 1024px adalah *ambang fit terukur* (~84px label
+  melawan clearance +22 sampai +55px), bukan ambang layout. Pikselnya sama hari ini
+  (`lg` = 64rem = 1024px di Tailwind v4), tapi perubahan `lg:px-14` di masa depan tidak
+  lagi bisa memindahkan copy
+
+**Verifikasi independen saya**, karena "implementer mengukur karyanya sendiri" adalah
+pola yang tidak dipercaya lantai ini. Chromium sungguhan, bukan screenshot-nya:
+- `Landing` "VIEW →": **45.1 × 44px**, min-h:44px, PASS di 390/768/1023/1024/1440
+- `Stay` "VIEW DETAILS" (elemen terdalam): **113.2 × 44px**, min-h:44px, PASS di kelima
+  lebar. Angka 113.2 persis sama dengan 113 hasil ukur Angela, jadi terbukti elemen yang
+  sama — sekarang 44px, bukan 15px
+- `RoomDetail` "QUESTIONS? MESSAGE OUR HOST": **218.3 × 44px**, PASS di kelima lebar
+- Jarak wordmark→STAY: 768 **+22.34**, 834 **+55.34**, 1023 **+149.84**,
+  1024 **+52.34**, 1440 **+260.34**. Positif di semua lebar, dan angkanya
+  **mengulang angka Angela dan Oscar sampai desimal** — itu buktinya tidak ada yang
+  diam-diam dirapikan
+- Label dicek lewat `display` terhitung, bukan dengan membaca source: BOOK di 390/768/1023,
+  BOOK YOUR STAY di 1024/1440. Beralah tepat di 1024
+- `scrollWidth − clientWidth` = **0** di semua lebar, semua route. Nol overflow
+- Screenshot 768px di `/stay` dan `/rooms/garden-suite`: wordmark bersih, tautan tidak
+  terpotong, tone rumah utuh
+- Gate: build exit 0, lint exit 0 dengan tepat dua warning yang sudah dikenal, nol file
+  untracked, nol file scratch
+
+**Satu koreksi terhadap catatan**, ketemu saat verifikasi. Tabel Oscar dan pengukuran
+awal saya sama-sama punya baris 740 yang melaporkan jarak positif. Baris itu **tidak
+berarti** sebagai pengukuran navbar: di 640, 740, dan 767 **nol** tautan `/stay` yang
+terlihat di dalam nav, karena cluster-nya `hidden md:flex` dan `md` itu 768. Saya cek
+langsung, bukan mengira. Di bawah 768 tidak ada cluster nav untuk bertabrakan, jadi
+baris sub-768 harus dibaca sebagai *tidak berlaku*, bukan sebagai pengukuran yang lulus.
+Seri clearance yang sebenarnya mulai dari 768. **Putusan tidak berubah** — tidak ada
+yang bertabrakan di lebar mana pun — tapi tabelnya jangan dikutip seolah 740 membuktikan
+sesuatu.
+
+**Risiko 98px yang saya ewaspadai ternyata aman, dan alasannya sederhana:** ketiga
+tautan yang diperbaiki tidak ada di dalam nav, jadi tidak ada yang menghabiskan headroom
+di 1023/1024. Itu persis hal yang harus dicek, dan hasilnya bersih.
+
+**`SHM-15` ditutup sebagai digantikan** — saya melakukan verifikasi itu sendiri daripada
+mengirim Angela mengulang, karena pertanyaannya sudah terjawab dua kali dan angkanya sama
+persis. Angela **tidak tertinggal**; dia idle tanpa kartu secara sengaja. Verifikasi
+berikutnya yang benar-benar perlu adalah error boundary di `SHM-16`, satu-satunya kartu
+yang masih terbuka dan satu-satunya pekerjaan di lantai ini yang belum diuji siapa pun.
+
+
+
 ### 12:56:37 — Hourly ops standup: `SHM-12` Angela selesai, dua kartu baru keluar
 
 **`SHM-12` (Angela) selesai** — 234 pengukuran browser sungguhan, 9 route × 13 lebar
