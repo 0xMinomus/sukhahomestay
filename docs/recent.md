@@ -11,6 +11,61 @@ Setiap entri mencantumkan tanggal, hari, dan waktu lokal 24 jam sampai detik.
 
 ## 2026-09-26 — Sabtu
 
+### 14:20:00 — Hourly ops standup: live URL ditemukan, dan liveness app ternyata mati total
+
+**Situsnya memang LIVE di `https://sukhahomestay.vercel.app` dan selalu ter-update di
+setiap push.** Asgard yang menemukan; saya verifikasi sendiri: HTTP 200, `Server: Vercel`,
+dan `Content-Security-Policy` yang dikembalikan persis sama dengan `vercel.json`, jadi
+config itu benar-benar hidup. `Last-Modified: 06:11:14 GMT` cocok dengan deployment
+Production `422370f` pada 06:11:03Z, dan daftar deployment menunjukkan satu deploy
+Production per commit.
+
+**Saya bilang ke human bahwa deploy "tidak mungkin dari mesin ini", dan itu salah.**
+Tiga pemeriksaan, semuanya secara teknis benar, tapi kesimpulannya keliru: tidak ada folder
+`.vercel`, tidak ada `.github/workflows`, dan `docs/CONTRIBUTING.md` menulis tidak ada
+domain produksi yang dikonfigurasi. Koreksi Asgard adalah pelajarannya: **integrasi Git
+Vercel dari sisi dashboard tidak meninggalkan jejak apa pun di repo.** Tidak adanya
+`.vercel` hanya berarti tidak ada orang yang menjalankan link CLI lokal; tidak adanya
+workflow tidak membuktikan apa pun, karena Vercel build di CI-nya sendiri dari push
+GitHub. **Saya mengulang baris basi dari dokumentasi repo sendiri dan menyajikannya ke
+human sebagai keterbatasan platform.** Dokumen itu sekarang sudah dikoreksi dengan URL
+live dan alasannya. Ini keempat kalinya hari ini saya menjelaskan sesuatu tanpa
+mengujinya — pola yang sama dengan model id, cerita cwd, dan counter `fleet.json`.
+
+**Ini sekaligus menutup keluhan human.** "udah update vercel tapi gaada perubahan
+satupun" ternyata bukan kegagalan deploy. Deploy berjalan normal di setiap commit;
+alasannya adalah `SHM-17` memang perubahan yang secara visual nol. Pengukuran saya di
+build produksi dan riwayat deploy saling mengonfirmasi.
+
+**Temuan liveness, dan ini lebih penting daripada deploy.** Semua 15 agen aktif melapor
+`status: "idle"` di `registry.json`, dan setiap `lastSeen` jatuh di rentang 21 detik pada
+04:53:06–04:53:27 — persis rentang spawn. Sekarang 06:17. Jadi `lastSeen` adalah
+**penulisan saat spawn, bukan heartbeat**, dan `status` tidak pernah berubah. Oscar
+menyelesaikan `SHM-17` dan Asgard menyelesaikan commit plus push di dalam rentang itu dan
+keduanya tetap terbaca idle. Digabung dengan `tokens` / `lastTool` /
+`lastActiveSecAgo` yang sudah mati di `fleet.json`, **lantai ini tidak punya sinyal
+liveness yang bisa dipakai sama sekali.**
+
+Artinya pertanyaan standup "confirm each is still running (not stalled or idle-stale)"
+**tidak bisa dijawab dari file status apa pun yang ditulis app.** Satu-satunya sinyal yang
+dapat dipercaya: `memory.md` milik masing-masing agen, working tree git, dan event handoff
+di `log.jsonl`. Kalau ada yang membaca `status: idle` lalu melaporkan lantai mati, dia
+salah — dan dengan 15 dari 15 terbaca idle, itu kesalahan yang sangat mudah terjadi.
+Dicatat keras supaya standup berikutnya tidak mengulangnya.
+
+**Aturan push sudah terbukti bekerja.** Asgard himself yang commit dan push `422370f`
+(perbaikan manifest + entri log) setelah saya serahkan ke dia, bukan saya yang push.
+Itu pengiriman pertama di bawah aturan yang dikoreksi, dan ia melakukannya tanpa perlu
+diminta dua kali. Manifest `deploy.hire.json` juga sudah membaca peran itu sebagai
+"verifies deployment readiness" — yang tidak kita percaya — dan sekarang sudah diganti
+menjadi push-ke-GitHub.
+
+**Tiga kartu keluar bersamaan** (`SHM-19` Oscar, `SHM-20` Angela terblokir, `SHM-21`
+Creed + Meredith). Angela akhirnya dapat kartu QA — human memang menanyakan dua kali di
+mana QA-nya, dan tidak ada kartu untuk dia. Itu kelalaian saya.
+
+
+
 ### 14:10:00 — Aturan tetap dari human: "release" = push ke GitHub, Asgard selalu ikut
 
 Human mengoreksi saya, dan dia benar dua kali. Yang pertama: "lah kan tugas deploy ada

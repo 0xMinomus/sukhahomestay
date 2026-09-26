@@ -129,10 +129,24 @@ check the page before assuming.
 ### Deep links on the deployed site
 
 `vercel.json` rewrites every path to `/`, so deep links like `/rooms/garden-suite` work
-on Vercel. There is **no** production domain configured in the repo, so there is no
-`og:image`, no canonical URL, no sitemap and no structured data. Do not add any of
-those without an owner decision — see the open decisions at the end of
-`docs/audit-report.md`.
+on Vercel.
+
+**The live site is `https://sukhahomestay.vercel.app`.** Vercel's GitHub integration is
+connected to `0xMinomus/sukhahomestay` and builds in Vercel's own CI on every push to
+`main`, so **a push is the deployment** — there is no deploy command to run. Confirmed
+against the live origin's `Last-Modified` and the repo's deployment list, which shows a
+Production deployment per commit.
+
+An earlier version of this file said there was "no production domain configured in the
+repo, so there is no `og:image`, no canonical URL". That was wrong in effect and it
+misled the orchestrator into telling the human a deploy was not possible. The domain is
+not recorded *in the repo* — Vercel's dashboard-side Git integration leaves no trace in
+the source tree, so the absence of a `.vercel` directory and the absence of
+`.github/workflows` prove nothing. Do not read either as "not deployed".
+
+The metadata point still stands: there is no `og:image`, canonical URL, sitemap or
+structured data. Do not add any of those without an owner decision — see the open
+decisions at the end of `docs/audit-report.md`.
 
 ---
 
