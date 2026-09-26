@@ -11,6 +11,75 @@ Setiap entri mencantumkan tanggal, hari, dan waktu lokal 24 jam sampai detik.
 
 ## 2026-09-26 — Sabtu
 
+### 12:56:37 — Hourly ops standup: `SHM-12` Angela selesai, dua kartu baru keluar
+
+**`SHM-12` (Angela) selesai** — 234 pengukuran browser sungguhan, 9 route × 13 lebar
+(390–1440). Satu-satunya kartu terbuka sejak 03:45, dan ini verifikasi terkuat di
+lantai. Paruh satu mencatat tiga defect nyata; paruh dua memastikan ketiganya sudah
+perbaiki oleh `15ef2bc` Oscar, dengan 0 regresi di 117 kombinasi.
+
+- **Navbar bentrok** 640–940px: jarak −34px di 740/744/768/800/820/834 → **+22px**
+  terburuk di 768, positif di ketiga belas lebar
+- **Form booking terpotong** 768–950px: field CHECK IN anjlok ke 63px di 768 (dari
+  319px di 767) → **259px**. Enam hal rusak sekaligus di 768: `dd/mm` terpotong,
+  "Garden S" dengan chevron menimpa teks, label CHECK OUT terbelah, badge YOUR STAY
+  terbelah, tombol CONTINUE IN WHATSAPP terbelah, placeholder terpotong jadi
+  "How should we reach". Cliff satu piksel hilang karena form jadi satu kolom dengan
+  `md:px-[72px]` di bawah `lg`
+- **Tap target di bawah minimum WCAG 2.2 AA 24×24**, tiga tautan mono-link tepat
+  15px: `Landing.tsx:72` "VIEW →" 45×15, `Stay.tsx:87` "VIEW DETAILS" 113×15,
+  `RoomDetail.tsx:170` "QUESTIONS? MESSAGE OUR HOST" 212×15
+
+Yang membuat laporan ini bernilai justru yang ia **batalkan**: tidak ada scrollbar
+horizontal di mana pun, tidak ada bentrok footer, nol console error, nol page error,
+`object-fit` yang ia sebut desain bukan distorsi, dan probe form di 1024 ia tolak
+sendiri sebagai over-reporting detektornya setelah dicek manual dengan screenshot.
+Membatalkan temuan lebih sulit daripada membuat temuan, dan ia melakukannya empat kali.
+
+Ia juga **menyebut penyebab sampai ke elemen, bukan menebak barisnya**, dan setiap
+Duanya benar dalam source — `Booking.tsx:193` dan `Navbar.tsx:127` sudah saya cek
+sendiri sebelum bertindak. Enam file scratch-nya sudah dihapus, jadi lint kembali
+tepat dua warning yang sudah dikenal.
+
+**Putusan saya atas satu hal yang ia eskalasi.** `15ef2bc` memindahkan label penuh
+nav CTA dari `min-[480px]` ke `lg` di `Navbar.tsx:155`, sehingga CTA utama kini
+terbaca "BOOK" bukan "BOOK YOUR STAY" dari 480 sampai 1023px. Angela menemukannya,
+**benar-benar menolak menyebutnya bug**, lalu mengirimkannya ke saya sebagai
+putusan copy. **Diterima dan disengaja — tetap seperti itu.** Angkanya sendiri yang
+membenarkan: label penuh memakan ~84px sementara headroom di 740–834 hanya
++22 sampai +55px, jadi memang tidak muat.
+
+Penyebab sebenarnya yang saya cek di source: `lg` dipakai ganda — di situ juga
+`Navbar.tsx:106` melompat padding dari `md:px-8` ke `lg:px-14`. Jadi perubahan copy
+tersambung diam-diam ke perubahan padding. Itu bagian yang layak diperbaiki, dan
+itu `SHM-14`.
+
+**Kendala yang membentuk `SHM-14`, dan ini bagian menariknya.** Angela mengukur
+clearance navbar jatuh dari +150px di 1023 ke +52px di 1024 — 98px headroom hilang
+dalam satu piksel, karena padding dan label berubah bersamaan di `lg`. Perbaikan
+tap target membuat kontrol **lebih besar**, jadi ia habiskan tepat headroom itu.
+Dua pekerjaan ini karena itu tidak independen dan tidak boleh dikerjakan dua orang
+secara paralel; Oscar mengerjakan keduanya, Angela mengukur ulang setelahnya.
+Itulah sebabnya `SHM-15` ada dan berstatus `blocked`, bukan sekadar antre.
+
+**Kartu baru:**
+- **`SHM-14` → Oscar** (todo) — tiga tautan 15px naik ke 24px atau lebih pakai pola
+  `min-h-[44px] w-fit` yang sudah ada di `Navbar.tsx:247`, plus melepas label CTA dari
+  `lg`. Harus mengukur ulang clearance 1023/1024 sendiri
+- **`SHM-15` → Angela** (blocked di SHM-14) — lima lebar, satu tabel, dan jarak
+  1023/1024 adalah angka yang saya mau
+
+**Catatan lantai:** aplikasi restart 04:52:57Z dan `log.jsonl` menampilkan 15 event
+`archive` dalam tiga detik lalu 15 `spawn` tujuh detik kemudian — itu app membangun
+ulang roster-nya saat boot, **bukan** manusia yang mengarsipkan siapa pun.
+`registry.json` adalah kebenaran: 15 aktif, 2 archived. Hampir saya lapor "lantai
+hilang dua belas agen" berdasarkan log itu. All breaker healthy, tidak ada yang
+on hold, tidak ada backlog inbox, tidak ada yang breaker-armed. `mempalace` sudah
+terpasang tapi **belum ada palace**, jadi `semanticMemory: true` di config sedang
+tidak benar-benar bekerja.
+
+
+
 ### 12:15:58 — Hourly ops standup: 12 dari 13 kartu selesai, Kelly dan Asgard lapor
 
 **`SHM-2` (Kelly) selesai** — kartu yang gagal di tiga agen berturut-turut. Verdict:
