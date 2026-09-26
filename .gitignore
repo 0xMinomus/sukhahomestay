@@ -37,6 +37,7 @@ dist-ssr
 /roster.json
 
 # Agent memory written into the working tree by a spawned agent. The floor keeps
-# the real copy under hive/agents/<id>/memory.md; this one is per-session state.
+# the real copy under hive/agents/<id>/memory.md; these are per-session state.
 /memory.md
+*.memory.md
 /docs/munder-difflin/**/memory.md

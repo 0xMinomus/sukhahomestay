@@ -131,12 +131,15 @@ dropped if you would rather approve each tool call by hand in the terminal.
    cannot set the provider for you: the validator only accepts `claude`, `antigravity`,
    `codex` and `cursor`, and it rejects any command flag outside a four-name allowlist
    (`--model`, `--max-turns`, `--output-format`, `--verbose`).
-4. **Set the working directory to the repo root on every card.** This is the step that is
-   easy to skip and expensive to miss: an agent whose cwd is the `hires/` folder reads the
-   repo by absolute path but writes its memory and any edit into that folder instead of
-   the project. If a `memory.md` appears next to the manifests, that agent's cwd is wrong.
-   (Those stray files are git-ignored, so they cannot be committed by accident, but the
-   work still lands in the wrong place.)
+4. **Check the working directory on every card.** The app has been handing new hires the
+   `hires/` folder as their cwd, which has no `package.json`: a bare `npm run build` dies
+   before it reaches the site, and an agent that retries a failing command trips the
+   circuit breaker. Set the field to the repo root if the modal offers it. If it does
+   not, that is fine now — every goal in this folder carries the absolute repo path and
+   spells npm as `npm --prefix "C:\Users\Andika\Documents\SUKHA Homestay\sukha-homestay"
+   run <script>` — but expect the agent's `memory.md` to be written next to the manifests
+   rather than into `hive/agents/<id>/`. Those strays are git-ignored, so they cannot be
+   committed by accident, but they are a reliable tell that the cwd is not the repo.
 5. Spawn.
 
 Picking the **Pi** preset instead and only editing the binary to `omp` is worth a try:
