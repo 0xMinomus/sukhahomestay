@@ -16,7 +16,7 @@ two disagree about a fact, the source wins over all four documents.
 Requires Node 24 and npm 11 (verified on v24.11.1 / 11.6.2).
 
 ```sh
-cd "C:/Users/Andika/Documents/SUKHA Homestay/sukha-homestay"
+cd "."
 npm install
 npm run build                                  # tsc -b && vite build
 npm run lint                                   # oxlint
@@ -33,7 +33,7 @@ That trap is the one that reliably costs people time; read it before your first 
 
 **Hired agents do not land in the repo root.** They start in
 `docs/munder-difflin/hires`, which is not the project. If your shell starts in
-`C:/Users/Andika/Documents/SUKHA Homestay` (one level above the repo), there is no
+`..` (one level above the repo), there is no
 `package.json` in that folder or in any folder above it, and a bare npm command fails
 before it ever reaches the site. Re-run and captured 2026-09-26, exit code **38**:
 
@@ -53,10 +53,10 @@ npm error A complete log of this run can be found in:
 ### The fix: use `--prefix`
 
 ```sh
-npm --prefix "C:/Users/Andika/Documents/SUKHA Homestay/sukha-homestay" run build
-npm --prefix "C:/Users/Andika/Documents/SUKHA Homestay/sukha-homestay" run lint
-npm --prefix "C:/Users/Andika/Documents/SUKHA Homestay/sukha-homestay" run dev -- --host 127.0.0.1
-npm --prefix "C:/Users/Andika/Documents/SUKHA Homestay/sukha-homestay" install
+npm --prefix "." run build
+npm --prefix "." run lint
+npm --prefix "." run dev -- --host 127.0.0.1
+npm --prefix "." install
 ```
 
 Read source files by their full path under
@@ -300,8 +300,8 @@ which is why they are easy to miss.
 Run the narrow check first, then the full gate.
 
 ```sh
-npm --prefix "C:/Users/Andika/Documents/SUKHA Homestay/sukha-homestay" run lint
-npm --prefix "C:/Users/Andika/Documents/SUKHA Homestay/sukha-homestay" run build
+npm --prefix "." run lint
+npm --prefix "." run build
 ```
 
 **There is no test suite.** No `test` script, no test framework, no test dependencies.
@@ -334,7 +334,7 @@ For anything a visitor can see, look at it — build and lint will not tell you 
 readable.
 
 ```sh
-npm --prefix "C:/Users/Andika/Documents/SUKHA Homestay/sukha-homestay" run dev -- --host 127.0.0.1
+npm --prefix "." run dev -- --host 127.0.0.1
 ```
 
 Then open the route at **1440px and 390px**. Check the changed route and one neighbour;
